@@ -1,0 +1,145 @@
+---
+import { Picture } from 'astro:assets';
+import Breadcrumbs from './Breadcrumbs.astro';
+import BookingButton from './BookingButton.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  /** Ścieżka bez strony głównej (dodawana automatycznie). */
+  breadcrumbs: { name: string; path: string }[];
+  /** Placement przycisku Booksy; brak = bez przycisku. */
+  booking?: string;
+}
+const { eyebrow, title, lead, image, imageAlt = '', breadcrumbs, booking } = Astro.props;
+const hasChips = Astro.slots.has('default');
+---
+
+<section class:list={['page-hero', image && 'has-image']}>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="container inner">
+    <div class="rise"><Breadcrumbs items={breadcrumbs} /></div>
+    <div class="grid">
+      <div class="copy">
+        {eyebrow && <p class="eyebrow rise" style="--i: 1">{eyebrow}</p>}
+        <h1 class="rise" style="--i: 2">{title}</h1>
+        {lead && <p class="lead rise" style="--i: 3">{lead}</p>}
+        {
+          (booking || hasChips) && (
+            <div class="actions rise" style="--i: 4">
+              {booking && <BookingButton placement={booking} size="lg" />}
+              {hasChips && (
+                <div class="cluster">
+                  <slot />
+                </div>
+              )}
+            </div>
+          )
+        }
+      </div>
+      {
+        image && (
+          <div class="photo media" data-reveal="clip">
+            <Picture
+              src={image}
+              alt={imageAlt}
+              formats={['avif', 'webp']}
+              widths={[480, 720, 1000]}
+              sizes="(min-width: 52rem) 40vw, 100vw"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              quality={72}
+            />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    z-index: 0;
+    overflow: clip;
+    background: var(--gradient-hero);
+    padding-top: calc(var(--header-h) + var(--space-l));
+    padding-bottom: calc(var(--space-2xl) + var(--radius-xl));
+    margin-bottom: calc(var(--radius-xl) * -1);
+  }
+  /* Statyczne, miękkie plamy koloru — bez JS i bez filtrów */
+  .bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 26rem at 88% 8%, color-mix(in srgb, var(--color-gold-light) 42%, transparent), transparent 70%),
+      radial-gradient(30rem 24rem at 4% 62%, color-mix(in srgb, var(--color-sage) 45%, transparent), transparent 70%),
+      radial-gradient(22rem 16rem at 58% 100%, color-mix(in srgb, var(--color-sand) 80%, transparent), transparent 70%);
+  }
+  .inner {
+    position: relative;
+    display: grid;
+    gap: var(--space-l);
+  }
+  .grid {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .copy {
+    display: grid;
+    gap: var(--space-m);
+    justify-items: start;
+    max-width: 46rem;
+  }
+  .copy h1 {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 4.25rem);
+  }
+  .lead {
+    max-width: 38rem;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-m);
+  }
+  .photo {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-photo);
+  }
+  .photo :global(picture),
+  .photo :global(img) {
+    width: 100%;
+    height: 100%;
+  }
+  @media (min-width: 52rem) {
+    .has-image .grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: var(--space-2xl);
+    }
+    .photo {
+      aspect-ratio: 4 / 5;
+      max-height: 34rem;
+      justify-self: end;
+      width: 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .rise {
+      animation: rise 0.8s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * var(--stagger) + 40ms);
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translate3d(0, 18px, 0); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+</style>

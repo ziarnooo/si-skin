@@ -1,0 +1,56 @@
+# Ustawienia globalne strony — zmiana tutaj aktualizuje nagłówek, stopkę,
+# kontakt, dane strukturalne dla Google i wszystkie przyciski rezerwacji.
+site:
+  name: Si Skin
+  legalName: SI SKIN Kosmetologia Estetyczna & Laseroterapia
+  tagline: Powiedz TAK swojej skórze
+  description: >-
+    Gabinet kosmetologii estetycznej i laseroterapii we Wrocławiu. Bezbolesna depilacja
+    laserowa SHR, zamykanie naczynek, rozjaśnianie przebarwień, oczyszczanie wodorowe,
+    stymulatory tkankowe i modelowanie ust.
+  phone: 694 642 573
+  phoneHref: '+48694642573'
+  email: siskin.contact@gmail.com
+  address:
+    street: ul. Królewiecka 121/3
+    postalCode: 54-117
+    city: Wrocław
+    district: Fabryczna
+    lat: 51.1555447
+    lng: 16.923731
+  mapsUrl: https://www.google.com/maps/place/Epilacja+Laserowa+Si+Skin/@51.1555447,16.923731,15z/data=!4m5!3m4!1s0x0:0xfcbb4ca4bfd024fc!8m2!3d51.1555447!4d16.923731
+  hours:
+    - days: Pon – Pt
+      open: '09:00'
+      close: '20:00'
+      schema: [Monday, Tuesday, Wednesday, Thursday, Friday]
+    - days: Sobota
+      open: '08:00'
+      close: '15:00'
+      schema: [Saturday]
+    - days: Niedziela
+      closed: true
+      schema: [Sunday]
+  booking:
+    url: https://booksy.com/pl-pl/86964_si-skin-kosmetologia-estetyczna-laseroterapia_depilacja_13750_wroclaw
+    label: Umów wizytę
+  rating:
+    value: 5.0
+    count: 484
+    source: Booksy
+    url: https://booksy.com/pl-pl/86964_si-skin-kosmetologia-estetyczna-laseroterapia_depilacja_13750_wroclaw#business-reviews
+    checkedAt: 2026-10-31
+  social:
+    instagram: https://www.instagram.com/siskin.wroclaw/
+    instagramHandle: '@siskin.wroclaw'
+    facebook: https://www.facebook.com/siskin.wroc
+    youtube: https://www.youtube.com/watch?v=OLwLnMb74AY
+  analytics:
+    # Skrypty śledzące ładują się tylko na tej domenie i tylko po zgodzie na cookies.
+    productionHost: www.si-skin.pl
+    ga4: G-ELD8QLFE5T
+    metaPixel: '1107742104573331'
+  utm:
+    source: si-skin.pl
+    medium: website
+    campaign: rezerwacja

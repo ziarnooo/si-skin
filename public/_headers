@@ -1,0 +1,44 @@
+# Nagłówki HTTP dla hostingów, które je obsługują (Cloudflare Pages, Netlify).
+# GitHub Pages ignoruje ten plik i nie pozwala ustawiać własnych nagłówków —
+# dlatego strona wskazuje zasoby dla agentów także w HTML (<link rel="alternate" type="text/markdown">)
+# oraz w /llms.txt. Uwaga: poniższe adresy zakładają stronę na domenie głównej (BASE_PATH=/).
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Link: </.well-known/api-catalog>; rel="api-catalog", </api/site.json>; rel="describedby"; type="application/json", </llms.txt>; rel="describedby"; type="text/plain"
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/plain; charset=utf-8
+
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/api/site.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
+  Link: </llms.txt>; rel="service-doc"; type="text/plain"
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json; charset=utf-8
+  Access-Control-Allow-Origin: *
+
+/.well-known/agent-skills/*
+  Access-Control-Allow-Origin: *
+
+/og/*
+  Cache-Control: public, max-age=86400
+
+/admin/*
+  X-Robots-Tag: noindex

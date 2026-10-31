@@ -1,0 +1,226 @@
+---
+import { getSettings, url } from '../lib/site';
+
+/**
+ * Baner zgód. W HTML jest tylko <template> (zero kosztu dla LCP) — skrypt consent.ts
+ * wstrzykuje go po załadowaniu strony. Ten sam komponent przekazuje do skryptów
+ * konfigurację analityki z ustawień (settings.yaml → analytics).
+ */
+const settings = await getSettings();
+const config = {
+  analytics: {
+    productionHost: settings.analytics.productionHost,
+    ga4: settings.analytics.ga4,
+    metaPixel: settings.analytics.metaPixel,
+  },
+  siteJson: url('/api/site.json'),
+};
+const configJson = JSON.stringify(config).replace(/</g, '\\u003c');
+---
+
+<script type="application/json" id="si-config" set:html={configJson} />
+
+<template id="consent-template">
+  <section
+    class="consent"
+    role="dialog"
+    aria-labelledby="consent-title"
+    aria-describedby="consent-desc"
+    tabindex="-1"
+  >
+    <div data-consent-view="main">
+      <h2 class="consent__title" id="consent-title">Szanujemy Twoją prywatność</h2>
+      <p class="consent__text" id="consent-desc">
+        Używamy plików cookies, aby strona działała, oraz — za Twoją zgodą — do statystyk i reklam.
+        Możesz je zaakceptować, odrzucić lub dopasować.
+        <a href={url('/polityka-prywatnosci/')}>Polityka prywatności</a>
+      </p>
+      <div class="consent__actions">
+        <button type="button" class="btn btn--primary btn--sm" data-consent="all">Akceptuj wszystkie</button>
+        <button type="button" class="btn btn--ghost btn--sm" data-consent="necessary">Tylko niezbędne</button>
+        <button type="button" class="consent__link" data-consent="settings">Ustawienia</button>
+      </div>
+    </div>
+
+    <div data-consent-view="settings" hidden>
+      <h2 class="consent__title">Ustawienia cookies</h2>
+      <ul class="consent__list">
+        <li>
+          <label class="consent__row">
+            <span class="consent__label">
+              <strong>Niezbędne</strong>
+              <span>Zapamiętują Twój wybór i zapewniają działanie strony. Zawsze aktywne.</span>
+            </span>
+            <input class="consent__switch" type="checkbox" checked disabled aria-label="Niezbędne — zawsze aktywne" />
+          </label>
+        </li>
+        <li>
+          <label class="consent__row">
+            <span class="consent__label">
+              <strong>Analityczne</strong>
+              <span>Google Analytics — anonimowe statystyki odwiedzin i kliknięć w rezerwację.</span>
+            </span>
+            <input class="consent__switch" type="checkbox" name="analytics" aria-label="Analityczne" />
+          </label>
+        </li>
+        <li>
+          <label class="consent__row">
+            <span class="consent__label">
+              <strong>Marketingowe</strong>
+              <span>Meta Pixel — pomiar skuteczności reklam na Facebooku i Instagramie.</span>
+            </span>
+            <input class="consent__switch" type="checkbox" name="marketing" aria-label="Marketingowe" />
+          </label>
+        </li>
+      </ul>
+      <div class="consent__actions">
+        <button type="button" class="btn btn--primary btn--sm" data-consent="save">Zapisz wybór</button>
+        <button type="button" class="consent__link" data-consent="back">Wróć</button>
+      </div>
+    </div>
+  </section>
+</template>
+
+<style is:global>
+  .consent {
+    position: fixed;
+    z-index: var(--z-consent);
+    left: var(--space-s);
+    right: var(--space-s);
+    bottom: calc(var(--mobile-bar-h, 0px) + var(--space-s));
+    max-width: 25rem;
+    padding: var(--space-m);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-l);
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur-slow) var(--ease-drawer);
+  }
+  .consent.is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .consent:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  @media (min-width: 40rem) {
+    .consent {
+      left: var(--space-m);
+      right: auto;
+      bottom: var(--space-m);
+    }
+  }
+  .consent__title {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    line-height: var(--leading-snug);
+    margin-bottom: var(--space-2xs);
+  }
+  .consent__text {
+    font-size: var(--text-xs);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-soft);
+    margin-bottom: var(--space-s);
+  }
+  .consent__text a,
+  .consent__link {
+    color: var(--color-gold-text);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .consent__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-xs);
+  }
+  .consent__link {
+    min-height: 2.5rem;
+    padding: 0 var(--space-2xs);
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition: transform var(--dur-press) var(--ease-out);
+  }
+  .consent__link:active {
+    transform: scale(0.97);
+  }
+  .consent__list {
+    display: grid;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-s);
+  }
+  .consent__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding: var(--space-xs) 0;
+    border-bottom: 1px solid var(--color-line);
+    cursor: pointer;
+  }
+  .consent__label {
+    display: grid;
+    gap: var(--space-3xs);
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+    color: var(--color-ink-soft);
+  }
+  .consent__label strong {
+    font-weight: 400;
+    font-size: var(--text-sm);
+    color: var(--color-ink);
+  }
+  .consent__switch {
+    appearance: none;
+    flex: none;
+    position: relative;
+    width: 2.75rem;
+    height: 1.6rem;
+    margin: 0;
+    border-radius: var(--radius-pill);
+    background: var(--color-line-strong);
+    cursor: pointer;
+    transition: background-color var(--dur) var(--ease-out);
+  }
+  .consent__switch::before {
+    content: '';
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    background: var(--color-paper);
+    box-shadow: var(--shadow-s);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .consent__switch:checked {
+    background: var(--color-green);
+  }
+  .consent__switch:checked::before {
+    transform: translateX(1.15rem);
+  }
+  .consent__switch:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  .consent__switch:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .consent {
+      transform: none;
+    }
+  }
+</style>

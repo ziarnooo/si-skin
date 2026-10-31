@@ -1,0 +1,108 @@
+---
+import Icon from '../Icon.astro';
+import { getServices, url } from '../../lib/site';
+
+const services = (await getServices()).filter((s) => s.data.sessions);
+const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
+---
+
+<section class="section sessions" id="liczba-zabiegow" aria-labelledby="sessions-title">
+  <div class="container sessions__layout">
+    <div class="sessions__intro" data-reveal>
+      <span class="eyebrow">Plan zabiegów</span>
+      <h2 id="sessions-title">Efekty i&nbsp;liczba <em class="accent">zabiegów</em></h2>
+      <p class="lead">Ile wizyt potrzebujesz, zależy od rodzaju zabiegu i&nbsp;Twojej skóry. Poniżej orientacyjne zalecenia.</p>
+      <p class="sessions__note">
+        <Icon name="check-circle" size={20} />
+        <span>To wartości orientacyjne — dokładny plan i&nbsp;odstępy między wizytami ustalamy indywidualnie na pierwszej wizycie.</span>
+      </p>
+    </div>
+
+    <div class="sessions__table-wrap" data-reveal="fade">
+      <table class="sessions__table">
+        <caption class="visually-hidden">Zalecana liczba zabiegów i odstępy między wizytami</caption>
+        <thead>
+          <tr>
+            <th scope="col">Zabieg</th>
+            <th scope="col">Liczba zabiegów</th>
+            <th scope="col">Odstęp</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            services.map((service) => (
+              <tr>
+                <th scope="row" data-label="Zabieg">
+                  <a href={url(`/${service.id}/`)}>{service.data.navTitle}</a>
+                </th>
+                <td data-label="Liczba zabiegów">{cap(service.data.sessions!.count)}</td>
+                <td data-label="Odstęp">{cap(service.data.sessions!.interval)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sessions {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    margin-top: calc(var(--radius-xl) * -1);
+    background: var(--color-ivory);
+  }
+  .sessions__layout { display: grid; gap: var(--space-xl); }
+  .sessions__intro { display: grid; gap: var(--space-m); align-content: start; justify-items: start; }
+  .sessions__note {
+    display: flex;
+    gap: var(--space-xs);
+    padding: var(--space-s) var(--space-m);
+    border-radius: var(--radius-m);
+    background: rgb(176 141 82 / 0.1);
+    color: var(--color-ink-soft);
+    font-size: var(--text-sm);
+  }
+  .sessions__note :global(svg) { flex: none; margin-top: 0.15rem; color: var(--color-gold-text); }
+  .sessions__table-wrap {
+    border-radius: var(--radius-l);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    overflow: hidden;
+  }
+  .sessions__table { width: 100%; border-collapse: collapse; text-align: left; }
+  .sessions__table thead { display: none; }
+  .sessions__table tr { display: grid; gap: 0.15rem; padding: var(--space-m); }
+  .sessions__table tr + tr { border-top: 1px solid var(--color-line); }
+  .sessions__table th[scope='row'] { font-family: var(--font-serif); font-weight: 400; font-size: var(--text-xl); }
+  .sessions__table th[scope='row'] a { text-decoration: none; }
+  .sessions__table td { color: var(--color-ink-soft); font-size: var(--text-sm); }
+  .sessions__table td::before {
+    content: attr(data-label) ': ';
+    color: var(--color-muted);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .sessions__table th[scope='row'] a:hover { text-decoration: underline; text-decoration-color: var(--color-gold); }
+    .sessions__table tbody tr { transition: background-color var(--dur) var(--ease-out); }
+    .sessions__table tbody tr:hover { background: var(--color-cream); }
+  }
+  @media (min-width: 40rem) {
+    .sessions__table thead { display: table-header-group; }
+    .sessions__table tr { display: table-row; padding: 0; }
+    .sessions__table th, .sessions__table td { padding: var(--space-m) var(--space-m); vertical-align: baseline; }
+    .sessions__table thead th {
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-muted);
+      border-bottom: 1px solid var(--color-line);
+    }
+    .sessions__table td::before { content: none; }
+    .sessions__table tr + tr { border-top: 0; }
+    .sessions__table tbody tr + tr > * { border-top: 1px solid var(--color-line); }
+  }
+  @media (min-width: 64rem) {
+    .sessions__layout { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-2xl); align-items: start; }
+  }
+</style>

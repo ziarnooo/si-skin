@@ -1,0 +1,31 @@
+---
+import Icon from './Icon.astro';
+import { bookingUrl, getSettings } from '../lib/site';
+
+interface Props {
+  /** Miejsce na stronie — trafia do UTM `utm_content` i zdarzenia GA4. */
+  placement: string;
+  label?: string;
+  variant?: 'primary' | 'ghost' | 'light' | 'on-dark';
+  size?: 'sm' | 'md' | 'lg';
+  block?: boolean;
+  class?: string;
+  service?: string;
+}
+const { placement, label, variant = 'primary', size = 'md', block = false, class: className, service } = Astro.props;
+const settings = await getSettings();
+---
+
+<a
+  href={bookingUrl(settings, placement)}
+  class:list={['btn', `btn--${variant}`, size !== 'md' && `btn--${size}`, block && 'btn--block', className]}
+  target="_blank"
+  rel="noopener"
+  data-booking={placement}
+  data-service={service}
+  data-magnetic
+>
+  <span>{label ?? settings.booking.label}</span>
+  <Icon name="arrow-up-right" />
+  <span class="visually-hidden">(otwiera Booksy w nowej karcie)</span>
+</a>

@@ -1,0 +1,151 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  id?: string;
+}
+const { title = 'Poznaj nasz zespół', id = 'zespol' } = Astro.props;
+const team = (await getCollection('team')).sort((a, b) => a.data.order - b.data.order);
+
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((part) => part.charAt(0))
+    .slice(0, 2)
+    .join('');
+---
+
+<section class="section team" id={id} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <div class="section-head section-head--split" data-reveal>
+      <div class="stack">
+        <span class="eyebrow">Zespół</span>
+        <h2 id={`${id}-title`}>{title}</h2>
+      </div>
+      <p class="lead">Za każdym zabiegiem stoją dyplomowane kosmetolożki, które tłumaczą każdy krok i dobierają terapię do Ciebie.</p>
+    </div>
+
+    <ul class="team__grid" role="list">
+      {
+        team.map((member, index) => (
+          <li data-reveal style={`--i:${index}`}>
+            <article class="member">
+            <div class:list={['member__media', !member.data.photo && 'member__media--mono']}>
+              {member.data.photo ? (
+                <Picture
+                  src={member.data.photo}
+                  alt={member.data.photoAlt ?? member.data.name}
+                  formats={['avif', 'webp']}
+                  widths={[320, 480, 640]}
+                  sizes="(min-width: 48rem) 22rem, 90vw"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <div class="member__mono" aria-hidden="true">
+                  <Icon name="hexagon" size="100%" class="member__hex" />
+                  <span>{initials(member.data.name)}</span>
+                </div>
+              )}
+            </div>
+            <div class="member__body">
+              <h3 class="member__name">{member.data.name}</h3>
+              <p class="member__role">{member.data.role}</p>
+              {member.data.bio && <p class="member__bio">{member.data.bio}</p>}
+              {member.data.specializations.length > 0 && (
+                <ul class="member__chips cluster" role="list" aria-label={`Specjalizacje: ${member.data.name}`}>
+                  {member.data.specializations.map((spec) => (
+                    <li class="chip chip--paper">{spec}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .team__grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-m);
+  }
+  .member {
+    display: grid;
+    gap: var(--space-m);
+    align-content: start;
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  }
+  .member__media {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: var(--radius-m);
+    background: var(--color-sand);
+  }
+  .member__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+    transition: transform 900ms var(--ease-out);
+  }
+  .member__media--mono {
+    background:
+      radial-gradient(120% 90% at 20% 0%, var(--color-sage-light), transparent 60%),
+      linear-gradient(160deg, var(--color-sage), var(--color-sage-light));
+  }
+  .member__mono {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--color-green);
+  }
+  .member__mono :global(.member__hex) {
+    position: absolute;
+    width: 62%;
+    height: 62%;
+    color: var(--color-gold);
+    opacity: 0.7;
+    stroke-width: 0.6;
+  }
+  .member__mono span {
+    position: relative;
+    font-family: var(--font-serif);
+    font-size: var(--text-4xl);
+    letter-spacing: var(--tracking-tight);
+  }
+  .member__body { display: grid; gap: var(--space-2xs); padding: 0 var(--space-2xs) var(--space-2xs); }
+  .member__name { font-size: var(--text-2xl); }
+  .member__role {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+  }
+  .member__bio { color: var(--color-ink-soft); margin-top: var(--space-2xs); font-size: var(--text-sm); }
+  .member__chips { list-style: none; padding: 0; margin-top: var(--space-xs); }
+  @media (min-width: 48rem) {
+    .team__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-l); }
+  }
+  @media (min-width: 64rem) {
+    .team__grid { grid-template-columns: repeat(2, minmax(0, 28rem)); justify-content: center; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .member:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); }
+    .member:hover .member__media :global(img) { transform: scale(1.04); }
+  }
+</style>

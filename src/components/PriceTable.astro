@@ -1,0 +1,272 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { formatPrice, applyDiscount, isActive } from '../lib/site';
+
+interface Props {
+  category: CollectionEntry<'pricing'>;
+  open?: boolean;
+  /** Poziom nagłówka kategorii (domyślnie h3). */
+  level?: 2 | 3;
+}
+
+const { category, open = false, level = 3 } = Astro.props;
+const { title, intro, note, groups, discount } = category.data;
+const Heading = `h${level}` as 'h2' | 'h3';
+const GroupHeading = `h${level + 1}` as 'h3' | 'h4';
+
+const activeDiscount = discount && isActive({ validUntil: discount.validUntil }) ? discount : undefined;
+const allItems = groups.flatMap((g) => g.items);
+const count = allItems.length;
+const prices = allItems.map((i) => i.price).filter((p): p is number => typeof p === 'number');
+const from = prices.length ? Math.min(...prices) : undefined;
+const pluralize = (n: number) => (n === 1 ? 'pozycja' : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'pozycje' : 'pozycji');
+---
+
+<details class="pt" id={category.id} open={open} data-reveal>
+  <summary class="pt__summary">
+    <Heading class="pt__title">{title}</Heading>
+    <span class="pt__meta">
+      <span class="pt__count">{count} {pluralize(count)}{from !== undefined ? ` · od ${formatPrice(from)}` : ''}</span>
+      <span class="pt__chev" aria-hidden="true"><Icon name="chevron" size={18} /></span>
+    </span>
+  </summary>
+
+  <div class="pt__panel">
+    {activeDiscount && (
+      <p class="pt__promo">
+        <span class="chip chip--gold">{activeDiscount.label}{activeDiscount.upTo ? ': do' : ':'} −{activeDiscount.percent}%</span>
+        {activeDiscount.upTo ? (
+          <span class="small muted">Pokazujemy ceny bazowe. Aktualną cenę po rabacie zobaczysz przy rezerwacji w Booksy.</span>
+        ) : (
+          <span class="small muted">Ceny po rabacie podajemy obok cen bazowych.</span>
+        )}
+      </p>
+    )}
+    {intro && <p class="pt__intro">{intro}</p>}
+
+    {groups.map((group) => (
+      <div class="pt__group">
+        {group.title && <GroupHeading class="pt__group-title">{group.title}</GroupHeading>}
+        <ul role="list" class="pt__list">
+          {group.items.map((item) => {
+            const hasPrice = typeof item.price === 'number';
+            return (
+              <li class="pt__row">
+                <div class="pt__name">
+                  <span>{item.name}</span>
+                  {item.note && <span class="pt__note">{item.note}</span>}
+                </div>
+                <div class="pt__dur">
+                  {item.duration && (
+                    <span class="pt__time">
+                      <Icon name="clock" size={14} />
+                      {item.duration}
+                    </span>
+                  )}
+                </div>
+                <div class="pt__price">
+                  {hasPrice && activeDiscount && !activeDiscount.upTo ? (
+                    <>
+                      <span class="price-old">{formatPrice(item.price!)}</span>
+                      <strong class="price-new">{formatPrice(applyDiscount(item.price!, activeDiscount.percent))}</strong>
+                    </>
+                  ) : hasPrice ? (
+                    <>
+                      <strong>{formatPrice(item.price!)}</strong>
+                      {activeDiscount && (
+                        <span class="pt__booksy">
+                          w Booksy od <span class="price-new">{formatPrice(applyDiscount(item.price!, activeDiscount.percent))}</span>
+                        </span>
+                      )}
+                    </>
+                  ) : (
+                    <strong class="pt__text-price">{item.priceText}</strong>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+
+    {note && (
+      <p class="pt__footnote small muted">
+        <Icon name="check-circle" size={16} />
+        <span>{note}</span>
+      </p>
+    )}
+  </div>
+</details>
+
+<style>
+  .pt {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-l);
+    scroll-margin-top: calc(var(--header-h) + 4.5rem);
+    transition: box-shadow var(--dur) var(--ease-out);
+  }
+  .pt[open] {
+    box-shadow: var(--shadow-s);
+  }
+  .pt__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding: var(--space-m);
+    list-style: none;
+    cursor: pointer;
+    border-radius: var(--radius-l);
+    min-height: 4rem;
+  }
+  .pt__summary::-webkit-details-marker {
+    display: none;
+  }
+  .pt__title {
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+  }
+  .pt__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    flex: none;
+  }
+  .pt__count {
+    display: none;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+  .pt__chev {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    transition: transform var(--dur) var(--ease-out), background var(--dur) var(--ease-out);
+  }
+  .pt[open] .pt__chev {
+    transform: rotate(180deg);
+    background: var(--color-cream);
+  }
+  .pt__panel {
+    padding: 0 var(--space-m) var(--space-m);
+    display: grid;
+    gap: var(--space-s);
+  }
+  .pt__promo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+  .pt__intro {
+    color: var(--color-ink-soft);
+    font-size: var(--text-sm);
+  }
+  .pt__group-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+    margin: var(--space-xs) 0 var(--space-3xs);
+  }
+  .pt__list {
+    border-top: 1px solid var(--color-line);
+  }
+  .pt__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'name price' 'dur price';
+    column-gap: var(--space-s);
+    row-gap: var(--space-3xs);
+    align-items: center;
+    padding: var(--space-s) 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+  .pt__name {
+    grid-area: name;
+    display: grid;
+    gap: 0.2rem;
+  }
+  .pt__note {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    max-width: 38rem;
+  }
+  .pt__dur {
+    grid-area: dur;
+  }
+  .pt__time {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .pt__price {
+    grid-area: price;
+    display: grid;
+    justify-items: end;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    gap: 0.1rem;
+  }
+  .pt__price strong {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-lg);
+    white-space: nowrap;
+  }
+  .pt__text-price {
+    white-space: normal !important;
+    max-width: 10rem;
+    font-size: var(--text-base) !important;
+  }
+  .pt__booksy {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+  .pt__footnote {
+    display: flex;
+    gap: var(--space-2xs);
+    align-items: flex-start;
+    padding-top: var(--space-2xs);
+  }
+  .pt__footnote :global(svg) {
+    flex: none;
+    margin-top: 0.15rem;
+    color: var(--color-gold);
+  }
+  @media (min-width: 40rem) {
+    .pt__summary,
+    .pt__panel {
+      padding-inline: var(--space-l);
+    }
+    .pt__panel {
+      padding-bottom: var(--space-l);
+    }
+    .pt__count {
+      display: inline;
+    }
+    .pt__row {
+      grid-template-columns: minmax(0, 1fr) 7.5rem 11rem;
+      grid-template-areas: 'name dur price';
+    }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pt__summary:hover .pt__chev {
+      background: var(--color-cream);
+    }
+    .pt__row {
+      transition: background var(--dur-fast) var(--ease-out);
+    }
+  }
+</style>

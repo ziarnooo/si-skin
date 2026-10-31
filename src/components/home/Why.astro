@@ -1,0 +1,204 @@
+---
+import Icon, { type IconName } from '../Icon.astro';
+
+interface Value {
+  icon: IconName;
+  title: string;
+  text: string;
+  size: 'wide' | 'mid' | 'third';
+  tone?: 'dark' | 'sage' | 'light';
+  stat?: string;
+  quote?: { text: string; author: string };
+}
+
+const values: Value[] = [
+  {
+    icon: 'wave',
+    title: 'Bezbolesna technologia SHR',
+    text: 'Laser SHR EPIL MOTION ze schłodzoną głowicą i metodą In Motion sprawia, że zabieg jest komfortowy i praktycznie bezbolesny.',
+    size: 'wide',
+    tone: 'dark',
+    stat: 'SHR',
+  },
+  {
+    icon: 'shield',
+    title: 'Dyplomowane kosmetolożki',
+    text: 'Zabiegi wykonują nasze dyplomowane kosmetolożki. Każdy krok tłumaczymy na bieżąco, żebyś czuła się bezpiecznie.',
+    size: 'mid',
+    tone: 'sage',
+  },
+  {
+    icon: 'clock',
+    title: 'Bezpłatna konsultacja',
+    text: 'Rozwiewamy wątpliwości, oceniamy stan skóry i ustalamy plan działania — zanim zdecydujesz się na zabieg.',
+    size: 'third',
+    tone: 'light',
+    stat: '20 min',
+  },
+  {
+    icon: 'leaf',
+    title: 'Indywidualny plan pielęgnacji',
+    text: 'Dobieramy terapię do Twojej skóry i ustalamy plan zabiegów oraz pielęgnacji domowej dopasowany do Twoich potrzeb.',
+    size: 'third',
+    tone: 'light',
+  },
+  {
+    icon: 'sparkle',
+    title: 'Efekty widoczne po pierwszym zabiegu',
+    text: 'Tak o naszych zabiegach piszą klientki w Booksy:',
+    size: 'third',
+    tone: 'light',
+    quote: { text: 'Pełen profesjonalizm, wspaniała atmosfera i rewelacyjne efekty.', author: 'Ewelina' },
+  },
+];
+---
+
+<section class="section section--cream why" aria-labelledby="why-title">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow eyebrow--plain">Dlaczego Si Skin</span>
+      <h2 id="why-title">Zwolnij i&nbsp;zadbaj o&nbsp;siebie <em class="accent">w&nbsp;dobrych rękach</em></h2>
+      <p class="lead">Nowoczesna technologia, doświadczenie i spokojna atmosfera — tak pracujemy od pierwszej wizyty.</p>
+    </div>
+
+    <ul class="bento" role="list">
+      {
+        values.map((value, index) => (
+          <li class={`cell cell--${value.size}`} data-reveal style={`--i:${index}`}>
+            <article class={`vcard vcard--${value.tone ?? 'light'}`} data-glow>
+              <span class="vcard__icon" aria-hidden="true">
+                <Icon name="hexagon" size={64} class="vcard__hex" />
+                <Icon name={value.icon} size={26} class="vcard__glyph" />
+              </span>
+              {value.stat && (
+                <span class="vcard__stat" aria-hidden="true">
+                  {value.stat}
+                </span>
+              )}
+              <h3 class="vcard__title">{value.title}</h3>
+              <p class="vcard__text">{value.text}</p>
+              {value.quote && (
+                <figure class="vcard__quote">
+                  <blockquote>„{value.quote.text}”</blockquote>
+                  <figcaption>— {value.quote.author}, klientka</figcaption>
+                </figure>
+              )}
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .why {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    margin-top: calc(var(--radius-xl) * -1);
+  }
+  .bento {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: 1fr;
+  }
+  .cell { display: grid; }
+  .vcard {
+    --glow: rgb(176 141 82 / 0.22);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-l);
+    min-height: 15rem;
+    border-radius: var(--radius-l);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+  .vcard::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(22rem circle at var(--mx, 50%) var(--my, 0%), var(--glow), transparent 60%);
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-out);
+  }
+  .vcard--dark {
+    background: var(--color-green);
+    border-color: var(--color-line-on-dark);
+    color: var(--color-on-dark);
+  }
+  .vcard--dark .vcard__text { color: var(--color-on-dark-soft); }
+  .vcard--sage { background: var(--color-sage-light); border-color: rgb(47 60 52 / 0.12); }
+  .vcard__icon {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: var(--space-s);
+    color: var(--color-gold);
+  }
+  .vcard--dark .vcard__icon { color: var(--color-gold-light); }
+  .vcard__icon :global(.vcard__hex) { position: absolute; inset: 0; stroke-width: 1; }
+  .vcard__icon :global(.vcard__glyph) { position: relative; }
+  .vcard__stat {
+    position: absolute;
+    top: var(--space-l);
+    right: var(--space-l);
+    font-family: var(--font-serif);
+    font-size: var(--text-3xl);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-gold-text);
+  }
+  .vcard--dark .vcard__stat { color: var(--color-gold-light); }
+  .vcard__title { font-size: var(--text-xl); margin-top: auto; }
+  .vcard__text { color: var(--color-ink-soft); font-size: var(--text-sm); max-width: 30rem; }
+  .vcard__quote { margin: var(--space-xs) 0 0; padding-top: var(--space-xs); border-top: 1px solid var(--color-line); }
+  .vcard__quote blockquote {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.35;
+    color: var(--color-ink);
+  }
+  .vcard__quote figcaption { margin-top: var(--space-2xs); font-size: var(--text-xs); color: var(--color-muted); }
+
+  @media (min-width: 40rem) {
+    .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cell--wide { grid-column: 1 / -1; }
+  }
+  @media (min-width: 64rem) {
+    .bento { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--space-m); }
+    .cell--wide { grid-column: span 7; }
+    .cell--mid { grid-column: span 5; }
+    .cell--third { grid-column: span 4; }
+    .vcard { min-height: 18rem; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .vcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-gold); }
+    .vcard:hover::before { opacity: 1; }
+  }
+</style>
+
+<script>
+  // Poświata podąża za kursorem (tylko myszka — dotyk i tak jej nie widzi)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-glow]').forEach((card) => {
+      card.addEventListener(
+        'pointermove',
+        (event) => {
+          const rect = card.getBoundingClientRect();
+          card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+          card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+        },
+        { passive: true },
+      );
+    });
+  }
+</script>

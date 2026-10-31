@@ -1,0 +1,158 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import BookingButton from './BookingButton.astro';
+import { url } from '../lib/site';
+import { servicePriceText } from './home/data';
+
+interface Props {
+  services: CollectionEntry<'services'>[];
+  numbered?: boolean;
+  /** Prefiks placementu przycisku rezerwacji: `<prefix>-<slug>`. */
+  placementPrefix?: string;
+}
+const { services, numbered = true, placementPrefix = 'home-services' } = Astro.props;
+
+const rows = await Promise.all(
+  services.map(async (service, index) => ({
+    service,
+    number: String(index + 1).padStart(2, '0'),
+    price: await servicePriceText(service),
+    href: url(`/${service.id}/`),
+  })),
+);
+---
+
+<ol class="svc-list" role="list">
+  {
+    rows.map(({ service, number, price, href }) => (
+      <li class="svc" data-reveal>
+        {numbered && (
+          <span class="svc__num" aria-hidden="true">
+            {number}
+          </span>
+        )}
+        <div class="svc__body">
+          <h3 class="svc__title">
+            <a href={href}>{service.data.navTitle}</a>
+          </h3>
+          <p class="svc__text">{service.data.excerpt}</p>
+          <ul class="svc__chips cluster" role="list">
+            {service.data.duration && (
+              <li class="chip chip--paper">
+                <Icon name="clock" />
+                {service.data.duration}
+              </li>
+            )}
+            {price && <li class="chip chip--gold">{price}</li>}
+          </ul>
+          <div class="svc__actions">
+            <BookingButton
+              placement={`${placementPrefix}-${service.id}`}
+              service={service.id}
+              size="sm"
+              label="Umów zabieg"
+            />
+            <a class="link-arrow" href={href}>
+              Poznaj zabieg
+              <Icon name="arrow" size={16} />
+            </a>
+          </div>
+        </div>
+        <a class="svc__media media" href={href} tabindex="-1" aria-hidden="true">
+          <Picture
+            src={service.data.image}
+            alt=""
+            formats={['avif', 'webp']}
+            widths={[360, 560, 760]}
+            sizes="(min-width: 60rem) 24rem, (min-width: 40rem) 40vw, 100vw"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .svc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid var(--color-line-strong);
+  }
+  .svc {
+    display: grid;
+    gap: var(--space-m);
+    padding-block: var(--space-l);
+    border-bottom: 1px solid var(--color-line-strong);
+    grid-template-areas:
+      'media'
+      'num'
+      'body';
+  }
+  .svc__media {
+    grid-area: media;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-m);
+  }
+  .svc__media :global(img) {
+    transition: transform 900ms var(--ease-out);
+  }
+  .svc__num {
+    grid-area: num;
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-gold-text);
+    line-height: 1;
+  }
+  .svc__body {
+    grid-area: body;
+    display: grid;
+    align-content: center;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+  .svc__title {
+    font-size: var(--text-2xl);
+  }
+  .svc__title a {
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--dur-slow) var(--ease-out);
+  }
+  .svc__text {
+    color: var(--color-ink-soft);
+    max-width: 34rem;
+  }
+  .svc__chips {
+    list-style: none;
+    padding: 0;
+  }
+  .svc__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-m);
+    margin-top: var(--space-2xs);
+  }
+  @media (min-width: 40rem) {
+    .svc {
+      grid-template-columns: 3.5rem 1fr minmax(0, 40%);
+      grid-template-areas: 'num body media';
+      align-items: center;
+      gap: var(--space-l);
+    }
+    .svc__num { font-size: var(--text-2xl); align-self: start; padding-top: 0.4rem; }
+    .svc__media { aspect-ratio: 5 / 4; }
+  }
+  @media (min-width: 60rem) {
+    .svc { grid-template-columns: 5rem 1fr 24rem; padding-block: var(--space-xl); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .svc:hover .svc__title a { background-size: 100% 1px; }
+    .svc:hover .svc__media :global(img) { transform: scale(1.05); }
+  }
+</style>

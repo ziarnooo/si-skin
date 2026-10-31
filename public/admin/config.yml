@@ -1,0 +1,477 @@
+# ─────────────────────────────────────────────────────────────────────────────
+#  PANEL EDYCJI TREŚCI — Sveltia CMS
+#  Adres panelu: <adres strony>/admin/
+#  Panel zapisuje zmiany jako commity w repozytorium GitHub; po kilku minutach
+#  strona publikuje się sama (GitHub Actions).
+#  Struktura poniżej odzwierciedla src/content.config.ts — jeśli dodasz pole
+#  w schemacie, dodaj je też tutaj.
+# ─────────────────────────────────────────────────────────────────────────────
+
+backend:
+  name: github
+  repo: ziarnooo/si-skin
+  branch: main
+
+locale: pl
+
+# Zdjęcia trafiają do src/assets/images (Astro optymalizuje je przy publikacji).
+media_folder: src/assets/images
+public_folder: ../../assets/images
+
+collections:
+  # ═══════════════════════════ USTAWIENIA ═══════════════════════════
+  - name: ustawienia
+    label: Ustawienia strony
+    label_singular: Ustawienia
+    icon: settings
+    description: Dane kontaktowe, godziny otwarcia, link do rezerwacji i analityka. Zmiana tutaj aktualizuje nagłówek, stopkę, mapę, dane dla Google i wszystkie przyciski „Umów wizytę”.
+    files:
+      - name: settings
+        label: Ustawienia globalne
+        file: src/content/settings.yaml
+        fields:
+          - name: site
+            label: Dane gabinetu
+            widget: object
+            fields:
+              - { name: name, label: Nazwa gabinetu, widget: string, hint: 'Krótka nazwa widoczna w nagłówku i tytułach, np. „Si Skin”.' }
+              - { name: legalName, label: Pełna nazwa firmy, widget: string, hint: 'Używana w danych dla Google i w stopce.' }
+              - { name: tagline, label: Hasło przewodnie, widget: string }
+              - { name: description, label: Krótki opis gabinetu, widget: text, hint: '1–3 zdania. Pojawia się w wynikach wyszukiwania Google.' }
+              - { name: phone, label: Telefon (do wyświetlania), widget: string, hint: 'Tak jak ma być widoczny, np. 694 642 573.' }
+              - { name: phoneHref, label: Telefon (do kliknięcia), widget: string, hint: 'Bez spacji, z kierunkowym, np. +48694642573.' }
+              - { name: email, label: E-mail, widget: string }
+              - name: address
+                label: Adres
+                widget: object
+                fields:
+                  - { name: street, label: Ulica i numer, widget: string }
+                  - { name: postalCode, label: Kod pocztowy, widget: string }
+                  - { name: city, label: Miasto, widget: string }
+                  - { name: district, label: Dzielnica, widget: string, required: false }
+                  - { name: lat, label: Szerokość geograficzna, widget: number, value_type: float, hint: 'Współrzędne z Map Google (prawy przycisk na mapie → pierwsza liczba).' }
+                  - { name: lng, label: Długość geograficzna, widget: number, value_type: float }
+              - { name: mapsUrl, label: Link do mapy Google, widget: string, hint: 'Pełny adres wizytówki w Mapach Google.' }
+              - name: hours
+                label: Godziny otwarcia
+                label_singular: Przedział godzin
+                widget: list
+                summary: '{{days}}'
+                hint: 'Dodaj osobny wiersz dla każdego zestawu dni (np. „Pon – Pt”, „Sobota”).'
+                fields:
+                  - { name: days, label: Opis dni (tekst na stronie), widget: string, hint: 'Np. „Pon – Pt”.' }
+                  - { name: open, label: Otwarcie, widget: string, required: false, hint: 'Format 09:00. Zostaw puste, jeśli nieczynne.' }
+                  - { name: close, label: Zamknięcie, widget: string, required: false, hint: 'Format 20:00.' }
+                  - { name: closed, label: Nieczynne tego dnia, widget: boolean, default: false }
+                  - name: schema
+                    label: Dni tygodnia (dla Google)
+                    widget: select
+                    multiple: true
+                    options:
+                      - { label: Poniedziałek, value: Monday }
+                      - { label: Wtorek, value: Tuesday }
+                      - { label: Środa, value: Wednesday }
+                      - { label: Czwartek, value: Thursday }
+                      - { label: Piątek, value: Friday }
+                      - { label: Sobota, value: Saturday }
+                      - { label: Niedziela, value: Sunday }
+              - name: booking
+                label: Rezerwacja online
+                widget: object
+                fields:
+                  - { name: url, label: Link do Booksy, widget: string, hint: 'Adres profilu w Booksy — do niego prowadzą wszystkie przyciski rezerwacji.' }
+                  - { name: label, label: Tekst przycisku, widget: string, hint: 'Domyślnie „Umów wizytę”.' }
+              - name: rating
+                label: Ocena w Booksy
+                widget: object
+                hint: 'Ręcznie aktualizowana — sprawdź w Booksy i zmień, gdy liczba opinii wyraźnie wzrośnie.'
+                fields:
+                  - { name: value, label: Średnia ocena, widget: number, value_type: float, min: 1, max: 5 }
+                  - { name: count, label: Liczba opinii, widget: number, value_type: int, min: 0 }
+                  - { name: source, label: Źródło, widget: string }
+                  - { name: url, label: Link do opinii, widget: string }
+                  - { name: checkedAt, label: Data sprawdzenia, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' }
+              - name: social
+                label: Media społecznościowe
+                widget: object
+                fields:
+                  - { name: instagram, label: Instagram (adres), widget: string }
+                  - { name: instagramHandle, label: Instagram (nazwa), widget: string, hint: 'Np. @siskin.wroclaw.' }
+                  - { name: facebook, label: Facebook (adres), widget: string }
+                  - { name: youtube, label: YouTube (adres filmu lub kanału), widget: string, required: false }
+              - name: analytics
+                label: Analityka (dla zaawansowanych)
+                widget: object
+                hint: 'Skrypty analityczne działają tylko na domenie produkcyjnej i po zgodzie odwiedzającego.'
+                fields:
+                  - { name: productionHost, label: Domena produkcyjna, widget: string, hint: 'Np. www.si-skin.pl — na innych adresach analityka jest wyłączona.' }
+                  - { name: ga4, label: Identyfikator Google Analytics 4, widget: string, required: false, hint: 'Zaczyna się od G-.' }
+                  - { name: metaPixel, label: Identyfikator Meta Pixel, widget: string, required: false }
+              - name: utm
+                label: Znaczniki UTM w linkach do Booksy
+                widget: object
+                hint: 'Dzięki nim w Google Analytics widać, z której strony przyszła rezerwacja. Zwykle nie trzeba zmieniać.'
+                fields:
+                  - { name: source, label: Źródło (utm_source), widget: string }
+                  - { name: medium, label: Medium (utm_medium), widget: string }
+                  - { name: campaign, label: Kampania (utm_campaign), widget: string }
+
+  # ═══════════════════════════ ZABIEGI ═══════════════════════════
+  - name: zabiegi
+    label: Zabiegi
+    label_singular: Zabieg
+    icon: spa
+    description: Każdy zabieg to osobna podstrona. Adres strony powstaje z nazwy pliku (np. epilacja-shr → /epilacja-shr/).
+    folder: src/content/services
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{title}}'
+    public_folder: ../../assets/images
+    fields:
+      - { name: title, label: Pełny tytuł strony (H1), widget: string, hint: 'Np. „Depilacja laserowa SHR we Wrocławiu”.' }
+      - { name: navTitle, label: Krótka nazwa (menu, karty), widget: string, hint: 'Np. „Depilacja laserowa SHR”.' }
+      - name: category
+        label: Kategoria
+        widget: select
+        options:
+          - { label: Laseroterapia, value: laser }
+          - { label: Zabiegi na twarz, value: twarz }
+          - { label: Kosmetologia estetyczna & anti-aging, value: estetyczna }
+      - { name: order, label: Kolejność na liście, widget: number, value_type: int, hint: 'Mniejsza liczba = wyżej.' }
+      - { name: featured, label: Pokaż na stronie głównej, widget: boolean, default: false }
+      - name: seo
+        label: Wyniki wyszukiwania Google
+        widget: object
+        hint: 'Tytuł i opis widoczne w Google. Tytuł do ok. 60 znaków, opis do ok. 160.'
+        fields:
+          - { name: title, label: Tytuł w Google, widget: string }
+          - { name: description, label: Opis w Google, widget: text }
+      - { name: excerpt, label: Krótki opis (karta zabiegu), widget: text, hint: '1–2 zdania na liście zabiegów.' }
+      - { name: lead, label: Wstęp (pod tytułem), widget: text, hint: 'Pierwszy akapit strony zabiegu.' }
+      - { name: image, label: Zdjęcie główne, widget: image }
+      - { name: imageAlt, label: Opis zdjęcia głównego, widget: string, hint: 'Krótki opis dla osób niewidzących i Google, np. „Depilacja laserowa SHR w gabinecie Si Skin”.' }
+      - name: gallery
+        label: Galeria zdjęć
+        label_singular: Zdjęcie
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { name: src, label: Zdjęcie, widget: image }
+          - { name: alt, label: Opis zdjęcia, widget: string }
+      - { name: priceFrom, label: Cena od (zł), widget: number, value_type: float, required: false, hint: 'Wyświetlana jako „od X zł”. Zostaw puste, jeśli nie podajesz ceny od.' }
+      - { name: priceLabel, label: Własny opis ceny, widget: string, required: false, hint: 'Zamiast liczby, np. „wycena indywidualna”.' }
+      - { name: duration, label: Czas trwania, widget: string, required: false, hint: 'Np. „5–20 min”.' }
+      - name: pricing
+        label: Kategorie cennika do pokazania na stronie zabiegu
+        widget: select
+        multiple: true
+        required: false
+        hint: 'Wybierz kategorie z zakładki „Cennik”, których ceny mają się pokazać na stronie tego zabiegu. Nowa kategoria cennika pojawi się na tej liście dopiero po dopisaniu jej do public/admin/config.yml (patrz README).'
+        options:
+          - { label: Konsultacje kosmetologiczne, value: konsultacje }
+          - { label: Depilacja laserowa SHR EPIL MOTION, value: epilacja-shr }
+          - { label: Laserowe zamykanie naczynek, value: zamykanie-naczynek }
+          - { label: Laserowe rozjaśnianie przebarwień, value: rozjasnianie-przebarwien }
+          - { label: Fotoodmładzanie SSR, value: fotoodmladzanie-ssr }
+          - { label: Oczyszczanie wodorowe i zabiegi pielęgnacyjne, value: oczyszczanie-i-pielegnacja }
+          - { label: Mezoterapia mikroigłowa, value: mezoterapia-mikroiglowa }
+          - { label: Stymulatory tkankowe, value: stymulatory-tkankowe }
+          - { label: Mezoterapia igłowa, value: mezoterapia-iglowa }
+          - { label: Korekcja zmarszczek mimicznych, value: korekcja-zmarszczek }
+          - { label: Modelowanie ust, value: modelowanie-ust }
+          - { label: Makijaż permanentny brwi, value: makijaz-permanentny-brwi }
+      - name: highlights
+        label: Najważniejsze zalety (punkty)
+        label_singular: Zaleta
+        widget: list
+        required: false
+        hint: 'Krótkie zdania, każde w osobnym wierszu.'
+      - name: sessions
+        label: Seria zabiegów
+        widget: object
+        required: false
+        fields:
+          - { name: count, label: Liczba wizyt, widget: string, hint: 'Np. „zwykle 7–9 wizyt”.' }
+          - { name: interval, label: Odstępy między wizytami, widget: string, hint: 'Np. „co 4–12 tygodni”.' }
+          - { name: note, label: Dodatkowa uwaga, widget: text, required: false }
+      - name: details
+        label: Sekcje informacyjne (przygotowanie, po zabiegu, wskazania…)
+        label_singular: Sekcja
+        widget: list
+        required: false
+        summary: '{{title}}'
+        hint: 'Każda sekcja ma tytuł, opcjonalny wstęp i listę punktów.'
+        fields:
+          - { name: title, label: Tytuł sekcji, widget: string }
+          - { name: text, label: Wstęp do sekcji, widget: text, required: false }
+          - { name: items, label: Punkty, label_singular: Punkt, widget: list, required: false }
+      - name: faq
+        label: Pytania i odpowiedzi do tego zabiegu
+        label_singular: Pytanie
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { name: q, label: Pytanie, widget: string }
+          - { name: a, label: Odpowiedź, widget: text }
+      - { name: notice, label: Ważna uwaga (ramka na stronie), widget: text, required: false }
+      - name: video
+        label: Film z YouTube
+        widget: object
+        required: false
+        fields:
+          - { name: id, label: Identyfikator filmu, widget: string, hint: 'Ostatnia część adresu YouTube po „v=”, np. OLwLnMb74AY.' }
+          - { name: title, label: Tytuł filmu, widget: string }
+      - { name: body, label: Opis szczegółowy (tekst pod sekcjami), widget: markdown, required: false, hint: 'Dłuższy opis z nagłówkami. Linki do innych stron wpisuj jako /nazwa-strony/ (bez adresu domeny).' }
+
+  # ═══════════════════════════ CENNIK ═══════════════════════════
+  - name: cennik
+    label: Cennik
+    icon: sell
+    description: Ceny w zł brutto. Każda kategoria to osobna tabela na stronie „Cennik”.
+    files:
+      - name: pricing
+        label: Cennik zabiegów
+        file: src/content/pricing.yaml
+        fields:
+          - name: categories
+            label: Kategorie cennika
+            label_singular: Kategoria
+            widget: list
+            root: true
+            map_key_field: id
+            summary: '{{title}}'
+            fields:
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Krótki, unikalny skrót bez polskich znaków i spacji, np. epilacja-shr. Używany do łączenia z zabiegami i promocjami — nie zmieniaj istniejących.' }
+              - { name: title, label: Nazwa kategorii, widget: string }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+              - { name: service, label: Powiązany zabieg (adres strony), widget: string, required: false, hint: 'Nazwa pliku zabiegu bez .md, np. epilacja-shr. Dodaje link „Zobacz zabieg”.' }
+              - { name: intro, label: Wstęp nad tabelą, widget: text, required: false }
+              - { name: note, label: Uwaga pod tabelą, widget: text, required: false }
+              - name: discount
+                label: Rabat dla całej kategorii
+                widget: object
+                required: false
+                hint: 'Wypełnij tylko, jeśli kategoria ma aktywny rabat (np. w Booksy). Po dacie „Ważny do” rabat znika sam.'
+                fields:
+                  - { name: percent, label: Rabat (%), widget: number, value_type: int, min: 1, max: 90 }
+                  - { name: upTo, label: Rabat „do” (nie dla każdej pozycji), widget: boolean, default: false }
+                  - { name: label, label: Opis rabatu, widget: string, hint: 'Np. „Promocja w Booksy”.' }
+                  - { name: validUntil, label: Ważny do, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false }
+              - name: groups
+                label: Grupy pozycji
+                label_singular: Grupa
+                widget: list
+                summary: '{{title}}'
+                hint: 'Pozycje można podzielić na grupy (np. „Twarz”, „Ciało”). Grupa bez tytułu = jedna wspólna tabela.'
+                fields:
+                  - { name: title, label: Tytuł grupy, widget: string, required: false }
+                  - name: items
+                    label: Pozycje cennika
+                    label_singular: Pozycja
+                    widget: list
+                    summary: '{{name}}'
+                    fields:
+                      - { name: name, label: Nazwa zabiegu, widget: string }
+                      - { name: price, label: Cena (zł), widget: number, value_type: float, required: false, hint: 'Sama liczba, np. 279. Zostaw puste, jeśli wpisujesz tekst poniżej.' }
+                      - { name: priceText, label: Cena tekstem, widget: string, required: false, hint: 'Zamiast liczby, np. „bezpłatnie” albo „wycena indywidualna”.' }
+                      - { name: duration, label: Czas trwania, widget: string, required: false }
+                      - { name: note, label: Uwaga, widget: text, required: false }
+
+  # ═══════════════════════════ PROMOCJE ═══════════════════════════
+  - name: promocje
+    label: Promocje
+    icon: percent
+    description: Rabat na stronie jest liczony automatycznie na przykładowej pozycji z cennika. Po dacie „Ważna do” promocja znika ze strony.
+    files:
+      - name: promotions
+        label: Lista promocji
+        file: src/content/promotions.yaml
+        fields:
+          - name: promotions
+            label: Promocje
+            label_singular: Promocja
+            widget: list
+            root: true
+            map_key_field: id
+            summary: '{{title}}'
+            fields:
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Krótki unikalny skrót, np. wiosenne-promo.' }
+              - { name: title, label: Nazwa promocji, widget: string }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+              - { name: badge, label: Plakietka na karcie, widget: string, hint: 'Np. „−15%”.' }
+              - { name: percent, label: Rabat (%), widget: number, value_type: int, required: false, hint: 'Używany do wyliczenia przykładowej ceny po rabacie.' }
+              - { name: summary, label: Krótki opis, widget: text }
+              - { name: steps, label: Jak skorzystać (kroki), label_singular: Krok, widget: list, required: false }
+              - { name: terms, label: Warunki promocji, label_singular: Warunek, widget: list, required: false }
+              - name: example
+                label: Przykład ceny z cennika
+                widget: object
+                required: false
+                hint: 'Wskaż pozycję z cennika — strona pokaże jej cenę przed i po rabacie.'
+                fields:
+                  - name: category
+                    label: Kategoria cennika
+                    widget: select
+                    options:
+                      - { label: Konsultacje kosmetologiczne, value: konsultacje }
+                      - { label: Depilacja laserowa SHR EPIL MOTION, value: epilacja-shr }
+                      - { label: Laserowe zamykanie naczynek, value: zamykanie-naczynek }
+                      - { label: Laserowe rozjaśnianie przebarwień, value: rozjasnianie-przebarwien }
+                      - { label: Fotoodmładzanie SSR, value: fotoodmladzanie-ssr }
+                      - { label: Oczyszczanie wodorowe i zabiegi pielęgnacyjne, value: oczyszczanie-i-pielegnacja }
+                      - { label: Mezoterapia mikroigłowa, value: mezoterapia-mikroiglowa }
+                      - { label: Stymulatory tkankowe, value: stymulatory-tkankowe }
+                      - { label: Mezoterapia igłowa, value: mezoterapia-iglowa }
+                      - { label: Korekcja zmarszczek mimicznych, value: korekcja-zmarszczek }
+                      - { label: Modelowanie ust, value: modelowanie-ust }
+                      - { label: Makijaż permanentny brwi, value: makijaz-permanentny-brwi }
+                  - { name: item, label: Dokładna nazwa pozycji w cenniku, widget: string, hint: 'Skopiuj nazwę dokładnie tak, jak jest w cenniku, np. „Twarz + Maska”.' }
+              - { name: validFrom, label: Ważna od, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false }
+              - { name: validUntil, label: Ważna do (włącznie), widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false, hint: 'Po tej dacie promocja zniknie ze strony po kolejnej publikacji. Puste = bezterminowo.' }
+              - { name: highlight, label: Wyróżnij na stronie głównej, widget: boolean, default: false }
+
+  # ═══════════════════════════ ZESPÓŁ ═══════════════════════════
+  - name: zespol
+    label: Zespół
+    icon: group
+    files:
+      - name: team
+        label: Osoby w zespole
+        file: src/content/team.yaml
+        public_folder: ../assets/images
+        fields:
+          - name: members
+            label: Zespół
+            label_singular: Osoba
+            widget: list
+            root: true
+            map_key_field: id
+            summary: '{{name}}'
+            fields:
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. imie-nazwisko (bez polskich znaków).' }
+              - { name: name, label: Imię i nazwisko, widget: string }
+              - { name: role, label: Stanowisko, widget: string, hint: 'Np. „Właścicielka, kosmetolożka”.' }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+              - { name: specializations, label: Specjalizacje, label_singular: Specjalizacja, widget: list, required: false }
+              - { name: bio, label: Opis / biogram, widget: text, required: false }
+              - { name: photo, label: Zdjęcie, widget: image, required: false }
+              - { name: photoAlt, label: Opis zdjęcia, widget: string, required: false }
+
+  # ═══════════════════════════ OPINIE ═══════════════════════════
+  - name: opinie
+    label: Opinie
+    icon: reviews
+    description: Wklejaj wyłącznie prawdziwe opinie klientów wraz ze źródłem.
+    files:
+      - name: reviews
+        label: Opinie klientów
+        file: src/content/reviews.yaml
+        fields:
+          - name: reviews
+            label: Opinie
+            label_singular: Opinia
+            widget: list
+            root: true
+            map_key_field: id
+            summary: '{{author}}: {{text}}'
+            fields:
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. r50 — dowolny unikalny skrót.' }
+              - { name: author, label: Autor (imię), widget: string }
+              - { name: text, label: Treść opinii, widget: text }
+              - { name: service, label: Zabieg, widget: string, required: false }
+              - { name: rating, label: Ocena (1–5), widget: number, value_type: int, min: 1, max: 5, default: 5 }
+              - name: source
+                label: Źródło opinii
+                widget: select
+                default: Booksy
+                options: [Booksy, Google, Facebook]
+              - { name: featured, label: Pokaż na stronie głównej, widget: boolean, default: false }
+
+  # ═══════════════════════════ FAQ ═══════════════════════════
+  - name: faq
+    label: Pytania i odpowiedzi (FAQ)
+    icon: help
+    files:
+      - name: faq
+        label: Najczęstsze pytania
+        file: src/content/faq.yaml
+        fields:
+          - name: questions
+            label: Pytania
+            label_singular: Pytanie
+            widget: list
+            root: true
+            map_key_field: id
+            summary: '{{q}}'
+            fields:
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. f40 — dowolny unikalny skrót.' }
+              - name: category
+                label: Kategoria
+                widget: select
+                options:
+                  - { label: Pierwsza wizyta, value: pierwsza-wizyta }
+                  - { label: Depilacja laserowa, value: depilacja }
+                  - { label: Promocje, value: promocje }
+                  - { label: Ogólne, value: ogolne }
+                  - { label: Karty podarunkowe, value: karty }
+              - { name: order, label: Kolejność, widget: number, value_type: int }
+              - { name: q, label: Pytanie, widget: string }
+              - { name: a, label: Odpowiedź, widget: text }
+
+  # ═══════════════════════════ BLOG ═══════════════════════════
+  - name: blog
+    label: Blog
+    label_singular: Artykuł
+    icon: article
+    description: Artykuły publikowane są pod adresem /blog/nazwa-pliku/.
+    folder: src/content/blog
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{title}}'
+    media_folder: src/assets/blog
+    public_folder: ../../assets/blog
+    sortable_fields: [pubDate, title]
+    fields:
+      - { name: title, label: Tytuł artykułu, widget: string }
+      - { name: description, label: Krótki opis (Google i lista artykułów), widget: text, hint: 'Do ok. 160 znaków.' }
+      - { name: pubDate, label: Data publikacji, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD' }
+      - { name: updatedDate, label: Data aktualizacji, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false }
+      - { name: image, label: Zdjęcie główne, widget: image }
+      - { name: imageAlt, label: Opis zdjęcia, widget: string }
+      - name: service
+        label: Powiązany zabieg
+        widget: relation
+        collection: zabiegi
+        value_field: '{{slug}}'
+        search_fields: [title, navTitle]
+        display_fields: [navTitle]
+        required: false
+        hint: 'Pod artykułem pojawi się link do tego zabiegu.'
+      - { name: draft, label: Wersja robocza (nie publikuj), widget: boolean, default: false }
+      - { name: body, label: Treść artykułu, widget: markdown, hint: 'Linki do stron serwisu wpisuj jako /nazwa-strony/ (bez adresu domeny).' }
+
+  # ═══════════════════════════ STRONY ═══════════════════════════
+  - name: strony
+    label: Strony (regulamin, polityka prywatności)
+    label_singular: Strona
+    icon: description
+    folder: src/content/pages
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{title}}'
+    fields:
+      - { name: title, label: Tytuł strony, widget: string }
+      - { name: description, label: Krótki opis (Google), widget: text }
+      - { name: updatedDate, label: Data aktualizacji, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false }
+      - { name: body, label: Treść strony, widget: markdown }

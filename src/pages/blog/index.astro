@@ -1,0 +1,55 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const crumbs = [{ name: 'Blog', path: '/blog/' }];
+---
+
+<Base
+  title="Blog o laseroterapii i pielęgnacji skóry | Si Skin"
+  description="Poradnik gabinetu Si Skin: epilacja laserowa, zamykanie naczynek, przebarwienia, makijaż permanentny. Jak przygotować się do zabiegu i czego się spodziewać."
+  path="/blog/"
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero
+    eyebrow="Poradnik"
+    title="Blog"
+    lead="Praktyczna wiedza o zabiegach laserowych i pielęgnacji skóry — od przygotowania do wizyty po to, czego możesz się spodziewać."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section section--tight" aria-label="Artykuły">
+    <div class="container">
+      <div class="card-grid">
+        {posts.map((post, i) => <PostCard post={post} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTASection placement="blog-bottom" />
+</Base>
+
+<style>
+  .card-grid {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

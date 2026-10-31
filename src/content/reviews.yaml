@@ -1,0 +1,91 @@
+# Prawdziwe opinie klientów z Booksy (pełne treści, bez emotikon).
+
+r01:
+  author: Alicja
+  service: Depilacja laserowa – bikini głębokie
+  rating: 5
+  source: Booksy
+  featured: true
+  text: Miałam duże obawy i stres przed zabiegiem ale totalnie bez potrzeby, atmosfera bardzo przyjazna, czułam się zaopiekowana :) Bardzo polecam!
+
+r02:
+  author: Olga
+  service: Oczyszczanie wodorowe + mezoterapia bezigłowa
+  rating: 5
+  source: Booksy
+  featured: true
+  text: Atmosfera przecudowna! Jak u starych znajomych - zabieg ekstra! Wszystko pięknie tłumaczone - jak zawsze jestem zadowolona
+
+r03:
+  author: Karolina
+  service: Zamykanie naczynek – nos
+  rating: 5
+  source: Booksy
+  featured: true
+  text: Jestem bardzo zadowolona z zabiegu laserowego zamykania naczynek. Wszystko przebiegło sprawnie i profesjonalnie. Polecam!
+
+r04:
+  author: Barbara
+  service: Depilacja laserowa
+  rating: 5
+  source: Booksy
+  featured: true
+  text: To już moja 10 depilacja laserowa w tym salonie. Efekt fantastyczny i super atmosfera. Bardzo polecam
+
+r05:
+  author: Amelia
+  service: Depilacja laserowa – bikini, pachy, łydki
+  rating: 5
+  source: Booksy
+  featured: true
+  text: Przemiła obsługa, czułam się bardzo komfortowo. W bardzo przystępny sposób wyjaśnione działanie laseru oraz zalecenia po. Polecam
+
+r06:
+  author: Ola
+  service: Zamykanie naczynek – twarz
+  rating: 5
+  source: Booksy
+  featured: true
+  text: To mój kolejny zabieg i znów wyszłam zadowolona:) Pani Jessica zadbała o mój komfort i wszystko wytłumaczyła krok po kroku. Polecam!
+
+r07:
+  author: Adriana
+  service: Oczyszczanie wodorowe
+  rating: 5
+  source: Booksy
+  text: Polecam serdecznie! Profesjonalne podejście, miła atmosfera, z pewnością wrócę :)
+
+r08:
+  author: Nicole
+  service: Zamykanie naczynek – twarz
+  rating: 5
+  source: Booksy
+  text: Polecam, jestem zachwycona efektami laserowego zamykania naczynek.
+
+r09:
+  author: Paulina
+  service: Depilacja laserowa – przedramiona
+  rating: 5
+  source: Booksy
+  text: Pierwsza wizyta przebiegła bezproblemowo - szybko, bezboleśnie. Z niecierpliwością czekam na pierwsze efekty. Nie mam żadnych zastrzeżeń.
+
+r10:
+  author: Anna
+  service: Depilacja laserowa – wąsik, pachy, łydki, bikini
+  rating: 5
+  source: Booksy
+  text: Bardzo polecam! Jestem zachwycona, piękny salon, najlepsza obsługa i bezbolesne zabiegi! :)
+
+r11:
+  author: Ewelina
+  service: Depilacja laserowa – bikini, łydki, pachy, uda
+  rating: 5
+  source: Booksy
+  text: Pełen profesjonalizm, wspaniała atmosfera i rewelacyjne efekty. Polecam
+
+r12:
+  author: Kat
+  service: Oczyszczanie wodorowe + kwasy + maska
+  rating: 5
+  source: Booksy
+  text: Córka nastolatka zadowolona, będziemy korzystać w przyszłości

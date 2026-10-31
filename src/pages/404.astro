@@ -1,0 +1,99 @@
+---
+import Base from '../layouts/Base.astro';
+import BookingButton from '../components/BookingButton.astro';
+import Icon from '../components/Icon.astro';
+import { url } from '../lib/site';
+
+const links = [
+  { href: '/zabiegi/', label: 'Zabiegi', text: 'Laseroterapia, kosmetologia i pielęgnacja twarzy.' },
+  { href: '/cennik/', label: 'Cennik', text: 'Ceny zabiegów wraz z czasem trwania.' },
+  { href: '/promocje/', label: 'Promocje', text: 'Zniżki i zasady ich odbierania.' },
+  { href: '/blog/', label: 'Blog', text: 'Porady o zabiegach i pielęgnacji skóry.' },
+  { href: '/o-nas/', label: 'O nas', text: 'Gabinet, zespół i technologia.' },
+  { href: '/kontakt/', label: 'Kontakt', text: 'Adres, telefon i godziny otwarcia.' },
+];
+---
+
+<Base
+  title="Nie znaleziono strony (404) | Si Skin"
+  description="Tej strony nie ma lub została przeniesiona. Wróć na stronę główną gabinetu Si Skin we Wrocławiu albo przejdź do zabiegów, cennika i kontaktu."
+  path="/404/"
+  noindex
+>
+  <section class="section nf">
+    <div class="container nf__inner">
+      <p class="eyebrow eyebrow--plain" data-reveal>Błąd 404</p>
+      <h1 data-reveal style="--i:1">Tej strony nie ma — ale skóra nadal czeka na TAK</h1>
+      <p class="lead" data-reveal style="--i:2">
+        Adres mógł się zmienić albo wpisał się z literówką. Wybierz jedną z poniższych dróg lub wróć na stronę główną.
+      </p>
+      <div class="cluster nf__actions" data-reveal style="--i:3">
+        <a class="btn btn--primary btn--lg" href={url('/')}>
+          <Icon name="arrow-left" />
+          <span>Strona główna</span>
+        </a>
+        <BookingButton placement="404" variant="ghost" size="lg" />
+      </div>
+
+      <ul class="nf__links" role="list">
+        {
+          links.map((l, i) => (
+            <li data-reveal style={`--i:${i + 3}`}>
+              <a class="card nf__link" href={url(l.href)}>
+                <span class="serif">{l.label}</span>
+                <span class="small muted">{l.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-top: calc(var(--header-h) + var(--space-2xl));
+  }
+  .nf__inner {
+    display: grid;
+    gap: var(--space-m);
+    justify-items: center;
+    text-align: center;
+  }
+  .nf__inner .lead {
+    max-width: 36rem;
+  }
+  .nf__actions {
+    justify-content: center;
+    margin-bottom: var(--space-l);
+  }
+  .nf__links {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    width: 100%;
+    text-align: left;
+  }
+  .nf__link {
+    display: grid;
+    gap: var(--space-3xs);
+    height: 100%;
+    text-decoration: none;
+    transition:
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out);
+  }
+  .nf__link .serif {
+    font-size: var(--text-xl);
+  }
+  .nf__link:active {
+    transform: scale(0.98);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .nf__link:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-m);
+    }
+  }
+</style>

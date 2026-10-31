@@ -1,0 +1,442 @@
+---
+/**
+ * HeroB — „Heksagon”: wyśrodkowany, wielki serif + zdjęcia w sześciokątach z logo,
+ * pod spodem żywy gradient (metabale WebGL, src/scripts/mesh-b.ts).
+ * Mobile: tekst, potem plaster miodu z trzech zdjęć. Desktop: zdjęcia „unoszą się” po bokach nagłówka.
+ */
+import { Picture } from 'astro:assets';
+import Icon from '../Icon.astro';
+import BookingButton from '../BookingButton.astro';
+import { getSettings, url } from '../../lib/site';
+import specialist from '../../assets/images/specjalistka-laser.jpg';
+import treatment from '../../assets/images/epilacja-zabieg-1.jpg';
+import hydrogen from '../../assets/images/oczyszczanie-wodorowe.jpg';
+
+const { rating } = await getSettings();
+const ratingValue = rating.value.toFixed(1).replace('.', ',');
+const last = rating.count % 10;
+const last2 = rating.count % 100;
+const opinions =
+  rating.count === 1 ? 'opinia' : last >= 2 && last <= 4 && !(last2 >= 12 && last2 <= 14) ? 'opinie' : 'opinii';
+
+/** Zaokrąglony sześciokąt „pointy-top” jak w logo (w×h — układ współrzędnych). */
+const V: [number, number][] = [[0.5, 0], [1, 0.25], [1, 0.75], [0.5, 1], [0, 0.75], [0, 0.25]];
+function hexPath(w: number, h: number, t = 0.12): string {
+  const f = (n: number) => +n.toFixed(3);
+  return (
+    V.map(([x, y], i) => {
+      const [px, py] = V[(i + 5) % 6];
+      const [nx, ny] = V[(i + 1) % 6];
+      return `${i ? 'L' : 'M'}${f((x + (px - x) * t) * w)} ${f((y + (py - y) * t) * h)}Q${f(x * w)} ${f(y * h)} ${f((x + (nx - x) * t) * w)} ${f((y + (ny - y) * t) * h)}`;
+    }).join('') + 'Z'
+  );
+}
+const clipD = hexPath(1, 1);
+const ringD = hexPath(100, 115.47);
+const sizes = '(min-width: 62rem) 20vw, 44vw';
+---
+
+<section class="hb" data-mesh-b aria-labelledby="hb-title">
+  <div class="hb__bg" aria-hidden="true"><canvas class="hb__canvas"></canvas></div>
+
+  <svg class="hb__defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="hb-hex" clipPathUnits="objectBoundingBox"><path d={clipD}></path></clipPath>
+    </defs>
+  </svg>
+
+  <div class="hb__inner container">
+    <div class="hb__copy">
+      <h1 id="hb-title" class="hb__title">
+        <span class="hb__eyebrow hb-word" style="--i:0">Gabinet kosmetologii i laseroterapii we Wrocławiu</span>
+        <span class="visually-hidden"> – </span>
+        <span class="hb__line">
+          <span class="hb__word">Powiedz</span>{' '}
+          <span class="hb__word hb__tak">TAK<svg class="hb__tak-mark" viewBox="0 0 100 115.47" aria-hidden="true"><path d={ringD}></path></svg></span>
+        </span>
+        <span class="hb__line">
+          <span class="hb__word">swojej</span>{' '}
+          <span class="hb__word">skórze</span>
+        </span>
+      </h1>
+
+      <p class="hb__lead hb-in" style="--i:5">
+        Bezbolesna{' '}<a href={url('/epilacja-shr/')}>depilacja laserowa SHR</a>,{' '}
+        <a href={url('/oczyszczanie-wodorowe/')}>oczyszczanie wodorowe</a>{' '}i{' '}
+        <a href={url('/zabiegi/')}>zabiegi na twarz</a>{' '}— z&nbsp;planem dopasowanym do&nbsp;Twojej skóry.
+      </p>
+
+      <div class="hb__cta hb-in" style="--i:6">
+        <BookingButton placement="home-hero" size="lg" />
+        <a class="btn btn--ghost btn--lg" href={url('/cennik/')}>Zobacz cennik</a>
+      </div>
+
+      <a class="hb__rating hb-in" style="--i:7" href={rating.url} target="_blank" rel="noopener">
+        <span class="hb__stars" aria-hidden="true">
+          {[0, 1, 2, 3, 4].map(() => <Icon name="star" size={14} />)}
+        </span>
+        <span><strong>{ratingValue}</strong> · {rating.count} {opinions} w&nbsp;{rating.source}</span>
+        <span class="visually-hidden">(otwiera się w nowej karcie)</span>
+      </a>
+    </div>
+
+    <div class="hb__hexes">
+      <figure class="hb__hex hb__hex--a hb-pop" style="--i:3;--d:-22">
+        <div class="hb__float">
+          <div class="hb__shape">
+            <Picture
+              class="hb__img"
+              src={specialist}
+              alt="Specjalistka Si Skin z głowicą lasera do depilacji SHR"
+              widths={[260, 400, 560]}
+              sizes={sizes}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <svg class="hb__ring" viewBox="0 0 100 115.47" aria-hidden="true"><path d={ringD} pathLength="1"></path></svg>
+        </div>
+      </figure>
+
+      <figure class="hb__hex hb__hex--b hb-pop" style="--i:4;--d:18">
+        <div class="hb__float">
+          <div class="hb__shape">
+            <Picture
+              class="hb__img"
+              src={treatment}
+              alt="Zabieg depilacji laserowej SHR"
+              widths={[200, 320, 440]}
+              sizes={sizes}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <svg class="hb__ring" viewBox="0 0 100 115.47" aria-hidden="true"><path d={ringD} pathLength="1"></path></svg>
+        </div>
+      </figure>
+
+      <figure class="hb__hex hb__hex--c hb-pop" style="--i:5;--d:-14">
+        <div class="hb__float">
+          <div class="hb__shape">
+            <Picture
+              class="hb__img"
+              src={hydrogen}
+              alt="Głowice urządzenia do oczyszczania wodorowego"
+              widths={[160, 260, 360]}
+              sizes={sizes}
+              formats={['avif', 'webp']}
+              fallbackFormat="jpg"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <svg class="hb__ring" viewBox="0 0 100 115.47" aria-hidden="true"><path d={ringD} pathLength="1"></path></svg>
+        </div>
+      </figure>
+
+      <span class="hb__hex hb__ghost hb__ghost--1 hb-pop" style="--i:6;--d:26" aria-hidden="true">
+        <span class="hb__float"><svg viewBox="0 0 100 115.47"><path d={ringD}></path></svg></span>
+      </span>
+      <span class="hb__hex hb__ghost hb__ghost--2 hb-pop" style="--i:7;--d:-30" aria-hidden="true">
+        <span class="hb__float"><svg viewBox="0 0 100 115.47"><path d={ringD}></path></svg></span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mountMeshB } from '../../scripts/mesh-b';
+  mountMeshB();
+</script>
+
+<style>
+  .hb {
+    --m0: var(--color-ivory);
+    --m1: var(--color-sand);
+    --m2: var(--color-sage);
+    --m3: var(--color-gold-light);
+    --m4: var(--color-paper);
+    --mx: 0;
+    --my: 0;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    background: var(--color-ivory);
+    padding-top: calc(var(--header-h) + var(--space-l));
+    padding-bottom: var(--space-2xl);
+  }
+
+  /* ── Tło: statyczny gradient (bez JS / reduced motion / zanim wstanie canvas) + canvas ── */
+  .hb__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(50% 42% at 12% 20%, color-mix(in srgb, var(--color-sage) 55%, transparent), transparent 72%),
+      radial-gradient(54% 46% at 90% 70%, color-mix(in srgb, var(--color-gold-light) 60%, transparent), transparent 72%),
+      radial-gradient(42% 38% at 52% 42%, color-mix(in srgb, var(--color-sand) 85%, transparent), transparent 75%),
+      var(--gradient-hero);
+  }
+  .hb__bg::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 16%;
+    background: linear-gradient(to bottom, transparent, var(--color-ivory));
+  }
+  .hb__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity calc(var(--dur-reveal) * 1.5) var(--ease-out);
+  }
+  .hb__canvas.is-ready { opacity: 1; }
+  .hb__defs { position: absolute; pointer-events: none; }
+
+  /* ── Tekst ── */
+  .hb__copy {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: var(--space-m);
+  }
+  .hb__title {
+    font-size: clamp(2.5rem, 12.6vw, 6.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    text-wrap: initial;
+  }
+  .hb__eyebrow {
+    display: block;
+    max-width: 22rem;
+    margin: 0 auto var(--space-m);
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    line-height: 1.5;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-ink-soft);
+    text-wrap: balance;
+  }
+  .hb__line { display: block; }
+  .hb__word { display: inline-block; }
+  .hb__tak {
+    position: relative;
+    isolation: isolate;
+    color: var(--color-gold-text);
+  }
+  .hb__tak::before {
+    content: '';
+    position: absolute;
+    inset: 64% -0.04em 10%;
+    z-index: -1;
+    border-radius: 0.1em;
+    background: color-mix(in srgb, var(--color-gold-light) 65%, transparent);
+    transform-origin: left center;
+  }
+  .hb__tak-mark {
+    position: absolute;
+    top: 0.06em;
+    right: -0.3em;
+    width: 0.2em;
+    height: auto;
+    overflow: visible;
+    fill: var(--color-gold);
+    stroke: none;
+  }
+  .hb__lead {
+    max-width: 34rem;
+    font-size: var(--text-lg);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+  .hb__lead a {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color var(--dur) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .hb__lead a:hover { text-decoration-color: var(--color-ink); }
+  }
+  .hb__cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: min(100%, 22rem);
+  }
+  .hb__cta :global(.btn) { width: 100%; }
+  .hb__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.45rem 1rem 0.45rem 0.8rem;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-paper) 78%, transparent);
+    border: 1px solid var(--color-line);
+    font-size: var(--text-xs);
+    line-height: 1.3;
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    transition:
+      transform var(--dur-press) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+  .hb__rating:active { transform: scale(0.97); }
+  .hb__rating strong { font-weight: 400; font-family: var(--font-serif); color: var(--color-ink); font-size: var(--text-sm); }
+  .hb__stars { display: inline-flex; gap: 1px; color: var(--color-star); }
+  @media (hover: hover) and (pointer: fine) {
+    .hb__rating:hover { border-color: var(--color-line-strong); }
+  }
+
+  /* ── Sześciokąty — mobile: plaster miodu pod tekstem ── */
+  .hb__hexes {
+    position: relative;
+    width: min(100%, 24rem);
+    aspect-ratio: 1 / 0.88;
+    margin: var(--space-xl) auto 0;
+  }
+  .hb__hex {
+    position: absolute;
+    display: block;
+    width: 42%;
+    aspect-ratio: 0.866;
+    margin: 0;
+    translate: calc(var(--mx) * var(--d) * 1px) calc(var(--my) * var(--d) * -1px);
+  }
+  .hb__hex--a { left: 29%; top: 0; }
+  .hb__hex--b { left: 7%; top: 43.6%; }
+  .hb__hex--c { left: 51%; top: 43.6%; }
+  .hb__ghost { display: none; }
+  .hb__float { position: absolute; inset: 0; display: block; }
+  .hb__shape {
+    position: absolute;
+    inset: 0;
+    filter: drop-shadow(0 16px 22px color-mix(in srgb, var(--color-ink) 20%, transparent));
+  }
+  .hb__shape :global(picture),
+  .hb__shape :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hb__shape :global(picture) {
+    clip-path: url(#hb-hex);
+    background: var(--color-sand);
+  }
+  .hb__ring {
+    position: absolute;
+    inset: -5%;
+    width: 110%;
+    height: 110%;
+    translate: 3.5% 3.5%;
+    overflow: visible;
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 0.55;
+    pointer-events: none;
+  }
+  .hb__ghost svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: color-mix(in srgb, var(--color-sage) 32%, transparent);
+    stroke: var(--color-gold-light);
+    stroke-width: 0.6;
+  }
+
+  /* ── Desktop: zdjęcia po bokach nagłówka ── */
+  @media (min-width: 62rem) {
+    .hb {
+      display: grid;
+      align-items: center;
+      min-height: min(max(40rem, 100svh), 62rem);
+      padding-bottom: var(--space-xl);
+    }
+    .hb__inner { width: 100%; }
+    .hb__title { font-size: clamp(5.5rem, 8.2vw, 9rem); }
+    .hb__eyebrow { max-width: none; margin-bottom: var(--space-l); }
+    .hb__copy { gap: var(--space-l); }
+    .hb__lead { font-size: var(--text-xl); max-width: 36rem; }
+    .hb__cta { flex-direction: row; width: auto; justify-content: center; }
+    .hb__cta :global(.btn) { width: auto; }
+    .hb__hexes {
+      position: absolute;
+      inset: 0;
+      width: auto;
+      aspect-ratio: auto;
+      margin: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hb__hex--a { --w: clamp(12rem, 19vw, 21rem); width: var(--w); left: auto; right: 4%; top: auto; bottom: 7%; }
+    .hb__hex--b { --w: clamp(9.5rem, 15vw, 16rem); width: var(--w); left: 3%; top: 21%; }
+    .hb__hex--c { --w: clamp(6.5rem, 9vw, 10rem); width: var(--w); left: 15%; top: auto; bottom: 9%; }
+    .hb__ghost { display: block; }
+    .hb__ghost--1 { width: clamp(3.5rem, 5vw, 5.5rem); right: 18%; top: 15%; }
+    .hb__ghost--2 { width: clamp(2.25rem, 3vw, 3.5rem); left: 30%; top: 78%; }
+  }
+
+  /* ── Wejście (CSS-owe, działa bez JS) i ruch ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .hb-word {
+      animation: hb-word 0.8s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * var(--stagger));
+    }
+    .hb__tak::before { animation: hb-mark 0.9s var(--ease-out) 0.8s both; }
+    .hb-in {
+      animation: hb-in 0.9s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * var(--stagger) + 60ms);
+    }
+    .hb-pop {
+      animation: hb-pop 1.2s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * var(--stagger) + 120ms);
+    }
+    .hb__ring path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      animation: hb-draw 1.6s var(--ease-out) forwards;
+      animation-delay: calc(var(--i, 0) * var(--stagger) + 500ms);
+    }
+    .hb__float {
+      animation: hb-float 9s ease-in-out infinite alternate;
+      animation-delay: calc(var(--i, 0) * -2.3s);
+    }
+    .hb[data-paused] .hb__float { animation-play-state: paused; }
+    .hb__tak-mark {
+      animation: hb-spin 18s linear infinite;
+      transform-origin: 50% 50%;
+    }
+    .hb[data-paused] .hb__tak-mark { animation-play-state: paused; }
+  }
+  @keyframes hb-in {
+    from { opacity: 0; transform: translate3d(0, 18px, 0); filter: blur(10px); }
+  }
+  @keyframes hb-word {
+    from { transform: translate3d(0, 16px, 0); filter: blur(6px); }
+  }
+  @keyframes hb-mark {
+    from { transform: scaleX(0); }
+  }
+  @keyframes hb-pop {
+    from { opacity: 0; scale: 0.92; filter: blur(14px); }
+  }
+  @keyframes hb-draw {
+    to { stroke-dashoffset: 0; }
+  }
+  @keyframes hb-float {
+    to { transform: translate3d(0, -12px, 0); }
+  }
+  @keyframes hb-spin {
+    to { transform: rotate(360deg); }
+  }
+</style>

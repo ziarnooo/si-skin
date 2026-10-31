@@ -1,0 +1,104 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  items?: string[];
+  /** Czas jednego przejścia pętli w sekundach. */
+  duration?: number;
+  label?: string;
+}
+const defaultItems = [
+  'SHR EPIL MOTION',
+  'Ganc-Med',
+  'HydroPeel H2',
+  'proXN',
+  'Profhilo®',
+  'Sunekos®',
+  'Jalupro',
+  'Neauvia',
+  'Nucleofill',
+  'Hyamira',
+];
+const {
+  items = defaultItems,
+  duration = 38,
+  label = 'Technologie i preparaty, z których korzystamy',
+} = Astro.props;
+---
+
+<section class="marquee" aria-label={label} style={`--marquee-duration:${duration}s`}>
+  <div class="marquee__track">
+    {
+      [false, true].map((clone) => (
+        <ul class="marquee__group" role="list" aria-hidden={clone ? 'true' : undefined}>
+          {items.map((item) => (
+            <li class="marquee__item">
+              <Icon name="hexagon" size={14} />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .marquee {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-m);
+    border-block: 1px solid var(--color-line);
+    background: var(--color-ivory);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 38s) linear infinite;
+    will-change: transform;
+  }
+  .marquee__group {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-xl);
+    padding-right: var(--space-xl);
+    margin: 0;
+    list-style: none;
+  }
+  .marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xl);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1;
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-ink-soft);
+    white-space: nowrap;
+  }
+  .marquee__item :global(svg) {
+    color: var(--color-gold);
+    flex: none;
+  }
+  /* Separator stoi PO nazwie — heksagon przed każdą pozycją przesuwamy na koniec wiersza */
+  .marquee__item { flex-direction: row-reverse; }
+
+  @keyframes marquee {
+    to { transform: translate3d(-50%, 0, 0); }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .marquee:hover .marquee__track { animation-play-state: paused; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { mask-image: none; }
+    .marquee__track {
+      animation: none;
+      width: auto;
+      justify-content: center;
+    }
+    .marquee__group { flex-wrap: wrap; justify-content: center; gap: var(--space-m) var(--space-xl); padding-inline: var(--gutter); }
+    .marquee__group[aria-hidden='true'] { display: none; }
+  }
+</style>

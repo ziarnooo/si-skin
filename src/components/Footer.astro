@@ -1,0 +1,317 @@
+---
+import logoRaw from '../assets/brand/logo.svg?raw';
+import BookingButton from './BookingButton.astro';
+import Icon from './Icon.astro';
+import { getServices, getSettings, url } from '../lib/site';
+
+const settings = await getSettings();
+const services = await getServices();
+const year = new Date().getFullYear();
+
+/** Tylko litery „SISKIN” z logo: bez sześciokąta, viewBox przycięty do napisu. */
+const wordmark = logoRaw
+  .replace(/<path d="M7075[\s\S]*?"\s*\/>/, '')
+  .replace(/viewBox="[^"]*"/, 'viewBox="-6 858 1434 172"')
+  .replace(/ role="img" aria-label="[^"]*"/, '');
+
+const gabinet = [
+  { label: 'O nas', path: '/o-nas/' },
+  { label: 'Cennik', path: '/cennik/' },
+  { label: 'Promocje', path: '/promocje/' },
+  { label: 'Karty podarunkowe', path: '/karty-podarunkowe/' },
+  { label: 'Blog', path: '/blog/' },
+  { label: 'Kontakt', path: '/kontakt/' },
+];
+const { address, hours, social } = settings;
+---
+
+<footer class="footer" data-site-footer>
+  <div class="block">
+    <div class="top">
+      <div class="pitch">
+        <p class="eyebrow">Si Skin · {address.city}</p>
+        <h2 class="headline">Powiedz <em class="accent">TAK</em> swojej skórze</h2>
+      </div>
+      <div class="pitch-cta">
+        <p>Wybierz termin online w Booksy — odpowiadamy też telefonicznie.</p>
+        <BookingButton placement="footer" variant="on-dark" size="lg" />
+      </div>
+    </div>
+
+    <div class="cols">
+      <nav class="col" aria-labelledby="f-zabiegi">
+        <h3 id="f-zabiegi">Zabiegi</h3>
+        <ul>
+          {
+            services.map((s) => (
+              <li>
+                <a href={url(`/${s.id}/`)}>{s.data.navTitle}</a>
+              </li>
+            ))
+          }
+          <li>
+            <a href={url('/zabiegi/')}>Wszystkie zabiegi</a>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="col" aria-labelledby="f-gabinet">
+        <h3 id="f-gabinet">Gabinet</h3>
+        <ul>
+          {
+            gabinet.map((l) => (
+              <li>
+                <a href={url(l.path)}>{l.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="col col--contact">
+        <h3>Kontakt</h3>
+        <ul>
+          <li>
+            <a class="with-icon" href={`tel:${settings.phoneHref}`}>
+              <Icon name="phone" size={18} />
+              {settings.phone}
+            </a>
+          </li>
+          <li>
+            <a class="with-icon" href={`mailto:${settings.email}`}>
+              <Icon name="mail" size={18} />
+              {settings.email}
+            </a>
+          </li>
+          <li>
+            <address>
+              <a class="with-icon" href={settings.mapsUrl} target="_blank" rel="noopener">
+                <Icon name="pin" size={18} />
+                <span>
+                  {address.street}<br />
+                  {address.postalCode} {address.city}
+                  <span class="visually-hidden">(otwiera Mapy Google w nowej karcie)</span>
+                </span>
+              </a>
+            </address>
+          </li>
+        </ul>
+        <dl class="hours">
+          {
+            hours.map((h) => (
+              <div>
+                <dt>{h.days}</dt>
+                <dd>{h.closed ? 'zamknięte' : `${h.open}–${h.close}`}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <nav class="col" aria-labelledby="f-social">
+        <h3 id="f-social">Social media</h3>
+        <ul>
+          <li>
+            <a class="with-icon" href={social.instagram} target="_blank" rel="noopener">
+              <Icon name="instagram" size={18} />
+              <span>
+                {social.instagramHandle}
+                <span class="visually-hidden">na Instagramie (nowa karta)</span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="with-icon" href={social.facebook} target="_blank" rel="noopener">
+              <Icon name="facebook" size={18} />
+              <span>
+                Facebook
+                <span class="visually-hidden">(nowa karta)</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="legal">
+      <p>© {year} Si Skin</p>
+      <ul>
+        <li><a href={url('/polityka-prywatnosci/')}>Polityka prywatności</a></li>
+        <li><a href={url('/regulamin/')}>Regulamin</a></li>
+        <li><button type="button" data-consent-open>Ustawienia cookies</button></li>
+      </ul>
+    </div>
+
+    <div class="giant" data-inview aria-hidden="true" set:html={wordmark} />
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin: var(--space-xl) calc(var(--gutter) / 2) calc(var(--gutter) / 2);
+  }
+  .block {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    background: var(--color-green-deep);
+    color: var(--color-on-dark);
+    padding: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) var(--gutter) 0;
+  }
+  @media (min-width: 48rem) {
+    .block { border-radius: var(--radius-xl); }
+  }
+
+  .top {
+    display: grid;
+    gap: var(--space-l);
+    align-items: end;
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-line-on-dark);
+  }
+  .pitch {
+    display: grid;
+    gap: var(--space-s);
+    justify-items: start;
+  }
+  .footer .eyebrow { color: var(--color-gold-light); }
+  .headline {
+    font-size: var(--text-4xl);
+    max-width: 12ch;
+    color: var(--color-on-dark);
+  }
+  .headline .accent { color: var(--color-gold-light); }
+  .pitch-cta {
+    display: grid;
+    gap: var(--space-m);
+    justify-items: start;
+    max-width: 24rem;
+  }
+  .pitch-cta p { color: var(--color-on-dark-soft); }
+  @media (min-width: 52rem) {
+    .top { grid-template-columns: 1.4fr 1fr; }
+    .pitch-cta { justify-self: end; }
+  }
+
+  .cols {
+    display: grid;
+    gap: var(--space-xl) var(--space-l);
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    padding-block: var(--space-xl);
+  }
+  @media (min-width: 64rem) {
+    .cols { grid-template-columns: 1fr 0.8fr 1.15fr 0.8fr; }
+  }
+  .col h3 {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-light);
+    margin-bottom: var(--space-s);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  .col a,
+  .legal a,
+  .legal button {
+    display: inline-flex;
+    padding-block: 0.3rem;
+    color: var(--color-on-dark-soft);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .col a:hover,
+    .legal a:hover,
+    .legal button:hover {
+      color: var(--color-on-dark);
+      text-decoration: underline;
+    }
+  }
+  .with-icon {
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .with-icon :global(svg) {
+    margin-top: 0.15em;
+    flex: none;
+    color: var(--color-gold-light);
+  }
+  address { font-style: normal; }
+  .hours {
+    margin-top: var(--space-s);
+    display: grid;
+    gap: 0.15rem;
+    font-size: var(--text-sm);
+    color: var(--color-on-dark-soft);
+  }
+  .hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-s);
+    max-width: 16rem;
+    padding-block: 0.2rem;
+    border-bottom: 1px dotted var(--color-line-on-dark);
+  }
+  .hours dd { margin: 0; color: var(--color-on-dark); }
+
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-xs) var(--space-l);
+    padding-block: var(--space-m);
+    border-top: 1px solid var(--color-line-on-dark);
+    font-size: var(--text-sm);
+    color: var(--color-on-dark-soft);
+  }
+  .legal ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-m);
+  }
+
+  /* Gigantyczne SISKIN — wjeżdża od dołu razem ze scrollem */
+  .giant {
+    view-timeline: --giant block;
+    overflow: hidden;
+    padding: var(--space-l) 0 var(--space-m);
+    color: var(--color-gold);
+  }
+  .giant :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .giant :global(svg) {
+      opacity: 0;
+      transform: translate3d(0, 60%, 0);
+      transition:
+        transform 1.2s var(--ease-out),
+        opacity 0.9s var(--ease-out);
+    }
+    .giant:global(.is-in) :global(svg) {
+      opacity: 1;
+      transform: none;
+    }
+    @supports (animation-timeline: view()) {
+      .giant :global(svg) {
+        opacity: 1;
+        transform: none;
+        transition: none;
+        animation: giant-up linear both;
+        animation-timeline: --giant;
+        animation-range: entry 0% entry 100%;
+      }
+      @keyframes giant-up {
+        from { opacity: 0; transform: translate3d(0, 60%, 0); }
+        to { opacity: 1; transform: none; }
+      }
+    }
+  }
+</style>

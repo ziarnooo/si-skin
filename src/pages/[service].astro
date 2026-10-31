@@ -1,0 +1,477 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import PostCard from '../components/PostCard.astro';
+import BookingButton from '../components/BookingButton.astro';
+import CTASection from '../components/CTASection.astro';
+import FAQ from '../components/FAQ.astro';
+import YouTube from '../components/YouTube.astro';
+import Icon from '../components/Icon.astro';
+import { CATEGORY_LABELS, formatPrice, url } from '../lib/site';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../lib/schema';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({ params: { service: service.id }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const d = service.data;
+const path = `/${service.id}/`;
+
+const [allServices, allPricing, allPosts] = await Promise.all([
+  getCollection('services'),
+  getCollection('pricing'),
+  getCollection('blog', ({ data }) => !data.draft),
+]);
+
+const categories = d.pricing
+  .map((ref) => allPricing.find((c) => c.id === ref.id))
+  .filter((c): c is NonNullable<typeof c> => Boolean(c));
+const offers = categories.flatMap((c) =>
+  c.data.groups.flatMap((g) => g.items.map((i) => ({ name: i.name, price: i.price }))),
+);
+
+const posts = allPosts
+  .filter((p) => p.data.service === service.id)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const sorted = [...allServices].sort((a, b) => a.data.order - b.data.order);
+const sameCategory = sorted.filter((s) => s.id !== service.id && s.data.category === d.category);
+const related = (sameCategory.length ? sameCategory : sorted.filter((s) => s.id !== service.id)).slice(0, 3);
+
+const { Content } = await render(service);
+
+const priceChip = d.priceLabel ?? (d.priceFrom !== undefined ? `od ${formatPrice(d.priceFrom)}` : undefined);
+const crumbs = [
+  { name: 'Zabiegi', path: '/zabiegi/' },
+  { name: d.navTitle, path },
+];
+const jsonLd = [
+  serviceSchema(service, offers, Astro.site),
+  breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site),
+  ...(d.faq.length ? [faqSchema(d.faq)] : []),
+];
+---
+
+<Base title={d.seo.title} description={d.seo.description} image={d.image} path={path} jsonLd={jsonLd}>
+  <PageHero
+    eyebrow={CATEGORY_LABELS[d.category]}
+    title={d.title}
+    lead={d.lead}
+    image={d.image}
+    imageAlt={d.imageAlt}
+    breadcrumbs={crumbs}
+    booking={`service-${service.id}-top`}
+  >
+    {priceChip && <span class="chip chip--gold">{priceChip}</span>}
+    {
+      d.duration && (
+        <span class="chip chip--paper">
+          <Icon name="clock" />
+          {d.duration}
+        </span>
+      )
+    }
+    {
+      d.sessions && (
+        <span class="chip chip--paper">
+          <Icon name="calendar" />
+          {d.sessions.count}
+        </span>
+      )
+    }
+  </PageHero>
+
+  {
+    d.highlights.length > 0 && (
+      <section class="section section--tight" aria-labelledby="korzysci">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Dlaczego warto</span>
+            <h2 id="korzysci">Co zyskujesz</h2>
+          </div>
+          <ul class="benefits" role="list">
+            {d.highlights.map((text, i) => (
+              <li class="card benefit" data-reveal style={`--i:${Math.min(i, 5)}`}>
+                <span class="benefit__icon">
+                  <Icon name="check" size={18} />
+                </span>
+                <p>{text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    categories.length > 0 && (
+      <section class="section section--cream" id="cennik" aria-labelledby="cennik-h">
+        <div class="container">
+          <div class="section-head section-head--split" data-reveal>
+            <h2 id="cennik-h">Cennik</h2>
+            <p class="muted">
+              Ceny brutto. Pełny wykaz wszystkich zabiegów znajdziesz w{' '}
+              <a href={url('/cennik/')}>cenniku</a>.
+            </p>
+          </div>
+          <div class="stack-l">
+            {categories.map((c) => (
+              <PriceTable category={c} open />
+            ))}
+          </div>
+          <div class="price-cta" data-reveal>
+            <BookingButton placement={`service-${service.id}-pricing`} service={service.id} size="lg" />
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.sessions && (
+      <section class="section section--tight" aria-labelledby="sesje">
+        <div class="container">
+          <div class="sessions card" data-reveal>
+            <div>
+              <span class="eyebrow">Plan terapii</span>
+              <h2 id="sesje" class="h2">Ile zabiegów potrzebujesz?</h2>
+            </div>
+            <dl class="sessions__facts">
+              <div>
+                <dt class="xs muted">Liczba zabiegów</dt>
+                <dd class="serif">{d.sessions.count}</dd>
+              </div>
+              <div>
+                <dt class="xs muted">Odstępy</dt>
+                <dd class="serif">{d.sessions.interval}</dd>
+              </div>
+            </dl>
+            {d.sessions.note && <p class="muted sessions__note">{d.sessions.note}</p>}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.gallery.length > 0 && (
+      <section class="section section--tight" aria-label="Galeria">
+        <div class="container">
+          <div class="gallery">
+            {d.gallery.map((item, i) => (
+              <figure class="gallery__item media" data-reveal="clip" data-parallax style={`--i:${i}`}>
+                <Picture
+                  src={item.src}
+                  alt={item.alt}
+                  formats={['avif', 'webp']}
+                  widths={[400, 640, 900, 1200]}
+                  sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 33vw, 92vw"
+                  loading="lazy"
+                  decoding="async"
+                  fit="cover"
+                  width={900}
+                  height={1125}
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.details.length > 0 && (
+      <section class="section section--tight" aria-labelledby="szczegoly">
+        <div class="container details-layout">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Zanim przyjdziesz</span>
+            <h2 id="szczegoly">Ważne informacje</h2>
+          </div>
+          <div class="accordion">
+            {d.details.map((item, i) => (
+              <details class="acc" data-reveal style={`--i:${Math.min(i, 5)}`}>
+                <summary>
+                  <h3>{item.title}</h3>
+                  <span class="acc__chev" aria-hidden="true">
+                    <Icon name="chevron" size={18} />
+                  </span>
+                </summary>
+                <div class="acc__body">
+                  {item.text && <p>{item.text}</p>}
+                  {item.items.length > 0 && (
+                    <ul>
+                      {item.items.map((li) => (
+                        <li>{li}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--tight" aria-label="O zabiegu">
+    <div class="container">
+      <div class="prose" data-reveal="fade">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  {
+    d.video && (
+      <section class="section section--tight" aria-label="Film o zabiegu">
+        <div class="container container--narrow" data-reveal="fade">
+          <YouTube id={d.video.id} title={d.video.title} />
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.notice && (
+      <section class="section section--tight" aria-label="Informacja">
+        <div class="container container--narrow">
+          <aside class="notice card" data-reveal>
+            <Icon name="shield" size={26} />
+            <p>{d.notice}</p>
+          </aside>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.faq.length > 0 && (
+      <FAQ items={d.faq} title="Najczęstsze pytania" withSchema={false} />
+    )
+  }
+
+  {
+    posts.length > 0 && (
+      <section class="section section--cream" aria-labelledby="blog-h">
+        <div class="container">
+          <div class="section-head section-head--split" data-reveal>
+            <h2 id="blog-h">Przeczytaj więcej</h2>
+            <p class="muted">
+              Artykuły z naszego bloga o tym zabiegu. <a href={url('/blog/')}>Wszystkie wpisy</a>
+            </p>
+          </div>
+          <div class="grid-3">
+            {posts.map((post, i) => (
+              <PostCard post={post} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    related.length > 0 && (
+      <section class="section" aria-labelledby="inne-h">
+        <div class="container">
+          <div class="section-head section-head--split" data-reveal>
+            <h2 id="inne-h">{sameCategory.length ? 'Inne zabiegi w tej kategorii' : 'Zobacz także'}</h2>
+            <p class="muted">
+              <a href={url('/zabiegi/')}>Wszystkie zabiegi</a>
+            </p>
+          </div>
+          <div class="grid-3">
+            {related.map((s, i) => (
+              <ServiceCard service={s} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection placement={`service-${service.id}-bottom`} />
+</Base>
+
+<style>
+  .benefits {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  }
+  .benefit {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-s);
+    align-items: start;
+  }
+  .benefit__icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-green);
+    color: var(--color-gold-light);
+  }
+  .price-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-xl);
+  }
+  .sessions {
+    display: grid;
+    gap: var(--space-l);
+    background: var(--color-green);
+    color: var(--color-on-dark);
+    border-color: transparent;
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  }
+  .sessions .eyebrow {
+    color: var(--color-gold-light);
+    margin-bottom: var(--space-xs);
+  }
+  .sessions__facts {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  }
+  .sessions__facts dt {
+    color: var(--color-on-dark-soft);
+    margin-bottom: var(--space-3xs);
+  }
+  .sessions__facts dd {
+    font-size: var(--text-2xl);
+    line-height: var(--leading-snug);
+  }
+  .sessions__note {
+    color: var(--color-on-dark-soft);
+    max-width: 40rem;
+  }
+  @media (min-width: 52rem) {
+    .sessions {
+      grid-template-columns: 1fr 1.2fr;
+      align-items: center;
+    }
+    .sessions__note {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .gallery {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .gallery__item {
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--shadow-photo);
+  }
+
+  .details-layout {
+    display: grid;
+    gap: var(--space-l);
+  }
+  @media (min-width: 60rem) {
+    .details-layout {
+      grid-template-columns: 1fr 1.6fr;
+      align-items: start;
+    }
+    .details-layout .section-head {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-m));
+      margin-bottom: 0;
+    }
+  }
+  .accordion {
+    display: grid;
+    gap: var(--space-xs);
+  }
+  .acc {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-m);
+  }
+  .acc summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-s);
+    min-height: 3.75rem;
+    padding: var(--space-xs) var(--space-m);
+    list-style: none;
+    border-radius: var(--radius-m);
+  }
+  .acc summary::-webkit-details-marker {
+    display: none;
+  }
+  .acc summary h3 {
+    font-size: var(--text-lg);
+  }
+  .acc__chev {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .acc[open] .acc__chev {
+    transform: rotate(180deg);
+  }
+  .acc__body {
+    display: grid;
+    gap: var(--space-xs);
+    padding: 0 var(--space-m) var(--space-m);
+    color: var(--color-ink-soft);
+  }
+  .acc__body ul {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: var(--space-2xs);
+  }
+  .acc__body li::marker {
+    color: var(--color-gold);
+  }
+
+  .notice {
+    display: flex;
+    gap: var(--space-s);
+    align-items: flex-start;
+    background: var(--color-sage-light);
+    border-color: transparent;
+  }
+  .notice :global(svg) {
+    flex: none;
+    color: var(--color-green);
+  }
+
+  .grid-3 {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

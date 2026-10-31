@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CTASection from '../components/CTASection.astro';
+import { getServicesByCategory } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const groups = (await getServicesByCategory()).filter((g) => g.items.length > 0);
+const crumbs = [{ name: 'Zabiegi', path: '/zabiegi/' }];
+---
+
+<Base
+  title="Zabiegi laserowe i kosmetologiczne we Wrocławiu | Si Skin"
+  description="Oferta gabinetu Si Skin we Wrocławiu: depilacja laserowa SHR, zamykanie naczynek, przebarwienia, oczyszczanie wodorowe, stymulatory tkankowe i modelowanie ust."
+  path="/zabiegi/"
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero
+    eyebrow="Oferta gabinetu"
+    title="Zabiegi"
+    lead="Laseroterapia, kosmetologia estetyczna i pielęgnacja twarzy w jednym miejscu. Wybierz zabieg, sprawdź cenę i umów wizytę online — albo zacznij od bezpłatnej, 20-minutowej konsultacji."
+    breadcrumbs={crumbs}
+    booking="zabiegi-top"
+  />
+
+  {
+    groups.map((group, g) => (
+      <section class:list={['section section--tight', g % 2 === 1 && 'section--cream']} aria-labelledby={`kat-${group.key}`}>
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">{String(g + 1).padStart(2, '0')}</span>
+            <h2 id={`kat-${group.key}`}>{group.label}</h2>
+          </div>
+          <div class="card-grid">
+            {group.items.map((service, i) => (
+              <ServiceCard service={service} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <CTASection
+    title="Nie wiesz, który zabieg wybrać?"
+    text="Zacznij od bezpłatnej, 20-minutowej konsultacji — dobierzemy terapię do potrzeb Twojej skóry."
+    placement="zabiegi-bottom"
+  />
+</Base>
+
+<style>
+  .card-grid {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

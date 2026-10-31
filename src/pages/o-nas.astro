@@ -1,0 +1,217 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Team from '../components/Team.astro';
+import Reviews from '../components/Reviews.astro';
+import CTASection from '../components/CTASection.astro';
+import Icon from '../components/Icon.astro';
+import weronika from '../assets/images/weronika-grincewicz.jpg';
+import gabinet1 from '../assets/images/gabinet-1.jpg';
+import gabinet2 from '../assets/images/gabinet-2.jpg';
+import gabinet3 from '../assets/images/gabinet-3.jpg';
+import { url } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [{ name: 'O nas', path: '/o-nas/' }];
+const gallery = [
+  { src: gabinet2, alt: 'Gabinet Si Skin — miętowe ściany, rośliny i laser SHR EPIL MOTION' },
+  { src: gabinet1, alt: 'Platforma laserowa SHR EPIL MOTION Ganc-Med obok leżanki zabiegowej' },
+  { src: gabinet3, alt: 'Stanowisko zabiegowe w gabinecie Si Skin z leżanką i lustrem' },
+];
+---
+
+<Base
+  title="O nas – gabinet Si Skin i Weronika Grincewicz"
+  description="Poznaj gabinet Si Skin we Wrocławiu: historię, zespół kosmetolożek i laser SHR EPIL MOTION Ganc-Med. Zwolnij, znajdź chwilę dla siebie. Powiedz TAK skórze."
+  path="/o-nas/"
+  image={weronika}
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero
+    eyebrow="Gabinet Si Skin"
+    title="O nas"
+    lead="Kosmetologia estetyczna i laseroterapia we Wrocławiu — z zamiłowania do zdrowej, pięknej i promiennej skóry."
+    breadcrumbs={crumbs}
+    booking="o-nas-top"
+  />
+
+  <section class="section" aria-labelledby="historia-h">
+    <div class="container story">
+      <figure class="story__media media" data-reveal="clip" data-parallax>
+        <Picture
+          src={weronika}
+          alt="Weronika Grincewicz — założycielka gabinetu Si Skin"
+          formats={['avif', 'webp']}
+          widths={[480, 720, 960]}
+          sizes="(min-width: 60rem) 28rem, 92vw"
+          loading="lazy"
+          decoding="async"
+          fit="cover"
+          width={720}
+          height={900}
+        />
+      </figure>
+      <div class="stack-l" data-reveal>
+        <div class="stack">
+          <span class="eyebrow">Nasza historia</span>
+          <h2 id="historia-h">Od pasji do własnego gabinetu</h2>
+        </div>
+        <p class="lead">
+          Gabinet założyła Weronika Grincewicz — pasjonatka sfery beauty, nieustannie poszukująca nowych rozwiązań i stawiająca siłę oraz dobro kobiet na pierwszym miejscu.
+        </p>
+        <p>
+          Z zamiłowania do zdrowej, pięknej i promiennej skóry postanowiła otworzyć własny gabinet laseroterapii i kosmetologii estetycznej. Naszą wizytówką jest laser SHR EPIL MOTION, delikatna i subtelna medycyna estetyczna oraz profesjonalne podejście do każdej klientki i klienta.
+        </p>
+        <blockquote class="story__quote serif">
+          Zwolnij i znajdź chwilę tylko dla siebie. Powiedz TAK swojej skórze!
+          <footer class="small muted">— Weronika Grincewicz, właścicielka</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream" aria-labelledby="platforma-h">
+    <div class="container platform">
+      <div class="stack-l" data-reveal>
+        <div class="stack">
+          <span class="eyebrow">Technologia</span>
+          <h2 id="platforma-h">SHR EPIL MOTION Ganc-Med</h2>
+        </div>
+        <p class="lead">
+          Multifunkcyjna platforma do trwałej i skutecznej terapii niedoskonałości skóry twarzy oraz ciała — dla kobiet i dla mężczyzn.
+        </p>
+        <p>
+          Platforma łączy metodę Motion z ograniczeniem dyskomfortu bólowego podczas
+          <a href={url('/epilacja-shr/')}>epilacji SHR</a>
+          (Super Hair Removal) i
+          <a href={url('/fotoodmladzanie-ssr/')}>fotoodmładzania SSR</a>
+          (Super Skin Rejuvenation). Dodatkowo laser wykorzystuje sprawdzoną terapię E-light — połączenie IPL (Intense Pulsed Light) z radiofrekwencją RF.
+        </p>
+        <ul class="platform__facts" role="list">
+          <li class="chip chip--paper"><Icon name="check" />Metoda Motion</li>
+          <li class="chip chip--paper"><Icon name="check" />SHR i SSR</li>
+          <li class="chip chip--paper"><Icon name="check" />E-light: IPL + RF</li>
+        </ul>
+        <a class="link-arrow" href={url('/zabiegi/')}>
+          Zobacz wszystkie zabiegi
+          <Icon name="arrow" size={16} />
+        </a>
+      </div>
+      <div class="platform__stage media" data-reveal="clip" data-parallax>
+        <Picture
+          src={gabinet1}
+          alt="Platforma laserowa SHR EPIL MOTION Ganc-Med w gabinecie Si Skin"
+          formats={['avif', 'webp']}
+          widths={[480, 720, 1080]}
+          sizes="(min-width: 60rem) 36rem, 92vw"
+          loading="lazy"
+          decoding="async"
+          fit="cover"
+          width={1080}
+          height={810}
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="gabinet-h">
+    <div class="container">
+      <div class="section-head section-head--split" data-reveal>
+        <h2 id="gabinet-h">Zajrzyj do gabinetu</h2>
+        <p class="muted">Miętowe ściany, zieleń i spokojna atmosfera — przy ul. Królewieckiej 121/3 we Wrocławiu.</p>
+      </div>
+      <div class="rooms">
+        {
+          gallery.map((img, i) => (
+            <figure class:list={['rooms__item media', i === 0 && 'rooms__item--wide']} data-reveal="clip" data-parallax style={`--i:${i}`}>
+              <Picture
+                src={img.src}
+                alt={img.alt}
+                formats={['avif', 'webp']}
+                widths={[480, 720, 1080]}
+                sizes={i === 0 ? '(min-width: 52rem) 66vw, 92vw' : '(min-width: 52rem) 33vw, 92vw'}
+                loading="lazy"
+                decoding="async"
+                fit="cover"
+                width={1080}
+                height={810}
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Team title="Poznaj zespół" />
+  <Reviews title="Co mówią o nas klientki" limit={6} />
+
+  <CTASection placement="o-nas-bottom" />
+</Base>
+
+<style>
+  .story,
+  .platform {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .story__media {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+    max-width: 28rem;
+    margin-inline: auto;
+    box-shadow: var(--shadow-photo);
+  }
+  .story__quote {
+    border-left: 2px solid var(--color-gold);
+    padding-left: var(--space-m);
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    color: var(--color-ink);
+  }
+  .story__quote footer {
+    margin-top: var(--space-xs);
+    font-family: var(--font-sans);
+  }
+  .platform__stage {
+    aspect-ratio: 4 / 3;
+    box-shadow: var(--shadow-photo);
+  }
+  .platform__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+  .rooms {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: 1fr;
+  }
+  .rooms__item {
+    aspect-ratio: 4 / 3;
+  }
+  @media (min-width: 52rem) {
+    .rooms {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rooms__item--wide {
+      grid-column: 1 / -1;
+      aspect-ratio: 21 / 9;
+    }
+  }
+  @media (min-width: 60rem) {
+    .story {
+      grid-template-columns: 28rem 1fr;
+      gap: var(--space-2xl);
+    }
+    .story__media {
+      margin-inline: 0;
+    }
+    .platform {
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--space-2xl);
+    }
+  }
+</style>

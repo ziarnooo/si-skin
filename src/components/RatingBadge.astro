@@ -1,0 +1,70 @@
+---
+import Icon from './Icon.astro';
+import { getSettings } from '../lib/site';
+import { pluralOpinions } from './home/data';
+
+interface Props {
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+const { tone = 'light', class: className } = Astro.props;
+const { rating } = await getSettings();
+---
+
+<a
+  class:list={['rating', `rating--${tone}`, className]}
+  href={rating.url}
+  target="_blank"
+  rel="noopener"
+  data-rating-link
+>
+  <span class="rating__stars" aria-hidden="true">
+    {Array.from({ length: 5 }).map(() => <Icon name="star" size={14} />)}
+  </span>
+  <span class="rating__text">
+    <strong>{rating.value.toFixed(1)}</strong>
+    <span aria-hidden="true">·</span>
+    {rating.count} {pluralOpinions(rating.count)} w {rating.source}
+  </span>
+  <span class="visually-hidden">(otwiera w nowej karcie)</span>
+</a>
+
+<style>
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0.45rem 1rem 0.45rem 0.85rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    line-height: 1.2;
+    text-decoration: none;
+    transition:
+      transform var(--dur-press) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      background-color var(--dur) var(--ease-out);
+  }
+  .rating:active { transform: scale(0.97); }
+  .rating--dark {
+    background: rgb(255 255 255 / 0.06);
+    border-color: var(--color-line-on-dark);
+    color: var(--color-on-dark);
+  }
+  .rating__stars {
+    display: inline-flex;
+    gap: 2px;
+    color: var(--color-star);
+  }
+  .rating__text strong {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: 1.15em;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .rating:hover { border-color: var(--color-gold); }
+    .rating--dark:hover { background: rgb(255 255 255 / 0.1); }
+  }
+</style>

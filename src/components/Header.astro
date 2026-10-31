@@ -1,0 +1,705 @@
+---
+import Logo from './Logo.astro';
+import BookingButton from './BookingButton.astro';
+import Icon from './Icon.astro';
+import { getServicesByCategory, getSettings, url } from '../lib/site';
+
+interface Props {
+  /** Kolor tekstu nagłówka nad hero (zanim zrobi się „szklany”). */
+  tone?: 'light' | 'dark';
+}
+const { tone = 'light' } = Astro.props;
+const settings = await getSettings();
+const groups = await getServicesByCategory();
+
+const norm = (p: string) => (p.endsWith('/') ? p : `${p}/`);
+const here = norm(Astro.url.pathname);
+const state = (path: string) => {
+  const target = norm(url(path));
+  if (here === target) return 'page' as const;
+  if (path !== '/' && here.startsWith(target)) return 'true' as const;
+  return undefined;
+};
+
+const serviceUrls = groups.flatMap((g) => g.items.map((s) => norm(url(`/${s.id}/`))));
+const servicesActive = here === norm(url('/zabiegi/')) || serviceUrls.includes(here);
+
+type NavLink = { label: string; path: string };
+const before: NavLink[] = [{ label: 'O nas', path: '/o-nas/' }];
+const after: NavLink[] = [
+  { label: 'Cennik', path: '/cennik/' },
+  { label: 'Promocje', path: '/promocje/' },
+  { label: 'Karty podarunkowe', path: '/karty-podarunkowe/' },
+  { label: 'Blog', path: '/blog/' },
+  { label: 'Kontakt', path: '/kontakt/' },
+];
+---
+
+<header class="header" data-header data-tone={tone}>
+  <div class="pill">
+    <a class="brand" href={url('/')} aria-label="Si Skin — strona główna">
+      <span class="mark" aria-hidden="true"><Logo variant="mark" /></span>
+      <span class="word" aria-hidden="true">SI SKIN</span>
+    </a>
+
+    <nav class="nav" aria-label="Główna">
+      <ul>
+        {
+          before.map((l) => (
+            <li>
+              <a class="nav-link" href={url(l.path)} aria-current={state(l.path)}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="has-mega" data-mega>
+          <button
+            type="button"
+            class="nav-link"
+            aria-expanded="false"
+            aria-controls="mega-zabiegi"
+            data-current={servicesActive ? '' : undefined}
+          >
+            Zabiegi
+            <Icon name="chevron" size={16} />
+          </button>
+          <div class="mega" id="mega-zabiegi">
+            <div class="mega-grid">
+              {
+                groups.map((g) => (
+                  <section class="mega-group">
+                    <p class="mega-title">{g.label}</p>
+                    <ul>
+                      {g.items.map((s) => (
+                        <li>
+                          <a href={url(`/${s.id}/`)} aria-current={state(`/${s.id}/`)}>
+                            {s.data.navTitle}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))
+              }
+            </div>
+            <div class="mega-foot">
+              <a class="link-arrow" href={url('/zabiegi/')}>
+                Wszystkie zabiegi
+                <Icon name="arrow" size={16} />
+              </a>
+              <a class="mega-phone" href={`tel:${settings.phoneHref}`}>
+                <Icon name="phone" size={16} />
+                {settings.phone}
+              </a>
+            </div>
+          </div>
+        </li>
+        {
+          after.map((l) => (
+            <li>
+              <a class="nav-link" href={url(l.path)} aria-current={state(l.path)}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <BookingButton placement="header" size="sm" class="cta" />
+      <button
+        type="button"
+        class="burger"
+        aria-expanded="false"
+        aria-controls="menu"
+        aria-label="Otwórz menu"
+        data-drawer-open
+      >
+        <Icon name="menu" size={26} />
+      </button>
+    </div>
+  </div>
+
+  <div class="drawer" id="menu" role="dialog" aria-modal="true" aria-label="Menu główne" data-drawer inert>
+    <div class="drawer-top">
+      <a class="brand" href={url('/')} aria-label="Si Skin — strona główna">
+        <span class="mark" aria-hidden="true"><Logo variant="mark" /></span>
+        <span class="word" aria-hidden="true">SI SKIN</span>
+      </a>
+      <button type="button" class="burger" aria-label="Zamknij menu" data-drawer-close>
+        <Icon name="close" size={26} />
+      </button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Menu mobilne">
+      <ul>
+        {
+          before.map((l, i) => (
+            <li style={`--i:${i}`}>
+              <a href={url(l.path)} aria-current={state(l.path)}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+        <li style={`--i:${before.length}`}>
+          <button
+            type="button"
+            class="acc-trigger"
+            aria-expanded="false"
+            aria-controls="acc-zabiegi"
+            data-acc
+            data-current={servicesActive ? '' : undefined}
+          >
+            Zabiegi
+            <Icon name="chevron" size={22} />
+          </button>
+          <div class="acc" id="acc-zabiegi" inert>
+            <div class="acc-inner">
+              {
+                groups.map((g) => (
+                  <section class="acc-group">
+                    <p class="acc-title">{g.label}</p>
+                    <ul>
+                      {g.items.map((s) => (
+                        <li>
+                          <a href={url(`/${s.id}/`)} aria-current={state(`/${s.id}/`)}>
+                            {s.data.navTitle}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                ))
+              }
+              <a class="link-arrow" href={url('/zabiegi/')}>
+                Wszystkie zabiegi
+                <Icon name="arrow" size={16} />
+              </a>
+            </div>
+          </div>
+        </li>
+        {
+          after.map((l, i) => (
+            <li style={`--i:${before.length + 1 + i}`}>
+              <a href={url(l.path)} aria-current={state(l.path)}>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="drawer-foot">
+      <a class="drawer-phone" href={`tel:${settings.phoneHref}`}>
+        <Icon name="phone" size={20} />
+        <span>
+          <span class="drawer-phone-label">Zadzwoń do nas</span>
+          {settings.phone}
+        </span>
+      </a>
+      <BookingButton placement="header-drawer" size="lg" block />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    --hdr-fg: var(--color-ink);
+    --hdr-fg-soft: var(--color-ink-soft);
+    --hdr-accent: var(--color-gold-text);
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: var(--z-header);
+    padding: 0.625rem var(--gutter) 0;
+    pointer-events: none;
+  }
+  /* Ciemne hero: jasny tekst, dopóki nagłówek jest przezroczysty */
+  :global(html:not([data-scrolled])) .header[data-tone='dark'] {
+    --hdr-fg: var(--color-on-dark);
+    --hdr-fg-soft: var(--color-on-dark-soft);
+    --hdr-accent: var(--color-gold-light);
+  }
+  :global(html:not([data-scrolled])) .header[data-tone='dark'] .pill:has([data-open]) {
+    --hdr-fg: var(--color-ink);
+    --hdr-accent: var(--color-gold-text);
+  }
+
+  .pill {
+    position: relative;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    width: 100%;
+    max-width: var(--container);
+    height: 3.5rem;
+    margin-inline: auto;
+    padding: 0 0.5rem 0 var(--space-s);
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    color: var(--hdr-fg);
+    transition:
+      background-color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      backdrop-filter var(--dur) var(--ease-out);
+  }
+  :global(html[data-scrolled]) .pill,
+  .pill:has([data-open]) {
+    background: color-mix(in srgb, var(--color-paper) 78%, transparent);
+    border-color: var(--color-line);
+    box-shadow: var(--shadow-m);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
+  }
+
+  /* Logo */
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: inherit;
+    text-decoration: none;
+    flex: none;
+  }
+  .mark {
+    width: 1.85rem;
+    flex: none;
+  }
+  .word {
+    font-family: var(--font-serif);
+    font-size: 1.0625rem;
+    letter-spacing: 0.24em;
+    line-height: 1;
+    padding-top: 0.1em;
+  }
+
+  /* Nawigacja desktop */
+  .nav { display: none; }
+  .nav ul {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    list-style: none;
+    padding: 0;
+  }
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.55rem 0.8rem;
+    border-radius: var(--radius-pill);
+    color: var(--hdr-fg);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  }
+  .nav-link[aria-current],
+  .nav-link[data-current] {
+    color: var(--hdr-accent);
+  }
+  @media (hover: hover) {
+    .nav-link:hover {
+      background: color-mix(in srgb, var(--color-ink) 6%, transparent);
+    }
+  }
+  .nav-link :global(svg) {
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .nav-link[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+
+  /* Mega-menu „Zabiegi” */
+  .mega {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-l);
+    padding: var(--space-l) var(--space-xl) var(--space-m);
+    visibility: hidden;
+    opacity: 0;
+    transform: translate3d(0, -8px, 0) scale(0.985);
+    transform-origin: 50% 0;
+    transition:
+      opacity var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      visibility 0s linear var(--dur);
+  }
+  /* most łączący przycisk z panelem — kursor nie „gubi” hovera */
+  .mega::before {
+    content: '';
+    position: absolute;
+    inset: -0.75rem 0 auto 0;
+    height: 0.75rem;
+  }
+  [data-mega][data-open] .mega {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s;
+  }
+  :global(.no-js) .has-mega:hover .mega,
+  :global(.no-js) .has-mega:focus-within .mega {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+  }
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-xl);
+  }
+  .mega-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+    margin-bottom: var(--space-xs);
+  }
+  .mega ul {
+    list-style: none;
+    padding: 0;
+  }
+  .mega-group a {
+    display: block;
+    padding: 0.45rem 0;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.25;
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: color var(--dur-fast) var(--ease-out), transform var(--dur) var(--ease-out);
+  }
+  .mega-group a[aria-current] { color: var(--color-gold-text); }
+  @media (hover: hover) {
+    .mega-group a:hover {
+      color: var(--color-gold-text);
+      transform: translateX(3px);
+    }
+  }
+  .mega-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    margin-top: var(--space-m);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--color-line);
+  }
+  .mega-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    text-decoration: none;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+  }
+  .actions :global(.cta) { display: none; }
+  .burger {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    color: inherit;
+    transition: background-color var(--dur-fast) var(--ease-out), transform var(--dur-press) var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .burger:active { transform: scale(0.94); }
+  @media (hover: hover) {
+    .burger:hover { background: color-mix(in srgb, var(--color-ink) 6%, transparent); }
+  }
+
+  @media (min-width: 70rem) {
+    .nav { display: block; }
+    .actions :global(.cta) { display: inline-flex; }
+    .burger { display: none; }
+    .pill { padding-left: 1rem; padding-right: 0.5rem; }
+    .drawer { display: none; }
+  }
+
+  /* Szuflada mobilna */
+  .drawer {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-menu);
+    display: flex;
+    flex-direction: column;
+    padding: 0.625rem var(--gutter) max(var(--space-m), env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: var(--color-ink);
+    background: var(--gradient-hero);
+    pointer-events: auto;
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0 round 0 0 var(--radius-xl) var(--radius-xl));
+    transition:
+      clip-path var(--dur-slow) var(--ease-drawer),
+      visibility 0s linear var(--dur-slow);
+  }
+  .drawer[data-open] {
+    visibility: visible;
+    clip-path: inset(0 0 0 0 round 0 0 0 0);
+    transition-delay: 0s;
+  }
+  .drawer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.5rem;
+    flex: none;
+  }
+  .drawer-nav {
+    flex: 1;
+    padding-block: var(--space-m);
+  }
+  .drawer-nav > ul,
+  .acc ul {
+    list-style: none;
+    padding: 0;
+  }
+  .drawer-nav > ul > li {
+    border-bottom: 1px solid var(--color-line);
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .drawer[data-open] .drawer-nav > ul > li {
+    opacity: 1;
+    transform: none;
+    transition-duration: var(--dur-slow);
+    transition-delay: calc(80ms + var(--i, 0) * 45ms);
+  }
+  .drawer-nav > ul > li > a,
+  .acc-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 3.5rem;
+    padding-block: 0.5rem;
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    line-height: 1.1;
+    letter-spacing: var(--tracking-tight);
+    text-align: left;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  .drawer-nav [aria-current],
+  .acc-trigger[data-current] { color: var(--color-gold-text); }
+  .acc-trigger :global(svg) { transition: transform var(--dur) var(--ease-out); }
+  .acc-trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+  .acc {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--dur-slow) var(--ease-drawer),
+      visibility 0s linear var(--dur-slow);
+  }
+  .acc[data-open] {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .acc-inner {
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    gap: var(--space-m);
+    justify-items: start;
+  }
+  .acc[data-open] .acc-inner { padding-bottom: var(--space-m); }
+  .acc-title {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+    margin: var(--space-2xs) 0;
+  }
+  .acc ul a {
+    display: block;
+    padding: 0.55rem 0;
+    font-size: var(--text-lg);
+    text-decoration: none;
+    color: var(--color-ink-soft);
+  }
+  .acc ul a[aria-current] { color: var(--color-gold-text); }
+  .drawer-foot {
+    display: grid;
+    gap: var(--space-s);
+    flex: none;
+    padding-top: var(--space-s);
+  }
+  .drawer-phone {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+    padding: var(--space-s) var(--space-m);
+    border: 1px solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    line-height: 1.15;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+  .drawer-phone-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  .drawer .link-arrow { margin-top: var(--space-2xs); }
+</style>
+
+<style is:global>
+  html.menu-open {
+    overflow: hidden;
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  if (header) {
+    const root = document.documentElement;
+    const desktop = matchMedia('(min-width: 70rem)');
+
+    /* ── Mega-menu (klawiatura + mysz) ── */
+    const mega = header.querySelector<HTMLElement>('[data-mega]');
+    const trigger = mega?.querySelector<HTMLButtonElement>('button');
+    if (mega && trigger) {
+      let timer = 0;
+      let byHover = false;
+      const isOpen = () => mega.hasAttribute('data-open');
+      const setOpen = (open: boolean) => {
+        mega.toggleAttribute('data-open', open);
+        trigger.setAttribute('aria-expanded', String(open));
+        if (!open) byHover = false;
+      };
+
+      trigger.addEventListener('click', (e) => {
+        // klik po otwarciu hoverem „przypina” menu zamiast je zamykać
+        if (byHover && e.detail > 0) {
+          byHover = false;
+          return;
+        }
+        setOpen(!isOpen());
+      });
+      mega.addEventListener('pointerenter', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        clearTimeout(timer);
+        if (!isOpen()) {
+          setOpen(true);
+          byHover = true;
+        }
+      });
+      mega.addEventListener('pointerleave', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        timer = window.setTimeout(() => setOpen(false), 160);
+      });
+      mega.addEventListener('focusout', (e) => {
+        if (!mega.contains(e.relatedTarget as Node | null)) setOpen(false);
+      });
+      mega.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('a')) setOpen(false);
+      });
+      document.addEventListener('pointerdown', (e) => {
+        if (isOpen() && !mega.contains(e.target as Node)) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape' || !isOpen()) return;
+        const inside = mega.contains(document.activeElement);
+        setOpen(false);
+        if (inside) trigger.focus();
+      });
+    }
+
+    /* ── Szuflada mobilna ── */
+    const drawer = header.querySelector<HTMLElement>('[data-drawer]');
+    const openBtn = header.querySelector<HTMLButtonElement>('[data-drawer-open]');
+    const closeBtn = header.querySelector<HTMLButtonElement>('[data-drawer-close]');
+    if (drawer && openBtn && closeBtn) {
+      const isOpen = () => drawer.hasAttribute('data-open');
+      const focusables = () =>
+        Array.from(
+          drawer.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'),
+        ).filter((el) => el.getClientRects().length > 0 && getComputedStyle(el).visibility !== 'hidden');
+
+      const open = () => {
+        drawer.removeAttribute('inert');
+        drawer.setAttribute('data-open', '');
+        openBtn.setAttribute('aria-expanded', 'true');
+        root.classList.add('menu-open');
+        closeBtn.focus({ preventScroll: true });
+      };
+      const close = (restoreFocus = true) => {
+        if (!isOpen()) return;
+        drawer.removeAttribute('data-open');
+        drawer.setAttribute('inert', '');
+        openBtn.setAttribute('aria-expanded', 'false');
+        root.classList.remove('menu-open');
+        if (restoreFocus && drawer.contains(document.activeElement)) openBtn.focus({ preventScroll: true });
+      };
+
+      openBtn.addEventListener('click', open);
+      closeBtn.addEventListener('click', () => close());
+      drawer.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('a')) close(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (!isOpen()) return;
+        if (e.key === 'Escape') {
+          close();
+          return;
+        }
+        if (e.key !== 'Tab') return;
+        const items = focusables();
+        if (!items.length) return;
+        const first = items[0];
+        const last = items[items.length - 1];
+        const active = document.activeElement;
+        if (e.shiftKey && (active === first || !drawer.contains(active))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (active === last || !drawer.contains(active))) {
+          e.preventDefault();
+          first.focus();
+        }
+      });
+      desktop.addEventListener('change', () => {
+        if (desktop.matches) close(false);
+      });
+
+      // akordeon „Zabiegi”
+      for (const btn of drawer.querySelectorAll<HTMLButtonElement>('[data-acc]')) {
+        const panel = document.getElementById(btn.getAttribute('aria-controls') ?? '');
+        btn.addEventListener('click', () => {
+          const next = btn.getAttribute('aria-expanded') !== 'true';
+          btn.setAttribute('aria-expanded', String(next));
+          panel?.toggleAttribute('data-open', next);
+          panel?.toggleAttribute('inert', !next);
+        });
+      }
+    }
+  }
+</script>

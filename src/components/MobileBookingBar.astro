@@ -1,0 +1,73 @@
+---
+import BookingButton from './BookingButton.astro';
+import Icon from './Icon.astro';
+import { getSettings } from '../lib/site';
+
+const settings = await getSettings();
+---
+
+<aside class="mbar" aria-label="Szybki kontakt">
+  <div class="bar">
+    <a class="btn btn--ghost call" href={`tel:${settings.phoneHref}`}>
+      <Icon name="phone" size={18} />
+      <span>Zadzwoń</span>
+    </a>
+    <BookingButton placement="mobile-bar" block class="book" />
+  </div>
+</aside>
+
+<style>
+  .mbar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: var(--z-mobile-bar);
+    padding: 0 var(--gutter) max(0.75rem, env(safe-area-inset-bottom));
+    pointer-events: none;
+    visibility: hidden;
+    transform: translate3d(0, 120%, 0);
+    transition:
+      transform var(--dur) var(--ease-out),
+      visibility 0s linear var(--dur);
+  }
+  .bar {
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--space-2xs);
+    max-width: 28rem;
+    margin-inline: auto;
+    padding: 0.375rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-paper) 86%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
+    box-shadow: var(--shadow-l);
+  }
+  .bar :global(.btn) {
+    min-height: 3rem;
+    padding-inline: 1rem;
+  }
+  .call {
+    --btn-border: transparent;
+  }
+
+  :global(html[data-past-hero]:not([data-footer-visible]):not(.menu-open)) .mbar {
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  @media (min-width: 48rem) {
+    .mbar { display: none; }
+  }
+</style>
+
+<style is:global>
+  /* Wysokość paska — baner cookies stoi ponad nim, gdy pasek jest widoczny */
+  @media (max-width: 47.99rem) {
+    html[data-past-hero]:not([data-footer-visible]) {
+      --mobile-bar-h: calc(3.75rem + max(0.75rem, env(safe-area-inset-bottom)));
+    }
+  }
+</style>

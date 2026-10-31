@@ -1,0 +1,105 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  id: string;
+  title: string;
+  class?: string;
+}
+const { id, title, class: className } = Astro.props;
+const watchUrl = `https://www.youtube.com/watch?v=${id}`;
+---
+
+<!-- Lekka makieta: miniatura + przycisk. Iframe youtube-nocookie ładuje się dopiero po kliknięciu. -->
+<div class:list={['yt', className]} data-yt={id} data-yt-title={title}>
+  <a class="yt__poster" href={watchUrl} target="_blank" rel="noopener" aria-label={`Odtwórz film: ${title}`}>
+    <img
+      src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+      alt=""
+      width="480"
+      height="360"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="yt__play" aria-hidden="true">
+      <Icon name="play" size={28} />
+    </span>
+  </a>
+</div>
+
+<style>
+  .yt {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: var(--radius-l);
+    background: var(--color-green-deep);
+    box-shadow: var(--shadow-l);
+  }
+  .yt__poster {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .yt__poster img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--dur-slow) var(--ease-out), filter var(--dur-slow) var(--ease-out);
+  }
+  .yt__poster::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(31 40 35 / 0) 40%, rgb(31 40 35 / 0.45));
+  }
+  .yt__play {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    box-shadow: var(--shadow-m);
+    transition: transform var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+  }
+  .yt__play :global(svg) { margin-left: 3px; }
+  .yt__poster:active .yt__play { transform: scale(0.95); }
+  @media (hover: hover) and (pointer: fine) {
+    .yt__poster:hover img { transform: scale(1.03); }
+    .yt__poster:hover .yt__play { transform: scale(1.06); background: var(--color-gold-light); }
+  }
+  .yt :global(iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+</style>
+
+<script>
+  document.addEventListener('click', (event) => {
+    const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('.yt__poster');
+    if (!link) return;
+    const host = link.closest<HTMLElement>('[data-yt]');
+    const id = host?.dataset.yt;
+    if (!host || !id) return;
+    event.preventDefault();
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.title = host.dataset.ytTitle ?? 'Film YouTube';
+    iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen';
+    iframe.allowFullscreen = true;
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    host.replaceChildren(iframe);
+    iframe.focus();
+  });
+</script>

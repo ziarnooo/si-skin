@@ -1,0 +1,78 @@
+---
+import Icon from '../Icon.astro';
+import Steps from '../Steps.astro';
+import BookingButton from '../BookingButton.astro';
+
+const tips = [
+  'Przed depilacją laserową zostaw odrost 2–3 mm — nie goląc się na gładko.',
+  'Na 2–3 tygodnie przed zabiegiem nie depiluj się woskiem ani pęsetą.',
+  'Przez ok. 2–5 dni przed wizytą nie opalaj skóry.',
+  'Przyjdź zdrowa — bez przyjmowania leków przeciwzapalnych i antybiotyków.',
+];
+---
+
+<section class="section first" id="pierwsza-wizyta" aria-labelledby="first-title">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      <span class="eyebrow eyebrow--plain">Pierwsza wizyta</span>
+      <h2 id="first-title">Jak wygląda <em class="accent">pierwsza wizyta</em>?</h2>
+      <p class="lead">Cztery proste kroki — od rezerwacji po indywidualny plan. Nie musisz się niczego obawiać.</p>
+    </div>
+
+    <Steps />
+
+    <div class="tips" data-reveal>
+      <div class="tips__head">
+        <span class="tips__icon" aria-hidden="true"><Icon name="check-circle" size={24} /></span>
+        <h3>Jak przygotować się do wizyty</h3>
+      </div>
+      <ul class="tips__list" role="list">
+        {tips.map((tip) => <li>{tip}</li>)}
+      </ul>
+      <div class="tips__actions">
+        <BookingButton placement="home-first-visit" size="sm" />
+        <a class="link-arrow" href="#faq">
+          Zobacz najczęstsze pytania
+          <Icon name="arrow" size={16} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .first {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    margin-top: calc(var(--radius-xl) * -1);
+    background: var(--color-ivory);
+  }
+  .tips {
+    display: grid;
+    gap: var(--space-m);
+    max-width: 44rem;
+    margin: var(--space-2xl) auto 0;
+    padding: var(--space-l);
+    border-radius: var(--radius-l);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+  }
+  .tips__head { display: flex; align-items: center; gap: var(--space-xs); }
+  .tips__head h3 { font-size: var(--text-xl); }
+  .tips__icon { color: var(--color-gold-text); line-height: 0; }
+  .tips__list { list-style: none; padding: 0; display: grid; gap: var(--space-xs); }
+  .tips__list li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--color-ink-soft);
+  }
+  .tips__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 0.6rem;
+    height: 1px;
+    background: var(--color-gold);
+  }
+  .tips__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s) var(--space-m); }
+</style>

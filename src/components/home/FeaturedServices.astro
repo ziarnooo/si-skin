@@ -1,0 +1,126 @@
+---
+import { Picture } from 'astro:assets';
+import Icon from '../Icon.astro';
+import ServiceList from '../ServiceList.astro';
+import { getServices, url } from '../../lib/site';
+import { servicePriceText } from './data';
+
+const services = await getServices();
+const featured = services.filter((s) => s.data.featured);
+const rest = services.filter((s) => !s.data.featured);
+const restCards = await Promise.all(
+  rest.map(async (service) => ({
+    service,
+    price: await servicePriceText(service),
+    href: url(`/${service.id}/`),
+  })),
+);
+---
+
+<section class="section featured" id="zabiegi" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="section-head section-head--split" data-reveal>
+      <div class="stack">
+        <span class="eyebrow">Zabiegi</span>
+        <h2 id="featured-title">Zabiegi dla Twojej <em class="accent">skóry</em></h2>
+      </div>
+      <p class="lead">Depilacja laserowa SHR, oczyszczanie wodorowe i terapie na twarz — nasze kluczowe zabiegi w jednym miejscu.</p>
+    </div>
+
+    <ServiceList services={featured} numbered />
+
+    {
+      restCards.length > 0 && (
+        <div class="more">
+          <h3 class="more__title" data-reveal>Pozostałe zabiegi</h3>
+          <ul class="more__grid" role="list">
+            {restCards.map(({ service, price, href }, index) => (
+              <li class="tile" data-reveal style={`--i:${index}`}>
+                <div class="tile__card">
+                  <div class="tile__media media">
+                    <Picture
+                      src={service.data.image}
+                      alt=""
+                      formats={['avif', 'webp']}
+                      widths={[320, 480, 640]}
+                      sizes="(min-width: 60rem) 24rem, (min-width: 40rem) 33vw, 100vw"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <div class="tile__body">
+                    <h4 class="tile__name">
+                      <a href={href} class="tile__link">
+                        {service.data.navTitle}
+                      </a>
+                    </h4>
+                    <div class="tile__foot">
+                      {price && <span class="chip chip--gold">{price}</span>}
+                      <span class="tile__arrow" aria-hidden="true">
+                        <Icon name="arrow-up-right" size={18} />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    <p class="featured__all" data-reveal>
+      <a class="btn btn--ghost" href={url('/zabiegi/')}>
+        Zobacz wszystkie zabiegi
+        <Icon name="arrow" />
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .more { margin-top: var(--space-2xl); }
+  .more__title { font-size: var(--text-xl); margin-bottom: var(--space-m); }
+  .more__grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  }
+  .tile__card {
+    position: relative;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-s);
+    padding: var(--space-xs);
+    border-radius: var(--radius-l);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+  .tile__card:active { transform: scale(0.985); }
+  .tile__media { aspect-ratio: 4 / 3; border-radius: var(--radius-m); }
+  .tile__media :global(img) { transition: transform 900ms var(--ease-out); }
+  .tile__body { display: grid; gap: var(--space-xs); align-content: space-between; padding: 0 var(--space-2xs) var(--space-2xs); }
+  .tile__name { font-size: var(--text-lg); }
+  .tile__link { text-decoration: none; }
+  .tile__link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+  .tile__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xs); }
+  .tile__arrow {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-line-strong);
+    transition: background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+  }
+  .featured__all { margin-top: var(--space-xl); text-align: center; }
+  @media (hover: hover) and (pointer: fine) {
+    .tile__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-gold); }
+    .tile__card:hover .tile__media :global(img) { transform: scale(1.05); }
+    .tile__card:hover .tile__arrow { background: var(--color-ink); color: var(--color-ivory); transform: rotate(45deg); }
+  }
+</style>

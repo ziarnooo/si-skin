@@ -1,0 +1,257 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import RatingBadge from './RatingBadge.astro';
+
+interface Props {
+  title?: string;
+  limit?: number;
+  featuredOnly?: boolean;
+  id?: string;
+}
+const { title = 'Co mówią nasze klientki', limit = 8, featuredOnly = true, id = 'opinie' } = Astro.props;
+
+const all = await getCollection('reviews');
+const pool = featuredOnly ? all.filter((r) => r.data.featured) : all;
+const reviews = (pool.length ? pool : all).slice(0, limit);
+---
+
+<section class="section section--dark reviews" id={id} aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <div class="reviews__head" data-reveal>
+      <div class="stack">
+        <span class="eyebrow">Opinie</span>
+        <h2 id={`${id}-title`}>{title}</h2>
+      </div>
+      <RatingBadge tone="dark" />
+    </div>
+  </div>
+
+  <div class="carousel" data-carousel role="group" aria-roledescription="karuzela" aria-label="Opinie klientek">
+    <ul class="carousel__track" role="list" tabindex="0" aria-label="Przewiń, aby zobaczyć kolejne opinie" data-track>
+      {
+        reviews.map((review, index) => (
+          <li class="review" data-slide>
+            <span class="review__quote" aria-hidden="true">
+              <Icon name="quote" size={30} />
+            </span>
+            <p class="review__stars" role="img" aria-label={`Ocena ${review.data.rating} na 5`}>
+              {Array.from({ length: review.data.rating }).map(() => (
+                <Icon name="star" size={14} />
+              ))}
+            </p>
+            <blockquote class="review__text">
+              <p>{review.data.text}</p>
+            </blockquote>
+            <footer class="review__meta">
+              <span class="review__avatar" aria-hidden="true">
+                {review.data.author.charAt(0)}
+              </span>
+              <span>
+                <strong class="review__author">{review.data.author}</strong>
+                <span class="review__src">
+                  {review.data.service ? `${review.data.service} · ` : ''}opinia z {review.data.source}
+                </span>
+              </span>
+            </footer>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="container carousel__controls" data-reveal="fade">
+      <div class="carousel__dots" role="group" aria-label="Wybierz opinię">
+        {
+          reviews.map((_, index) => (
+            <button type="button" class="dot" data-dot={index} aria-label={`Opinia ${index + 1}`}>
+              <span></span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="carousel__nav">
+        <button type="button" class="nav-btn" data-prev aria-label="Poprzednie opinie">
+          <Icon name="arrow-left" size={20} />
+        </button>
+        <button type="button" class="nav-btn" data-next aria-label="Następne opinie">
+          <Icon name="arrow" size={20} />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .reviews {
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    margin-top: calc(var(--radius-xl) * -1);
+    overflow: clip;
+  }
+  .reviews__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-m);
+    margin-bottom: var(--space-xl);
+  }
+  .carousel {
+    --gap: var(--space-s);
+    --edge: max(var(--gutter), calc((100% - var(--container)) / 2));
+  }
+  .carousel__track {
+    display: flex;
+    gap: var(--gap);
+    list-style: none;
+    margin: 0;
+    padding: 0 var(--edge) var(--space-xs);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--edge);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .carousel__track::-webkit-scrollbar { display: none; }
+  .carousel__track:focus-visible { outline-offset: -2px; border-radius: var(--radius-m); }
+  .review {
+    flex: 0 0 min(85%, 24rem);
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    padding: var(--space-l);
+    min-height: 19rem;
+    border-radius: var(--radius-l);
+    background: var(--color-green);
+    border: 1px solid var(--color-line-on-dark);
+    transition: transform var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  }
+  .review__quote { color: var(--color-gold); line-height: 0; }
+  .review__stars { display: flex; gap: 2px; color: var(--color-star); }
+  .review__text {
+    margin: 0;
+    flex: 1;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--color-on-dark);
+  }
+  .review__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding-top: var(--space-s);
+    border-top: 1px solid var(--color-line-on-dark);
+    font-size: var(--text-xs);
+    color: var(--color-on-dark-soft);
+    line-height: 1.35;
+  }
+  .review__avatar {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--color-gold-light);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-size: var(--text-base);
+  }
+  .review__author { display: block; font-weight: 400; font-size: var(--text-sm); color: var(--color-on-dark); }
+  .review__src { display: block; }
+
+  .carousel__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    margin-top: var(--space-l);
+  }
+  .carousel__dots { display: flex; flex-wrap: wrap; gap: 0; }
+  .dot {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 2.75rem;
+  }
+  .dot span {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-on-dark-soft);
+    opacity: 0.45;
+    transition: width var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
+  }
+  .dot[aria-current='true'] span { width: 1.5rem; opacity: 1; background: var(--color-gold-light); }
+  .carousel__nav { display: flex; gap: var(--space-xs); }
+  .nav-btn {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-line-on-dark);
+    color: var(--color-on-dark);
+    transition:
+      transform var(--dur-press) var(--ease-out),
+      background-color var(--dur) var(--ease-out),
+      opacity var(--dur) var(--ease-out);
+  }
+  .nav-btn:active { transform: scale(0.94); }
+  .nav-btn:disabled { opacity: 0.35; cursor: default; }
+  @media (hover: hover) and (pointer: fine) {
+    .nav-btn:not(:disabled):hover { background: rgb(255 255 255 / 0.1); }
+    .review:hover { border-color: var(--color-gold); }
+  }
+  @media (min-width: 40rem) {
+    .review { flex-basis: 22rem; }
+  }
+  @media (min-width: 64rem) {
+    .carousel { --gap: var(--space-m); }
+    .review { flex-basis: 24rem; }
+  }
+  /* Bez JS: strzałki i kropki nic nie robią — chowamy; przewijanie palcem/myszą działa natywnie */
+  :global(html:not(.js)) .carousel__controls { display: none; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]');
+    const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
+    const dots = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-dot]'));
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
+    if (!track || !slides.length) return;
+
+    const step = () => (slides[1] ? slides[1].offsetLeft - slides[0].offsetLeft : slides[0].offsetWidth);
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const goTo = (left: number) =>
+      track.scrollTo({ left, behavior: reduce.matches ? 'auto' : 'smooth' });
+
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const left = track.scrollLeft;
+      const atEnd = left >= maxScroll() - 2;
+      const index = atEnd ? slides.length - 1 : Math.min(slides.length - 1, Math.round(left / step()));
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)));
+      if (prev) prev.disabled = left <= 2;
+      if (next) next.disabled = atEnd;
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    track.addEventListener('scroll', schedule, { passive: true });
+    addEventListener('resize', schedule, { passive: true });
+    prev?.addEventListener('click', () => goTo(track.scrollLeft - step()));
+    next?.addEventListener('click', () => goTo(track.scrollLeft + step()));
+    dots.forEach((dot, i) =>
+      dot.addEventListener('click', () => goTo(Math.min(slides[i].offsetLeft - slides[0].offsetLeft, maxScroll()))),
+    );
+    update();
+  });
+</script>

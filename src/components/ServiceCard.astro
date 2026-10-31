@@ -1,0 +1,126 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.astro';
+import { url, formatPrice } from '../lib/site';
+
+interface Props {
+  service: CollectionEntry<'services'>;
+  /** Kolejność w siatce — opóźnia odsłonięcie (stagger). */
+  index?: number;
+  eager?: boolean;
+}
+
+const { service, index = 0, eager = false } = Astro.props;
+const { navTitle, excerpt, image, imageAlt, duration, priceFrom, priceLabel } = service.data;
+const price = priceLabel ?? (priceFrom !== undefined ? `od ${formatPrice(priceFrom)}` : undefined);
+---
+
+<article class="svc-card" data-reveal style={`--i:${Math.min(index, 5)}`}>
+  <a class="svc-card__link" href={url(`/${service.id}/`)}>
+    <div class="svc-card__media media">
+      <Picture
+        src={image}
+        alt={imageAlt}
+        formats={['avif', 'webp']}
+        widths={[360, 540, 760]}
+        sizes="(min-width: 64rem) 24rem, (min-width: 40rem) 45vw, 92vw"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        width={760}
+        height={570}
+        fit="cover"
+      />
+    </div>
+    <div class="svc-card__body">
+      <h3>{navTitle}</h3>
+      <p class="muted small">{excerpt}</p>
+      <div class="svc-card__meta">
+        {price && <span class="chip chip--gold">{price}</span>}
+        {duration && (
+          <span class="chip chip--paper">
+            <Icon name="clock" />
+            {duration}
+          </span>
+        )}
+        <span class="svc-card__go" aria-hidden="true"><Icon name="arrow-up-right" /></span>
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .svc-card {
+    height: 100%;
+  }
+  .svc-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-l);
+    overflow: hidden;
+    transition:
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+  .svc-card__link:active {
+    transform: scale(0.985);
+  }
+  .svc-card__media {
+    aspect-ratio: 4 / 3;
+    border-radius: 0;
+  }
+  .svc-card__media :global(img) {
+    transition: transform var(--dur-slow) var(--ease-out);
+  }
+  .svc-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-m);
+    flex: 1;
+  }
+  .svc-card__body h3 {
+    font-size: var(--text-xl);
+  }
+  .svc-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    align-items: center;
+    margin-top: auto;
+    padding-top: var(--space-xs);
+  }
+  .svc-card__go {
+    margin-left: auto;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    transition:
+      background var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .svc-card__link:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-m);
+      border-color: var(--color-line-strong);
+    }
+    .svc-card__link:hover .svc-card__media :global(img) {
+      transform: scale(1.05);
+    }
+    .svc-card__link:hover .svc-card__go {
+      background: var(--color-green);
+      color: var(--color-on-dark);
+      transform: translate(2px, -2px);
+    }
+  }
+</style>

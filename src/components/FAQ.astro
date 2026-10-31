@@ -1,0 +1,235 @@
+---
+import Icon from './Icon.astro';
+import { faqSchema } from '../lib/schema';
+
+interface Item {
+  q: string;
+  a: string;
+  /** Klucz kategorii (gdy używasz pigułek `categories`). */
+  category?: string;
+}
+interface Props {
+  items: Item[];
+  title?: string;
+  intro?: string;
+  categories?: { key: string; label: string }[];
+  /** Emituje JSON-LD FAQPage. Wyłącz, gdy strona przekazuje schemat do `Base` (`jsonLd`). */
+  withSchema?: boolean;
+  id?: string;
+}
+const {
+  items,
+  title = 'Najczęstsze pytania',
+  intro,
+  categories,
+  withSchema = true,
+  id = 'faq',
+} = Astro.props;
+
+const filtered = Boolean(categories?.length);
+const activeCategory = categories?.[0]?.key;
+const uid = id;
+const firstOpen = items.findIndex((item) => !filtered || item.category === activeCategory);
+---
+
+<section class="section faq" id={id} aria-labelledby={`${uid}-title`} data-faq>
+  <div class="container faq__layout">
+    <div class="faq__side">
+      <div class="faq__sticky" data-reveal>
+        <span class="eyebrow">FAQ</span>
+        <h2 id={`${uid}-title`}>{title}</h2>
+        {intro && <p class="lead">{intro}</p>}
+        {
+          filtered && (
+            <div class="faq__pills" role="group" aria-label="Kategorie pytań">
+              {categories!.map((category) => (
+                <button
+                  type="button"
+                  class="pill"
+                  data-cat={category.key}
+                  aria-pressed={String(category.key === activeCategory)}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
+          )
+        }
+        <slot />
+      </div>
+    </div>
+
+    <div class="faq__list" data-reveal="fade">
+      {
+        items.map((item, index) => {
+          const isActiveCat = !filtered || item.category === activeCategory;
+          return (
+            <div
+              class:list={['qa', isActiveCat && 'is-cat-active']}
+              data-qa
+              data-category={item.category}
+            >
+              <h3 class="qa__q">
+                <button
+                  type="button"
+                  class="qa__btn"
+                  id={`${uid}-q-${index}`}
+                  aria-expanded={String(index === firstOpen)}
+                  aria-controls={`${uid}-a-${index}`}
+                >
+                  <span>{item.q}</span>
+                  <span class="qa__icon" aria-hidden="true">
+                    <Icon name="plus" size={18} />
+                  </span>
+                </button>
+              </h3>
+              <div class="qa__panel" id={`${uid}-a-${index}`}>
+                <div class="qa__inner">
+                  <p>{item.a}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+  {withSchema && <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema(items))} />}
+</section>
+
+<style>
+  .faq__layout {
+    display: grid;
+    gap: var(--space-xl);
+  }
+  .faq__sticky { display: grid; gap: var(--space-m); align-content: start; justify-items: start; }
+  .faq__pills { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-xs); }
+  .pill {
+    padding: 0.55rem 1.1rem;
+    min-height: 2.75rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line-strong);
+    font-size: var(--text-sm);
+    line-height: 1.1;
+    color: var(--color-ink);
+    transition:
+      transform var(--dur-press) var(--ease-out),
+      background-color var(--dur) var(--ease-out),
+      color var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+  .pill:active { transform: scale(0.97); }
+  .pill[aria-pressed='true'] {
+    background: var(--color-ink);
+    color: var(--color-ivory);
+    border-color: var(--color-ink);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pill[aria-pressed='false']:hover { border-color: var(--color-ink); }
+  }
+
+  .faq__list { border-top: 1px solid var(--color-line-strong); }
+  /* Z JS pokazujemy tylko aktywną kategorię; bez JS wszystkie odpowiedzi są widoczne */
+  :global(.js) .faq [data-category]:not(.is-cat-active) { display: none; }
+  .qa { border-bottom: 1px solid var(--color-line-strong); }
+  .qa__q { font-size: inherit; line-height: inherit; letter-spacing: normal; }
+  .qa__btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-m);
+    width: 100%;
+    min-height: 3.5rem;
+    padding: var(--space-m) 0;
+    text-align: left;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    letter-spacing: var(--tracking-tight);
+    color: var(--color-ink);
+  }
+  .qa__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-line-strong);
+    transition: transform var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+  }
+  .qa__btn[aria-expanded='true'] .qa__icon {
+    transform: rotate(45deg);
+    background: var(--color-ink);
+    color: var(--color-ivory);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .qa__btn:hover .qa__icon { background: var(--color-cream); }
+    .qa__btn[aria-expanded='true']:hover .qa__icon { background: var(--color-ink); }
+  }
+  .qa__panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    visibility: visible;
+  }
+  .qa__inner { overflow: hidden; min-height: 0; }
+  .qa__inner p {
+    padding-bottom: var(--space-m);
+    max-width: 40rem;
+    color: var(--color-ink-soft);
+  }
+  :global(.js) .qa__panel {
+    grid-template-rows: 0fr;
+    visibility: hidden;
+    transition:
+      grid-template-rows var(--dur-slow) var(--ease-out),
+      visibility 0s linear var(--dur-slow);
+  }
+  :global(.js) .qa__q:has(.qa__btn[aria-expanded='true']) + .qa__panel {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  :global(.js) .qa__inner p { opacity: 0; transform: translateY(-6px); transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out); }
+  :global(.js) .qa__q:has(.qa__btn[aria-expanded='true']) + .qa__panel .qa__inner p { opacity: 1; transform: none; transition-delay: 80ms; }
+
+
+  @media (min-width: 60rem) {
+    .faq__layout { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: var(--space-2xl); align-items: start; }
+    .faq__sticky { position: sticky; top: calc(var(--header-h) + var(--space-l)); }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-faq]').forEach((root) => {
+    const items = Array.from(root.querySelectorAll<HTMLElement>('[data-qa]'));
+    const pills = Array.from(root.querySelectorAll<HTMLButtonElement>('.pill'));
+    const buttonOf = (item: HTMLElement) => item.querySelector<HTMLButtonElement>('.qa__btn')!;
+    const set = (item: HTMLElement, open: boolean) => buttonOf(item).setAttribute('aria-expanded', String(open));
+
+    const openFirstVisible = () => {
+      items.forEach((item) => set(item, false));
+      const first = items.find((item) => item.classList.contains('is-cat-active'));
+      if (first) set(first, true);
+    };
+
+    root.addEventListener('click', (event) => {
+      const button = (event.target as Element).closest<HTMLButtonElement>('.qa__btn');
+      if (!button || !root.contains(button)) return;
+      const open = button.getAttribute('aria-expanded') === 'true';
+      items.forEach((item) => set(item, false));
+      button.setAttribute('aria-expanded', String(!open));
+    });
+
+    pills.forEach((pill) =>
+      pill.addEventListener('click', () => {
+        const key = pill.dataset.cat;
+        pills.forEach((p) => p.setAttribute('aria-pressed', String(p === pill)));
+        items.forEach((item) => item.classList.toggle('is-cat-active', item.dataset.category === key));
+        openFirstVisible();
+      }),
+    );
+
+    openFirstVisible();
+  });
+</script>

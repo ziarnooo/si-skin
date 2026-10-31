@@ -1,0 +1,142 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Promotions from '../components/Promotions.astro';
+import FAQ from '../components/FAQ.astro';
+import CTASection from '../components/CTASection.astro';
+import Icon from '../components/Icon.astro';
+import { formatDate, isActive, isoDate } from '../lib/site';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const [promotions, faqEntries] = await Promise.all([getCollection('promotions'), getCollection('faq')]);
+const active = promotions.filter((p) => isActive(p.data)).sort((a, b) => a.data.order - b.data.order);
+const faq = faqEntries
+  .filter((f) => f.data.category === 'promocje')
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((f) => ({ q: f.data.q, a: f.data.a }));
+const crumbs = [{ name: 'Promocje', path: '/promocje/' }];
+---
+
+<Base
+  title="Promocje i zniżki na zabiegi | Si Skin Wrocław"
+  description="Promocje w gabinecie Si Skin we Wrocławiu: Si-Selfie −5%, Si-Opinia −10%, Przyjaciółka-Polecajka −15% i karta stałego klienta. Sprawdź zasady i umów wizytę."
+  path="/promocje/"
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site), faqSchema(faq)]}
+>
+  <PageHero
+    eyebrow="Zniżki i promocje"
+    title="Promocje"
+    lead="Doceniamy opinie, polecenia i stałe wizyty. Wybierz promocję, sprawdź zasady i zgłoś nam chęć skorzystania ze zniżki przy wizycie."
+    breadcrumbs={crumbs}
+    booking="promocje-top"
+  />
+
+  <section class="section section--tight" aria-labelledby="oferta-h">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Aktualna oferta</span>
+        <h2 id="oferta-h">Wybierz swoją zniżkę</h2>
+      </div>
+      <Promotions />
+    </div>
+  </section>
+
+  {
+    active.some((p) => p.data.terms.length > 0) && (
+      <section class="section section--cream" id="zasady" aria-labelledby="zasady-h">
+        <div class="container terms-layout">
+          <div class="section-head" data-reveal>
+            <span class="eyebrow">Regulamin promocji</span>
+            <h2 id="zasady-h">Zasady i warunki</h2>
+            <p class="muted">Warunki każdej promocji zebrane w jednym miejscu. W razie pytań zadzwoń lub zapytaj nas w gabinecie.</p>
+          </div>
+          <div class="terms">
+            {active
+              .filter((p) => p.data.terms.length > 0)
+              .map((p, i) => (
+                <article
+                  class="terms__item card"
+                  data-reveal
+                  style={`--i:${Math.min(i, 5)}`}
+                  data-valid-until={p.data.validUntil ? isoDate(p.data.validUntil) : undefined}
+                >
+                  <h3>
+                    {p.data.title}
+                    <span class="chip chip--gold">{p.data.badge}</span>
+                  </h3>
+                  <ul>
+                    {p.data.terms.map((t) => (
+                      <li>{t}</li>
+                    ))}
+                  </ul>
+                  {p.data.validUntil && (
+                    <p class="xs muted terms__until">
+                      <Icon name="calendar" size={14} />
+                      Obowiązuje do {formatDate(p.data.validUntil)}
+                    </p>
+                  )}
+                </article>
+              ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {faq.length > 0 && <FAQ items={faq} title="Pytania o promocje" withSchema={false} />}
+
+  <CTASection
+    title="Umów zabieg i skorzystaj ze zniżki"
+    text="Zgłoś nam chęć skorzystania ze zniżki przy wizycie — po spełnieniu warunków wybranej promocji."
+    placement="promocje-bottom"
+  />
+</Base>
+
+<style>
+  .terms-layout {
+    display: grid;
+    gap: var(--space-l);
+  }
+  @media (min-width: 60rem) {
+    .terms-layout {
+      grid-template-columns: 1fr 1.7fr;
+      align-items: start;
+    }
+    .terms-layout .section-head {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-m));
+      margin-bottom: 0;
+    }
+  }
+  .terms {
+    display: grid;
+    gap: var(--space-s);
+  }
+  .terms__item[hidden] {
+    display: none;
+  }
+  .terms__item h3 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-xs);
+  }
+  .terms__item ul {
+    padding-left: 1.2rem;
+    display: grid;
+    gap: var(--space-2xs);
+    color: var(--color-ink-soft);
+  }
+  .terms__item li::marker {
+    color: var(--color-gold);
+  }
+  .terms__until {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    margin-top: var(--space-xs);
+  }
+</style>

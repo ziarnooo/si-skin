@@ -1,0 +1,30 @@
+---
+import Icon from '../Icon.astro';
+import Promotions from '../Promotions.astro';
+import { url } from '../../lib/site';
+---
+
+<section class="section section--cream promo" id="promocje" aria-labelledby="promo-title">
+  <div class="container">
+    <div class="section-head section-head--split" data-reveal>
+      <div class="stack">
+        <span class="eyebrow">Promocje</span>
+        <h2 id="promo-title">Zniżki dla <em class="accent">naszych klientek</em></h2>
+      </div>
+      <p class="lead">Sprawdź, jak zapłacić mniej za kolejne zabiegi — rabaty łatwo odebrać już przy rezerwacji.</p>
+    </div>
+
+    <Promotions limit={3} />
+
+    <p class="promo__all" data-reveal>
+      <a class="btn btn--ghost" href={url('/promocje/')}>
+        Wszystkie promocje
+        <Icon name="arrow" />
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .promo__all { margin-top: var(--space-xl); text-align: center; }
+</style>

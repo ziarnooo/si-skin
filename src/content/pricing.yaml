@@ -1,0 +1,398 @@
+# Cennik — klucz = identyfikator kategorii (używany w usługach i promocjach).
+# Ceny w zł brutto, źródło: aktualna oferta w Booksy (ceny bazowe, przed rabatem Booksy).
+# Wyjątek: makijaż permanentny brwi — ceny z dotychczasowego cennika strony.
+
+konsultacje:
+  title: Konsultacje kosmetologiczne
+  order: 1
+  service: zabiegi-pielegnacyjne-twarzy
+  groups:
+    - items:
+        - name: Bezpłatna konsultacja
+          priceText: bezpłatnie
+          duration: 20 min
+          note: Rozwiejemy wątpliwości, ustalimy plan działania i dobierzemy odpowiednią terapię dla Twojej skóry.
+        - name: Konsultacja z planem pielęgnacyjnym
+          price: 199
+          duration: 30 min
+          note: Gratis jako dodatek do wybranego zabiegu.
+
+epilacja-shr:
+  title: Depilacja laserowa SHR EPIL MOTION
+  order: 2
+  service: epilacja-shr
+  intro: Pakiety na serię 7–9 zabiegów kupisz na miejscu w gabinecie – zapytaj podczas wizyty.
+  note: W dniu zabiegu zostaw odrost włosków 2–3 mm (nie gładką skórę).
+  discount:
+    percent: 20
+    upTo: true
+    label: Promocja w Booksy
+  groups:
+    - items:
+        - name: Baczki
+          price: 139
+          duration: 10 min
+        - name: Bikini głębokie (+ szpara pośladkowa)
+          price: 339
+          duration: 15 min
+        - name: Bikini płytkie
+          price: 279
+          duration: 10 min
+        - name: Broda
+          price: 139
+          duration: 10 min
+        - name: Brzuch
+          price: 259
+          duration: 15 min
+        - name: Dłonie
+          price: 169
+          duration: 15 min
+        - name: Kark
+          price: 169
+          duration: 10 min
+        - name: Klatka piersiowa
+          price: 259
+          duration: 15 min
+        - name: Lędźwie
+          price: 219
+          duration: 10 min
+        - name: Linia brzucha
+          price: 129
+          duration: 5 min
+        - name: Łydki (+ kolana i stopy)
+          price: 339
+          duration: 15 min
+        - name: Obszar między brwiami
+          price: 129
+          duration: 5 min
+        - name: Okolice brodawek sutkowych
+          price: 139
+          duration: 5 min
+        - name: Pachy
+          price: 239
+          duration: 10 min
+        - name: Plecy
+          price: 369
+          duration: 20 min
+        - name: Pośladki
+          price: 259
+          duration: 10 min
+        - name: Przedramiona
+          price: 229
+          duration: 15 min
+        - name: Ramiona
+          price: 229
+          duration: 15 min
+        - name: Szyja
+          price: 149
+          duration: 10 min
+        - name: Uda (+ kolana)
+          price: 339
+          duration: 15 min
+        - name: Szpara pośladkowa
+          price: 139
+          duration: 5 min
+        - name: Wąsik
+          price: 139
+          duration: 10 min
+
+zamykanie-naczynek:
+  title: Laserowe zamykanie naczynek
+  order: 3
+  service: zamykanie-naczynek
+  discount:
+    percent: 20
+    upTo: true
+    label: Promocja w Booksy
+  groups:
+    - items:
+        - name: Broda
+          price: 219
+          duration: 10 min
+        - name: Czoło
+          price: 229
+          duration: 15 min
+        - name: Dekolt + Maska
+          price: 339
+          duration: 30 min
+        - name: Dłonie
+          price: 239
+          duration: 20 min
+        - name: Nos
+          price: 199
+          duration: 15 min
+        - name: Plecy
+          price: 399
+          duration: 35 min
+        - name: Pojedyncze naczynko
+          price: 149
+          duration: 10 min
+        - name: Policzki
+          price: 249
+          duration: 15 min
+        - name: Szyja
+          price: 249
+          duration: 15 min
+        - name: Twarz + Maska
+          price: 379
+          duration: 45 min
+        - name: Twarz + Dekolt + Maska
+          price: 479
+          duration: 1 h
+        - name: Twarz + Szyja + Dekolt + Maska
+          price: 599
+          duration: 1 h 15 min
+
+rozjasnianie-przebarwien:
+  title: Laserowe rozjaśnianie przebarwień
+  order: 4
+  service: rozjasnianie-przebarwien
+  discount:
+    percent: 20
+    upTo: true
+    label: Promocja w Booksy
+  groups:
+    - items:
+        - name: Broda
+          price: 179
+          duration: 15 min
+        - name: Czoło
+          price: 179
+          duration: 15 min
+        - name: Dekolt
+          price: 299
+          duration: 20 min
+        - name: Dłonie
+          price: 199
+          duration: 20 min
+        - name: Nos
+          price: 119
+          duration: 15 min
+        - name: Plecy
+          price: 299
+          duration: 40 min
+        - name: Pojedyncze przebarwienie
+          price: 109
+          duration: 10 min
+        - name: Policzki
+          price: 199
+          duration: 20 min
+        - name: Przedramiona
+          price: 199
+          duration: 25 min
+        - name: Szyja
+          price: 219
+          duration: 15 min
+        - name: Twarz
+          price: 299
+          duration: 35 min
+        - name: 'Twarz: Pakiet 5 zabiegów'
+          price: 1270
+          duration: 35 min
+          note: Czas trwania jednego zabiegu.
+        - name: Twarz, szyja, dekolt
+          price: 399
+          duration: 55 min
+
+fotoodmladzanie-ssr:
+  title: Fotoodmładzanie światłem szerokopasmowym (SSR)
+  order: 5
+  service: fotoodmladzanie-ssr
+  intro: Zalecamy serię 3–5 zabiegów w odstępach 4–6 tygodni.
+  discount:
+    percent: 20
+    upTo: true
+    label: Promocja w Booksy
+  groups:
+    - items:
+        - name: Brzuch
+          price: 399
+          duration: 30 min
+        - name: Dłonie
+          price: 299
+          duration: 30 min
+        - name: Przedramiona
+          price: 399
+          duration: 35 min
+        - name: Ramiona
+          price: 399
+          duration: 35 min
+        - name: Szyja + Dekolt (przygotowanie + maska)
+          price: 499
+          duration: 1 h
+        - name: Twarz (przygotowanie + maska)
+          price: 499
+          duration: 1 h
+        - name: Twarz + Szyja/ Dekolt (przygotowanie + maska)
+          price: 599
+          duration: 1 h 10 min
+        - name: Twarz + Szyja + Dekolt (przygotowanie + maska)
+          price: 699
+          duration: 1 h 20 min
+
+oczyszczanie-i-pielegnacja:
+  title: Oczyszczanie wodorowe i zabiegi pielęgnacyjne
+  order: 6
+  service: oczyszczanie-wodorowe
+  groups:
+    - items:
+        - name: Nie wiem co wybrać
+          priceText: od 399 zł
+          duration: 1 h
+          note: Dostosujemy zabieg do potrzeb Twojej skóry, zdiagnozujemy problem i dobierzemy najbardziej efektywną terapię i pielęgnację.
+    - title: Oczyszczanie wodorowe
+      items:
+        - name: Oczyszczanie wodorowe + terapia dopasowana do skóry
+          price: 369
+          duration: 1 h
+          note: Do pierwszej wizyty indywidualny plan pielęgnacyjny i plan zabiegowy w cenie zabiegu.
+        - name: Oczyszczanie wodorowe + kwasy + mezoterapia bezigłowa
+          price: 399
+          duration: 1 h 15 min
+    - title: proXN
+      items:
+        - name: proXN – zabieg I stopnia
+          price: 399
+          duration: 1 h
+          note: Obszar zabiegu obejmuje twarz, szyję i dekolt.
+        - name: proXN – zabieg II stopnia
+          price: 499
+          duration: 1 h
+          note: Obszar zabiegu obejmuje twarz, szyję i dekolt.
+        - name: proXN – zabieg III stopnia
+          price: 749
+          duration: 1 h 40 min
+          note: Obszar zabiegu obejmuje twarz, szyję i dekolt.
+        - name: proXN Acne – skóra trądzikowa, problematyczna
+          price: 449
+          duration: 1 h
+        - name: proXN – rozjaśnianie przebarwień
+          price: 579
+          duration: 1 h
+
+mezoterapia-mikroiglowa:
+  title: Mezoterapia mikroigłowa
+  order: 7
+  service: oczyszczanie-wodorowe
+  groups:
+    - items:
+        - name: Twarz (oczyszczanie wodorowe, ampułka, maska)
+          price: 549
+          duration: 1 h 10 min
+        - name: Twarz + Szyja (oczyszczanie wodorowe, ampułka, maska)
+          price: 649
+          duration: 1 h 20 min
+        - name: Twarz + Szyja + Dekolt (oczyszczanie wodorowe, ampułka, maska)
+          price: 729
+          duration: 1 h 30 min
+        - name: Twarz (terapia proXN Retinol & Ksantohumol)
+          price: 749
+          duration: 1 h 20 min
+          note: Zabieg proXN III stopnia z mezoterapią mikroigłową.
+
+stymulatory-tkankowe:
+  title: Stymulatory tkankowe
+  order: 8
+  service: stymulatory-tkankowe-mezoterapia-iglowa
+  note: Preparat dobieramy indywidualnie do potrzeb podczas konsultacji przed zabiegiem.
+  groups:
+    - title: Twarz
+      items:
+        - name: Ejal40
+          price: 600
+          duration: 55 min
+        - name: Jalupro SuperHydro
+          price: 1000
+          duration: 55 min
+          note: Twarz, szyja, dekolt lub dłonie.
+        - name: Nucleofill Strong
+          price: 900
+          duration: 55 min
+        - name: Profhilo® H+L
+          price: 1000
+          duration: 55 min
+        - name: Sunekos® 1200
+          price: 1000
+          duration: 55 min
+    - title: Okolice oczu
+      items:
+        - name: Jalupro Young Eye
+          price: 850
+          duration: 55 min
+        - name: RRS® HA Eyes
+          price: 400
+          duration: 55 min
+        - name: Sunekos® 200
+          price: 650
+          duration: 55 min
+
+mezoterapia-iglowa:
+  title: Mezoterapia igłowa
+  order: 9
+  service: stymulatory-tkankowe-mezoterapia-iglowa
+  groups:
+    - items:
+        - name: Neuvia Organic Hydro Deluxe (1 × 2,5 ml)
+          price: 700
+          duration: 50 min
+        - name: Neuvia Organic Hydro Deluxe (2 × 2,5 ml)
+          price: 1200
+          duration: 1 h
+        - name: Tropokolagen Guna Tissue (1 × 2 ml)
+          price: 450
+          duration: 50 min
+          note: Cena zależy od liczby zużytych ampułek.
+        - name: Tropokolagen Guna Tissue (2 × 2 ml)
+          price: 800
+          duration: 50 min
+          note: Cena zależy od liczby zużytych ampułek.
+
+korekcja-zmarszczek:
+  title: Korekcja zmarszczek mimicznych
+  order: 10
+  groups:
+    - items:
+        - name: 1 okolica
+          price: 500
+          duration: 30 min
+        - name: 2 okolice
+          price: 800
+          duration: 35 min
+        - name: 3 okolice
+          price: 1100
+          duration: 40 min
+
+modelowanie-ust:
+  title: Modelowanie ust
+  order: 11
+  service: modelowanie-ust
+  note: Cena stała, niezależna od ilości zużytego preparatu.
+  groups:
+    - items:
+        - name: Modelowanie ust
+          price: 999
+          duration: 1 h
+          note: Hyamira, Stylage, Revolax, Restylane.
+        - name: Hialuronidaza
+          price: 749
+          duration: 40 min
+
+makijaz-permanentny-brwi:
+  title: Makijaż permanentny brwi
+  order: 12
+  service: makijaz-permanentny-brwi
+  note: Ceny z dotychczasowego cennika – potwierdź termin telefonicznie.
+  groups:
+    - items:
+        - name: Makijaż permanentny brwi – Soft Ombre
+          price: 950
+        - name: Dopigmentowanie (od 6 do 10 tygodni po zabiegu)
+          price: 200
+        - name: Odświeżenie (do 1 roku)
+          price: 500
+          note: Cena obowiązuje pod warunkiem zachowania kształtu i konturów makijażu.
+        - name: Odświeżenie (do 2 lat)
+          price: 700
+          note: Cena obowiązuje pod warunkiem zachowania kształtu i konturów makijażu.
+        - name: Korekta makijażu wykonanego w innym salonie
+          priceText: cena po konsultacji

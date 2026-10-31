@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import Reviews from '../components/Reviews.astro';
+import Team from '../components/Team.astro';
+import FAQ from '../components/FAQ.astro';
+import CTASection from '../components/CTASection.astro';
+import About from '../components/home/About.astro';
+import FeaturedServices from '../components/home/FeaturedServices.astro';
+import Why from '../components/home/Why.astro';
+import Sessions from '../components/home/Sessions.astro';
+import FirstVisit from '../components/home/FirstVisit.astro';
+import PricingPreview from '../components/home/PricingPreview.astro';
+import PromoTeaser from '../components/home/PromoTeaser.astro';
+import VideoBlock from '../components/home/VideoBlock.astro';
+import { faqSchema } from '../lib/schema';
+import { getSettings } from '../lib/site';
+
+const settings = await getSettings();
+
+const faqCategories = [
+  { key: 'pierwsza-wizyta', label: 'Pierwsza wizyta' },
+  { key: 'depilacja', label: 'Depilacja laserowa' },
+  { key: 'ogolne', label: 'Ogólne' },
+];
+const faqItems = (await getCollection('faq'))
+  .filter((entry) => faqCategories.some((c) => c.key === entry.data.category))
+  .sort((a, b) => a.data.order - b.data.order)
+  .sort(
+    (a, b) =>
+      faqCategories.findIndex((c) => c.key === a.data.category) -
+      faqCategories.findIndex((c) => c.key === b.data.category),
+  )
+  .map((entry) => ({ q: entry.data.q, a: entry.data.a, category: entry.data.category }));
+
+const title = 'Depilacja laserowa SHR i kosmetologia Wrocław | Si Skin';
+const description =
+  'Gabinet kosmetologii i laseroterapii we Wrocławiu: bezbolesna depilacja laserowa SHR, oczyszczanie wodorowe, zamykanie naczynek, przebarwienia. Umów wizytę.';
+---
+
+<Base title={title} description={description} path="/" jsonLd={[faqSchema(faqItems)]}>
+  <Hero />
+  <Marquee />
+  <About />
+  <FeaturedServices />
+  <Why />
+  <Sessions />
+  <Reviews title="Co mówią nasze klientki" limit={8} featuredOnly />
+  <FirstVisit />
+  <div class="section--cream">
+    <Team title="Poznaj nasz zespół" />
+  </div>
+  <PricingPreview />
+  <PromoTeaser />
+  <VideoBlock />
+  <div class="section--cream">
+    <FAQ
+      items={faqItems}
+      categories={faqCategories}
+      title="Najczęstsze pytania"
+      intro={`Odpowiedzi na to, o co pytacie nas najczęściej. Nie ma tu Twojego pytania? Zadzwoń: ${settings.phone}.`}
+      withSchema={false}
+    />
+  </div>
+  <CTASection placement="home-bottom" />
+</Base>

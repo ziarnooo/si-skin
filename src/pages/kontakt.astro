@@ -1,0 +1,192 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import BookingButton from '../components/BookingButton.astro';
+import Icon from '../components/Icon.astro';
+import { getSettings } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const settings = await getSettings();
+const { address, hours, social } = settings;
+const crumbs = [{ name: 'Kontakt', path: '/kontakt/' }];
+const amenities = ['Płatność kartą', 'Parking dla klientów', 'Dostępność dla osób z niepełnosprawnościami', 'Wi-Fi'];
+---
+
+<Base
+  title="Kontakt i dojazd – gabinet Si Skin, Wrocław"
+  description="Skontaktuj się z gabinetem Si Skin przy ul. Królewieckiej 121/3 we Wrocławiu: telefon 694 642 573, e-mail, godziny otwarcia, mapa dojazdu i rezerwacja online."
+  path="/kontakt/"
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero
+    eyebrow="Jesteśmy we Wrocławiu"
+    title="Kontakt"
+    lead="Zadzwoń, napisz lub umów wizytę online. Przyjmujemy wyłącznie po wcześniejszej rezerwacji — chętnie odpowiemy na pytania i przedstawimy szczegóły oferty."
+    breadcrumbs={crumbs}
+    booking="kontakt-top"
+  />
+
+  <section class="section section--tight" aria-label="Dane kontaktowe">
+    <div class="container">
+      <div class="contact-grid">
+        <a class="card contact-card" href={`tel:${settings.phoneHref}`} data-reveal style="--i:0">
+          <span class="contact-card__icon"><Icon name="phone" size={22} /></span>
+          <span class="xs muted">Telefon</span>
+          <span class="contact-card__value serif">{settings.phone}</span>
+        </a>
+        <a class="card contact-card" href={`mailto:${settings.email}`} data-reveal style="--i:1">
+          <span class="contact-card__icon"><Icon name="mail" size={22} /></span>
+          <span class="xs muted">E-mail</span>
+          <span class="contact-card__value serif">{settings.email}</span>
+        </a>
+        <div class="card contact-card" data-reveal style="--i:2">
+          <span class="contact-card__icon"><Icon name="pin" size={22} /></span>
+          <span class="xs muted">Adres</span>
+          <address class="contact-card__value serif">
+            {address.street}<br />
+            {address.postalCode} {address.city}
+          </address>
+          <a class="link-arrow" href={settings.mapsUrl} target="_blank" rel="noopener">
+            Otwórz w Google Maps
+            <Icon name="arrow-up-right" size={16} />
+            <span class="visually-hidden">(nowa karta)</span>
+          </a>
+        </div>
+        <div class="card contact-card" data-reveal style="--i:3">
+          <span class="contact-card__icon"><Icon name="clock" size={22} /></span>
+          <span class="xs muted">Godziny otwarcia</span>
+          <dl class="hours">
+            {
+              hours.map((h) => (
+                <div class="hours__row">
+                  <dt>{h.days}</dt>
+                  <dd>{h.closed ? 'Zamknięte' : `${h.open} – ${h.close}`}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="contact-actions" data-reveal>
+        <BookingButton placement="kontakt" size="lg" />
+        <ul class="cluster social" role="list">
+          <li>
+            <a class="btn btn--ghost" href={social.instagram} target="_blank" rel="noopener">
+              <Icon name="instagram" />
+              <span>Instagram</span>
+              <span class="visually-hidden">{social.instagramHandle} (nowa karta)</span>
+            </a>
+          </li>
+          <li>
+            <a class="btn btn--ghost" href={social.facebook} target="_blank" rel="noopener">
+              <Icon name="facebook" />
+              <span>Facebook</span>
+              <span class="visually-hidden">(nowa karta)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="dojazd-h">
+    <div class="container">
+      <div class="section-head section-head--split" data-reveal>
+        <h2 id="dojazd-h">Jak do nas trafić</h2>
+        <p class="muted">Gabinet mieści się przy {address.street} we Wrocławiu{address.district ? ` (dzielnica ${address.district})` : ''}.</p>
+      </div>
+      <div data-reveal="fade">
+        <MapEmbed />
+      </div>
+      <ul class="cluster amenities" role="list" data-reveal>
+        {
+          amenities.map((a) => (
+            <li class="chip chip--paper">
+              <Icon name="check" />
+              {a}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .contact-card {
+    display: grid;
+    gap: var(--space-2xs);
+    align-content: start;
+    text-decoration: none;
+    transition:
+      transform var(--dur) var(--ease-out),
+      box-shadow var(--dur) var(--ease-out),
+      border-color var(--dur) var(--ease-out);
+  }
+  a.contact-card:active {
+    transform: scale(0.98);
+  }
+  .contact-card__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: var(--space-xs);
+    border-radius: var(--radius-pill);
+    background: var(--color-green);
+    color: var(--color-gold-light);
+  }
+  .contact-card__value {
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    font-style: normal;
+    overflow-wrap: anywhere;
+  }
+  .contact-card .link-arrow {
+    justify-self: start;
+    margin-top: var(--space-2xs);
+  }
+  .hours {
+    display: grid;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+  }
+  .hours__row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding-bottom: var(--space-2xs);
+    border-bottom: 1px solid var(--color-line);
+    font-variant-numeric: tabular-nums;
+  }
+  .hours__row:last-child {
+    border-bottom: 0;
+  }
+  .hours dt {
+    color: var(--color-ink-soft);
+  }
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m);
+    margin-top: var(--space-xl);
+  }
+  .amenities {
+    margin-top: var(--space-m);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    a.contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-m);
+      border-color: var(--color-line-strong);
+    }
+  }
+</style>

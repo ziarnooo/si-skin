@@ -1,0 +1,26 @@
+---
+import logo from '../assets/brand/logo.svg?raw';
+import mark from '../assets/brand/logo-mark.svg?raw';
+
+interface Props {
+  variant?: 'full' | 'mark';
+  class?: string;
+  title?: string;
+}
+const { variant = 'full', class: className, title = 'Si Skin' } = Astro.props;
+const svg = (variant === 'full' ? logo : mark).replace('aria-label="Si Skin"', `aria-label="${title}"`);
+---
+
+<span class:list={['logo', `logo--${variant}`, className]} set:html={svg} />
+
+<style>
+  .logo {
+    display: inline-block;
+    color: var(--color-gold);
+    line-height: 0;
+  }
+  .logo :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+</style>

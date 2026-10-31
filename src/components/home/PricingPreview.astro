@@ -1,0 +1,170 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from '../Icon.astro';
+import BookingButton from '../BookingButton.astro';
+import { applyDiscount, formatPrice, isActive, url } from '../../lib/site';
+
+const categories = await getCollection('pricing');
+
+const plan = [
+  {
+    id: 'epilacja-shr',
+    title: 'Depilacja SHR',
+    lead: 'Laser SHR EPIL MOTION — ceny za jedną wizytę.',
+    items: ['Wąsik', 'Pachy', 'Bikini płytkie', 'Przedramiona', 'Łydki (+ kolana i stopy)'],
+  },
+  {
+    id: 'oczyszczanie-i-pielegnacja',
+    title: 'Oczyszczanie wodorowe',
+    lead: 'HydroPeel H2 i terapie proXN dobrane do skóry.',
+    items: [
+      'Oczyszczanie wodorowe + terapia dopasowana do skóry',
+      'Oczyszczanie wodorowe + kwasy + mezoterapia bezigłowa',
+      'proXN – zabieg I stopnia',
+      'proXN Acne – skóra trądzikowa, problematyczna',
+      'proXN – zabieg II stopnia',
+    ],
+    featured: true,
+  },
+  {
+    id: 'zamykanie-naczynek',
+    title: 'Zamykanie naczynek',
+    lead: 'Nieinwazyjnie, precyzyjnie, bez przerwy w codziennych zajęciach.',
+    items: ['Pojedyncze naczynko', 'Nos', 'Policzki', 'Twarz + Maska', 'Twarz + Dekolt + Maska'],
+  },
+];
+
+const cards = plan.flatMap((entry) => {
+  const category = categories.find((c) => c.id === entry.id);
+  if (!category) return [];
+  const all = category.data.groups.flatMap((g) => g.items);
+  const discount = category.data.discount && isActive({ validUntil: category.data.discount.validUntil }) ? category.data.discount : undefined;
+  const rows = entry.items
+    .map((name) => all.find((item) => item.name === name))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
+    .map((item) => ({
+      name: item.name,
+      duration: item.duration,
+      base: item.price !== undefined ? formatPrice(item.price) : undefined,
+      text: item.priceText,
+      discounted:
+        item.price !== undefined && discount ? formatPrice(applyDiscount(item.price, discount.percent)) : undefined,
+    }));
+  return [{ ...entry, discount, rows }];
+});
+---
+
+<section class="section pricing-preview" id="cennik" aria-labelledby="pricing-title">
+  <div class="container">
+    <div class="section-head section-head--split" data-reveal>
+      <div class="stack">
+        <span class="eyebrow">Cennik</span>
+        <h2 id="pricing-title">Przejrzyste <em class="accent">ceny</em></h2>
+      </div>
+      <p class="lead">Wybrane, najczęściej szukane pozycje. Pełny cennik znajdziesz na osobnej stronie.</p>
+    </div>
+
+    <ul class="pp__grid" role="list">
+      {
+        cards.map((card, index) => (
+          <li class="pp__cell" data-reveal style={`--i:${index}`}>
+            <article class:list={['pp', card.featured && 'pp--dark']}>
+              <header class="pp__head">
+                <h3 class="pp__title">{card.title}</h3>
+                <p class="pp__lead">{card.lead}</p>
+                {card.discount && (
+                  <span class="chip chip--gold">
+                    {card.discount.upTo ? 'do ' : ''}−{card.discount.percent}% · {card.discount.label}
+                  </span>
+                )}
+              </header>
+              <ul class="pp__rows" role="list">
+                {card.rows.map((row) => (
+                  <li class="pp__row">
+                    <span class="pp__name">
+                      {row.name}
+                      {row.duration && <small>{row.duration}</small>}
+                    </span>
+                    <span class="pp__price">
+                      {row.discounted ? (
+                        <>
+                          <s class="price-old">{row.base}</s>
+                          <span class="price-new">{card.discount?.upTo ? 'od ' : ''}{row.discounted}</span>
+                        </>
+                      ) : (
+                        (row.base ?? row.text)
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+              <div class="pp__foot">
+                <BookingButton
+                  placement={`home-pricing-${card.id}`}
+                  variant={card.featured ? 'on-dark' : 'primary'}
+                  label="Umów wizytę"
+                  block
+                />
+              </div>
+            </article>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="pp__all" data-reveal>
+      <a class="btn btn--ghost" href={url('/cennik/')}>
+        Zobacz pełny cennik
+        <Icon name="arrow" />
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .pp__grid { list-style: none; padding: 0; display: grid; gap: var(--space-s); }
+  .pp__cell { display: grid; }
+  .pp {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-m);
+    padding: var(--space-l);
+    border-radius: var(--radius-l);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  }
+  .pp--dark {
+    background: var(--color-green);
+    border-color: var(--color-green);
+    color: var(--color-on-dark);
+  }
+  .pp--dark .pp__lead, .pp--dark .pp__name small { color: var(--color-on-dark-soft); }
+  .pp--dark .pp__row { border-color: var(--color-line-on-dark); }
+  .pp--dark .price-old { color: var(--color-on-dark-soft); }
+  .pp--dark .price-new { color: var(--color-gold-light); }
+  .pp--dark .chip--gold { background: rgb(220 194 140 / 0.16); color: var(--color-gold-light); }
+  .pp__head { display: grid; gap: var(--space-2xs); justify-items: start; }
+  .pp__title { font-size: var(--text-2xl); }
+  .pp__lead { color: var(--color-ink-soft); font-size: var(--text-sm); margin-bottom: var(--space-2xs); }
+  .pp__rows { list-style: none; padding: 0; align-self: start; }
+  .pp__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-s);
+    padding: var(--space-xs) 0;
+    border-top: 1px solid var(--color-line);
+    font-size: var(--text-sm);
+  }
+  .pp__name small { display: block; font-size: var(--text-xs); color: var(--color-muted); }
+  .pp__price { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0 var(--space-xs); text-align: right; white-space: nowrap; font-family: var(--font-serif); font-size: var(--text-base); }
+  .pp__price .price-old { font-size: var(--text-xs); align-self: center; }
+  .pp__all { margin-top: var(--space-xl); text-align: center; }
+  @media (min-width: 64rem) {
+    .pp__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-m); align-items: stretch; }
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .pp:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); }
+  }
+</style>

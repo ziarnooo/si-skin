@@ -1,0 +1,89 @@
+---
+import '../styles/global.css';
+import serifLatin from '@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-400-normal.woff2?url';
+import serifLatinExt from '@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-ext-400-normal.woff2?url';
+import sansLatin from '@fontsource/hedvig-letters-sans/files/hedvig-letters-sans-latin-400-normal.woff2?url';
+import sansLatinExt from '@fontsource/hedvig-letters-sans/files/hedvig-letters-sans-latin-ext-400-normal.woff2?url';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileBookingBar from '../components/MobileBookingBar.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
+import { url } from '../lib/site';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: ImageMetadata | string;
+  /** Ścieżka bez base, np. '/cennik/'. */
+  path: string;
+  jsonLd?: object[];
+  noindex?: boolean;
+  type?: 'website' | 'article';
+  /** Kolor tekstu nagłówka nad pierwszym ekranem. */
+  heroTone?: 'light' | 'dark';
+}
+const { title, description, image, path, jsonLd, noindex, type, heroTone = 'light' } = Astro.props;
+
+// Polskie znaki (ą, ę, ł, ś…) leżą w latin-ext — oba podzbiory są od razu potrzebne.
+const fonts = [serifLatin, serifLatinExt, sansLatin, sansLatinExt];
+---
+
+<!doctype html>
+<html lang="pl" class="no-js">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f8f5ef" />
+    <script is:inline>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {fonts.map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
+
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon.ico')} sizes="32x32" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+
+    <SEO {title} {description} {path} {image} {jsonLd} {noindex} {type} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Przejdź do treści</a>
+    <Header tone={heroTone} />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <MobileBookingBar />
+    <ConsentBanner />
+
+    <script>
+      import '../scripts/motion.ts';
+      import '../scripts/consent.ts';
+      import '../scripts/webmcp.ts';
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  main:focus { outline: none; }
+
+  /* Sekcja po PageHero nachodzi na nią zaokrąglonymi rogami (:where → zerowa specyficzność,
+     własne tło sekcji zawsze wygrywa) */
+  :where(.page-hero + *) {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    background-color: var(--color-ivory);
+  }
+
+  /* Słowa „zapalane” przez scroll — dzielone w motion.ts ([data-words]) */
+  @media (prefers-reduced-motion: no-preference) {
+    /* Nieodsłonięte słowa mają kolor --color-muted (kontrast AA), odsłonięte — pełny tusz. */
+    [data-words-ready] .w {
+      --p: clamp(0, calc(var(--scroll, 0) * (var(--n, 1) + 1) - var(--k, 0)), 1);
+      color: color-mix(in oklab, var(--color-ink) calc(var(--p) * 100%), var(--color-muted));
+    }
+  }
+</style>

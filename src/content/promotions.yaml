@@ -1,0 +1,87 @@
+# Promocje — rabat na stronie liczony jest automatycznie na przykładowej pozycji z cennika (`example`).
+
+pazdziernikowe-promo:
+  title: Październikowe promo – zamykanie naczynek
+  order: 1
+  badge: −15%
+  percent: 15
+  summary: Jednolita cera, zero rumienia, większa pewność siebie – laserowe zamykanie naczynek z rabatem −15%.
+  steps:
+    - Umów zabieg laserowego zamykania naczynek na Booksy lub telefonicznie (694 642 573).
+    - Zabieg wykonamy w naszym gabinecie przy ul. Królewieckiej 121/3 we Wrocławiu.
+  terms:
+    - Promocja obowiązuje tylko do 31.10.2026 r.
+    - Rabat dotyczy zabiegów laserowego zamykania naczynek.
+  example:
+    category: zamykanie-naczynek
+    item: Twarz + Maska
+  validUntil: 2026-10-31
+
+przyjaciolka-polecajka:
+  title: Przyjaciółka-Polecajka
+  order: 2
+  badge: −15%
+  percent: 15
+  summary: Poleć nasz gabinet przyjaciółce i otrzymaj dodatkową zniżkę −15% na dowolny zabieg z naszej oferty.
+  steps:
+    - Poleć Si Skin swojej przyjaciółce lub znajomej.
+    - Osoba z Twojego polecenia odbywa u nas zabieg przed Twoją kolejną wizytą.
+    - Podczas swojej wizyty podaj imię osoby, która przyszła z Twojego polecenia, i zgłoś chęć skorzystania ze zniżki.
+  terms:
+    - Zniżka obejmuje dowolnie wybrany zabieg z oferty gabinetu.
+    - Zgłoś nam chęć skorzystania ze zniżki przy wizycie, po spełnieniu warunków promocji.
+    - Zniżkę z jednego polecenia można wykorzystać tylko raz.
+    - Przy wizycie podaj imię osoby, która przyszła z Twojego polecenia.
+  example:
+    category: epilacja-shr
+    item: Bikini głębokie (+ szpara pośladkowa)
+  highlight: true
+
+si-opinia:
+  title: Si-Opinia
+  order: 3
+  badge: −10%
+  percent: 10
+  summary: Wystaw nam 3 opinie – na Booksy, Google i Facebooku – i odbierz −10% na dowolny zabieg z naszej oferty.
+  steps:
+    - Wystaw opinię o naszym gabinecie na Booksy.
+    - Wystaw opinię na Google.
+    - Wystaw opinię na Facebooku.
+    - Zgłoś nam przy wizycie, że opinie są już dodane, i odbierz zniżkę.
+  terms:
+    - Zniżka obejmuje dowolnie wybrany zabieg z oferty gabinetu.
+    - Zgłoś nam chęć skorzystania ze zniżki przy wizycie, po spełnieniu warunków promocji.
+    - Warunkiem promocji są 3 opinie – na Booksy, Google i Facebooku.
+  example:
+    category: rozjasnianie-przebarwien
+    item: Twarz
+
+si-selfie:
+  title: Si-Selfie
+  order: 4
+  badge: −5%
+  percent: 5
+  summary: Zrób sobie zdjęcie w naszym gabinecie, oznacz nas na Instagramie lub Facebooku i odbierz −5% na dowolny zabieg z naszej oferty.
+  steps:
+    - Zrób sobie zdjęcie w naszym gabinecie.
+    - Opublikuj je na Instagramie lub Facebooku i oznacz nas (@siskin.wroclaw).
+    - Zgłoś nam przy wizycie chęć skorzystania ze zniżki.
+  terms:
+    - Zniżka obejmuje dowolnie wybrany zabieg z oferty gabinetu.
+    - Zgłoś nam chęć skorzystania ze zniżki przy wizycie, po spełnieniu warunków promocji.
+    - Zdjęcie powinno powstać w naszym gabinecie, a w publikacji oznaczasz nas na Instagramie lub Facebooku.
+  example:
+    category: epilacja-shr
+    item: Pachy
+
+karta-stalego-klienta:
+  title: Karta stałego klienta
+  order: 5
+  badge: Zniżki
+  summary: Zapytaj o ofertę w gabinecie przy najbliższej wizycie i otrzymaj zniżki na zabiegi depilacji laserowej.
+  steps:
+    - Przy najbliższej wizycie zapytaj nas o kartę stałego klienta.
+    - Omówimy z Tobą szczegóły oferty i przysługujące zniżki.
+  terms:
+    - Zniżki dotyczą zabiegów depilacji laserowej.
+    - Szczegóły oferty przedstawiamy w gabinecie.

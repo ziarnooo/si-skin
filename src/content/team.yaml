@@ -1,0 +1,27 @@
+weronika-grincewicz:
+  name: Weronika Grincewicz
+  role: Właścicielka, kosmetolożka
+  order: 1
+  specializations:
+    - Laseroterapia
+    - Modelowanie ust
+    - Stymulatory tkankowe
+    - Makijaż permanentny brwi
+  bio: >-
+    Pasjonatka sfery Beauty, nieustannie poszukująca nowych rozwiązań, stawiająca siłę
+    i dobro kobiet na pierwszym miejscu. Z zamiłowania do zdrowej, pięknej i promiennej
+    skóry postanowiła otworzyć własny gabinet laseroterapii i kosmetologii estetycznej.
+    Jej wizytówką są laser SHR EPIL MOTION, delikatna i subtelna medycyna estetyczna oraz
+    pełen profesjonalizm. Zwolnij i znajdź chwilę tylko dla siebie. Powiedz TAK swojej skórze!
+  photo: ../assets/images/weronika-grincewicz.jpg
+  photoAlt: Weronika Grincewicz – właścicielka gabinetu Si Skin
+
+jessica-waszajlo:
+  name: Jessica Waszajło
+  role: Kosmetolożka
+  order: 2
+  specializations:
+    - Depilacja laserowa
+    - Zamykanie naczynek
+    - Oczyszczanie wodorowe
+    - Mezoterapia bezigłowa

@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { formatDate, isoDate } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map((page) => ({ params: { page: page.id }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { title, description, updatedDate } = page.data;
+const path = `/${page.id}/`;
+const { Content } = await render(page);
+const crumbs = [{ name: title, path }];
+---
+
+<Base
+  title={title}
+  description={description}
+  path={path}
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero title={title} breadcrumbs={crumbs}>
+    {
+      updatedDate && (
+        <span class="chip chip--paper">
+          <Icon name="calendar" />
+          Ostatnia aktualizacja: <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+        </span>
+      )
+    }
+  </PageHero>
+
+  <section class="section section--tight" aria-label={title}>
+    <div class="container">
+      <div class="prose legal">
+        <Content />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .legal :global(h2) {
+    font-size: var(--text-xl);
+  }
+  .legal :global(h3) {
+    font-size: var(--text-lg);
+  }
+</style>

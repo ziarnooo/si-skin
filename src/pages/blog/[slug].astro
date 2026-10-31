@@ -1,0 +1,170 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import BookingButton from '../../components/BookingButton.astro';
+import CTASection from '../../components/CTASection.astro';
+import Icon from '../../components/Icon.astro';
+import { formatDate, isoDate, url } from '../../lib/site';
+import { articleSchema, breadcrumbSchema } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const d = post.data;
+const path = `/blog/${post.id}/`;
+
+const [allPosts, services] = await Promise.all([
+  getCollection('blog', ({ data }) => !data.draft),
+  getCollection('services'),
+]);
+const service = d.service ? services.find((s) => s.id === d.service) : undefined;
+const others = allPosts
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => {
+    const sameA = a.data.service === d.service ? 1 : 0;
+    const sameB = b.data.service === d.service ? 1 : 0;
+    return sameB - sameA || b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  })
+  .slice(0, 3);
+
+const { Content } = await render(post);
+const showUpdated = d.updatedDate && isoDate(d.updatedDate) !== isoDate(d.pubDate);
+
+const crumbs = [
+  { name: 'Blog', path: '/blog/' },
+  { name: d.title, path },
+];
+---
+
+<Base
+  title={d.title}
+  description={d.description}
+  image={d.image}
+  path={path}
+  type="article"
+  jsonLd={[articleSchema(post, Astro.site), breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero eyebrow="Blog" title={d.title} lead={d.description} breadcrumbs={crumbs}>
+    <span class="chip chip--paper">
+      <Icon name="calendar" />
+      <time datetime={isoDate(d.pubDate)}>{formatDate(d.pubDate)}</time>
+    </span>
+    {
+      showUpdated && d.updatedDate && (
+        <span class="chip chip--paper">
+          Aktualizacja: <time datetime={isoDate(d.updatedDate)}>{formatDate(d.updatedDate)}</time>
+        </span>
+      )
+    }
+  </PageHero>
+
+  <article class="section section--tight">
+    <div class="container article">
+      <figure class="article__cover media" data-reveal="clip">
+        <Picture
+          src={d.image}
+          alt={d.imageAlt}
+          formats={['avif', 'webp']}
+          widths={[480, 800, 1200, 1600]}
+          sizes="(min-width: 76rem) 70rem, 92vw"
+          loading="lazy"
+          decoding="async"
+          fit="cover"
+          width={1200}
+          height={630}
+        />
+      </figure>
+
+      <div class="article__layout">
+        <div class="prose" data-reveal="fade">
+          <Content />
+        </div>
+
+        {
+          service && (
+            <aside class="article__aside" aria-label="Powiązany zabieg">
+              <p class="eyebrow">Powiązany zabieg</p>
+              <ServiceCard service={service} />
+              <BookingButton placement={`blog-${post.id}`} service={service.id} block />
+            </aside>
+          )
+        }
+      </div>
+    </div>
+  </article>
+
+  {
+    others.length > 0 && (
+      <section class="section section--cream" aria-labelledby="wiecej-h">
+        <div class="container">
+          <div class="section-head section-head--split" data-reveal>
+            <h2 id="wiecej-h">Więcej z bloga</h2>
+            <p class="muted">
+              <a href={url('/blog/')}>Wszystkie artykuły</a>
+            </p>
+          </div>
+          <div class="card-grid">
+            {others.map((p, i) => (
+              <PostCard post={p} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection placement={`blog-${post.id}-bottom`} />
+</Base>
+
+<style>
+  .article {
+    display: grid;
+    gap: var(--space-xl);
+  }
+  .article__cover {
+    aspect-ratio: 16 / 9;
+    max-height: 32rem;
+    width: 100%;
+  }
+  .article__layout {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+  .article__aside {
+    display: grid;
+    gap: var(--space-s);
+  }
+  @media (min-width: 64rem) {
+    .article__layout {
+      grid-template-columns: minmax(0, 42rem) minmax(0, 22rem);
+      justify-content: space-between;
+    }
+    .article__aside {
+      position: sticky;
+      top: calc(var(--header-h) + var(--space-m));
+    }
+  }
+  .card-grid {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 40rem) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 64rem) {
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

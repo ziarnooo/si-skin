@@ -1,0 +1,40 @@
+---
+import YouTube from '../YouTube.astro';
+import Icon from '../Icon.astro';
+import { getSettings } from '../../lib/site';
+
+const settings = await getSettings();
+const youtubeUrl = settings.social.youtube;
+const id = youtubeUrl ? new URL(youtubeUrl).searchParams.get('v') : null;
+const title = 'Laseroterapia – epilacja laserowa, trwałe i bezbolesne usuwanie owłosienia we Wrocławiu';
+---
+
+{
+  id && (
+    <section class="section video" aria-labelledby="video-title">
+      <div class="container container--video">
+        <div class="section-head section-head--center" data-reveal>
+          <span class="eyebrow eyebrow--plain">Film</span>
+          <h2 id="video-title">Zobacz, jak wygląda <em class="accent">zabieg</em></h2>
+          <p class="lead">Krótki film o epilacji laserowej — zobacz, czego się spodziewać, zanim do nas przyjdziesz.</p>
+        </div>
+        <div class="video__frame" data-reveal="scale">
+          <YouTube id={id} title={title} />
+        </div>
+        <p class="video__more" data-reveal>
+          <a class="link-arrow" href={youtubeUrl} target="_blank" rel="noopener">
+            Obejrzyj na YouTube
+            <Icon name="arrow-up-right" size={16} />
+            <span class="visually-hidden">(otwiera w nowej karcie)</span>
+          </a>
+        </p>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .container--video { width: min(100% - 2 * var(--gutter), 60rem); }
+  .video__frame { margin-inline: auto; }
+  .video__more { margin-top: var(--space-m); text-align: center; }
+</style>

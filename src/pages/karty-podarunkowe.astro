@@ -1,0 +1,142 @@
+---
+import { getCollection } from 'astro:content';
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import BookingButton from '../components/BookingButton.astro';
+import FAQ from '../components/FAQ.astro';
+import Icon from '../components/Icon.astro';
+import voucher from '../assets/images/voucher.jpg';
+import { getSettings } from '../lib/site';
+import { breadcrumbSchema, faqSchema } from '../lib/schema';
+
+const [settings, faqEntries] = await Promise.all([getSettings(), getCollection('faq')]);
+const faq = faqEntries
+  .filter((f) => f.data.category === 'karty')
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((f) => ({ q: f.data.q, a: f.data.a }));
+const crumbs = [{ name: 'Karty podarunkowe', path: '/karty-podarunkowe/' }];
+
+const perks = [
+  { icon: 'calendar', title: '6 miesięcy', text: 'na wykorzystanie karty podarunkowej' },
+  { icon: 'gift', title: 'Personalizowany prezent', text: 'voucher na wybrany zabieg lub na określoną kwotę' },
+  { icon: 'pin', title: 'Kupisz w gabinecie', text: `kartę kupisz bezpośrednio u nas: ${settings.address.street}, ${settings.address.city}` },
+] as const;
+---
+
+<Base
+  title="Karty podarunkowe na zabiegi – voucher | Si Skin Wrocław"
+  description="Voucher podarunkowy Si Skin to idealny prezent na każdą okazję: na wybrany zabieg lub kwotę, ważny 6 miesięcy. Kupisz go w gabinecie we Wrocławiu."
+  path="/karty-podarunkowe/"
+  image={voucher}
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site), ...(faq.length ? [faqSchema(faq)] : [])]}
+>
+  <PageHero
+    eyebrow="Pomysł na prezent"
+    title="Karty podarunkowe"
+    lead="Idealny prezent na każdą okazję. Podaruj bliskiej osobie chwilę relaksu i troskę o skórę."
+    breadcrumbs={crumbs}
+  />
+
+  <section class="section section--tight" aria-label="Najważniejsze informacje">
+    <div class="container">
+      <ul class="perks" role="list">
+        {
+          perks.map((perk, i) => (
+            <li class="card perk" data-reveal style={`--i:${i}`}>
+              <span class="perk__icon">
+                <Icon name={perk.icon} size={22} />
+              </span>
+              <h2 class="h3">{perk.title}</h2>
+              <p class="muted">{perk.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="voucher-h">
+    <div class="container voucher">
+      <figure class="voucher__media media" data-reveal="clip" data-parallax>
+        <Picture
+          src={voucher}
+          alt="Voucher podarunkowy Si Skin w szklanej kopule — zielona karta ze złotym logo"
+          formats={['avif', 'webp']}
+          widths={[480, 720, 960]}
+          sizes="(min-width: 60rem) 28rem, 92vw"
+          loading="lazy"
+          decoding="async"
+          fit="cover"
+          width={720}
+          height={900}
+        />
+      </figure>
+      <div class="voucher__text stack-l" data-reveal>
+        <div class="stack">
+          <span class="eyebrow">Voucher podarunkowy</span>
+          <h2 id="voucher-h">Podaruj piękno i komfort</h2>
+        </div>
+        <p class="lead">Podaruj bliskiej osobie wyjątkowy voucher na komfortowy zabieg.</p>
+        <p>
+          Personalizowany voucher podarunkowy przygotowujemy na wybrany zabieg lub na określoną kwotę. Jest ważny przez 6 miesięcy. Kartę podarunkową kupisz bezpośrednio w naszym gabinecie — i obdarujesz kogoś wyjątkowego.
+        </p>
+        <div class="cluster voucher__actions">
+          <a class="btn btn--primary btn--lg" href={`tel:${settings.phoneHref}`} data-magnetic>
+            <Icon name="phone" />
+            <span>Zadzwoń: {settings.phone}</span>
+          </a>
+          <BookingButton placement="karty-podarunkowe" variant="ghost" size="lg" label="Umów wizytę" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {faq.length > 0 && <FAQ items={faq} title="Pytania o karty podarunkowe" withSchema={false} />}
+</Base>
+
+<style>
+  .perks {
+    display: grid;
+    gap: var(--space-s);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  }
+  .perk {
+    display: grid;
+    gap: var(--space-xs);
+    align-content: start;
+  }
+  .perk__icon {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-green);
+    color: var(--color-gold-light);
+  }
+  .voucher {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .voucher__media {
+    aspect-ratio: 4 / 5;
+    max-width: 28rem;
+    width: 100%;
+    margin-inline: auto;
+    box-shadow: var(--shadow-photo);
+  }
+  .voucher__actions {
+    gap: var(--space-s);
+  }
+  @media (min-width: 60rem) {
+    .voucher {
+      grid-template-columns: 28rem 1fr;
+      gap: var(--space-2xl);
+    }
+    .voucher__media {
+      margin-inline: 0;
+    }
+  }
+</style>

@@ -1,0 +1,347 @@
+---
+import { Image } from 'astro:assets';
+import BookingButton from '../BookingButton.astro';
+import Icon from '../Icon.astro';
+import { getSettings, url } from '../../lib/site';
+import specjalistka from '../../assets/images/specjalistka-laser.jpg';
+import gabinet from '../../assets/images/gabinet-2.jpg';
+import zabieg from '../../assets/images/epilacja-zabieg-1.jpg';
+
+const { rating } = await getSettings();
+const n = rating.count;
+const opinie = n % 10 >= 2 && n % 10 <= 4 && !(n % 100 >= 12 && n % 100 <= 14) ? 'opinie' : 'opinii';
+const sizes = '(min-width: 68.75rem) 18rem, (min-width: 40rem) 14rem, 42vw';
+const widths = [160, 240, 320, 480];
+---
+
+<section class="hA" data-hero-a aria-labelledby="hero-a-title">
+  <div class="hA-bg" aria-hidden="true">
+    <canvas data-mesh></canvas>
+    <svg class="hA-hex" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2.8 20 7.4v9.2l-8 4.6-8-4.6V7.4z" vector-effect="non-scaling-stroke"></path>
+    </svg>
+  </div>
+
+  <div class="hA-inner">
+    <p class="eyebrow hA-eyebrow hA-in" style="--i:0">Gabinet kosmetologii i laseroterapii we Wrocławiu</p>
+    <h1 id="hero-a-title" class="hA-title hA-in" style="--i:.4">
+      Powiedz <span class="hA-tak">TAK</span> swojej skórze
+    </h1>
+    <p class="hA-lead hA-in" style="--i:2">
+      Bezbolesna depilacja laserowa SHR, oczyszczanie wodorowe i zabiegi na twarz — dobieramy je do tego,
+      czego naprawdę potrzebuje Twoja skóra.
+    </p>
+    <div class="hA-cta hA-in" style="--i:3">
+      <BookingButton placement="home-hero" size="lg" />
+      <a class="btn btn--ghost btn--lg" href={url('/cennik/')}><span>Zobacz cennik</span></a>
+    </div>
+    <a class="hA-rating hA-in" style="--i:4" href={rating.url} target="_blank" rel="noopener">
+      <Icon name="star" size={16} />
+      <span>{rating.value.toFixed(1)} · {rating.count} {opinie} w {rating.source}</span>
+      <span class="visually-hidden">(otwiera w nowej karcie)</span>
+    </a>
+  </div>
+
+  <div class="hA-cards">
+    <div class="hA-card hA-card--gabinet" data-depth="14" style="--i:5">
+      <div class="hA-card__in">
+        <Image
+          src={gabinet}
+          alt="Gabinet depilacji laserowej Si Skin w szałwiowych kolorach"
+          width={480}
+          height={360}
+          widths={widths}
+          sizes={sizes}
+          loading="eager"
+          fetchpriority="low"
+          decoding="async"
+        />
+      </div>
+    </div>
+    <div class="hA-card hA-card--zabieg" data-depth="30" style="--i:6.5">
+      <div class="hA-card__in">
+        <Image
+          src={zabieg}
+          alt="Zabieg depilacji laserowej SHR pachy w gabinecie Si Skin"
+          width={480}
+          height={540}
+          widths={widths}
+          sizes={sizes}
+          loading="eager"
+          fetchpriority="low"
+          decoding="async"
+        />
+      </div>
+    </div>
+    <div class="hA-card hA-card--osoba" data-depth="22" style="--i:6">
+      <div class="hA-card__in">
+        <Image
+          src={specjalistka}
+          alt="Specjalistka Si Skin z głowicą lasera SHR"
+          width={480}
+          height={640}
+          widths={widths}
+          sizes={sizes}
+          loading="eager"
+          fetchpriority="low"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/mesh-a.ts';
+</script>
+
+<style>
+  .hA {
+    --mesh-0: var(--color-ivory);
+    --mesh-1: var(--color-sand);
+    --mesh-2: var(--color-sage);
+    --mesh-3: var(--color-gold-light);
+    --mesh-4: var(--color-paper);
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-top: calc(var(--header-h) + 2.25rem);
+    padding-bottom: 3.5rem;
+    text-align: center;
+  }
+
+  /* Tło: CSS-owy odpowiednik gradientu (fallback) + canvas WebGL wjeżdżający na wierzch */
+  .hA-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(55% 45% at 12% 30%, var(--color-sand) 0%, transparent 72%),
+      radial-gradient(48% 42% at 90% 22%, var(--color-sage-light) 0%, transparent 72%),
+      radial-gradient(40% 36% at 55% 95%, color-mix(in srgb, var(--color-gold-light) 45%, transparent) 0%, transparent 72%),
+      radial-gradient(40% 30% at 45% 8%, var(--color-paper) 0%, transparent 70%),
+      var(--color-ivory);
+  }
+  .hA-bg::after {
+    /* płynne przejście w tło kolejnej sekcji */
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: clamp(5rem, 14vw, 9rem);
+    background: linear-gradient(to bottom, transparent, var(--color-ivory));
+    pointer-events: none;
+  }
+  .hA-bg canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.4s var(--ease-out);
+  }
+  .hA-bg canvas.is-ready { opacity: 1; }
+  .hA-hex {
+    position: absolute;
+    left: 50%;
+    top: 34%;
+    width: min(140vw, 54rem);
+    translate: -50% -50%;
+    stroke: var(--color-gold);
+    stroke-width: 1;
+    opacity: 0.28;
+    pointer-events: none;
+  }
+
+  /* ── Treść (mobile-first: kolumna, wyśrodkowana) ── */
+  .hA-inner {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: min(100% - 2 * var(--gutter), 42rem);
+    margin-inline: auto;
+  }
+  .hA-eyebrow {
+    margin-bottom: var(--space-s);
+    max-width: 19rem;
+    justify-content: center;
+    letter-spacing: 0.11em;
+    line-height: 1.5;
+    text-wrap: balance;
+  }
+  .hA-eyebrow::before, .hA-eyebrow::after { display: none; }
+  .hA-title {
+    max-width: 11.5em;
+    font-size: clamp(2.6rem, 1.55rem + 5.4vw, 6.25rem);
+    line-height: 1.04;
+    letter-spacing: var(--tracking-tight);
+  }
+  .hA-tak {
+    color: var(--color-gold-text);
+    padding-inline: 0.06em;
+    background: linear-gradient(transparent 64%, color-mix(in srgb, var(--color-gold-light) 65%, transparent) 64% 90%, transparent 90%) no-repeat left / 100% 100%;
+  }
+  .hA-lead {
+    max-width: 31rem;
+    margin-top: var(--space-m);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    color: var(--color-ink-soft);
+  }
+  .hA-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    width: 100%;
+    max-width: 22rem;
+    margin-top: var(--space-l);
+  }
+  .hA-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 2.75rem;
+    margin-top: var(--space-m);
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line);
+    background: color-mix(in srgb, var(--color-paper) 80%, transparent);
+    font-size: var(--text-xs);
+    color: var(--color-ink-soft);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--dur) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  }
+  .hA-rating :global(svg) { color: var(--color-star); }
+  .hA-rating:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .hA-rating:hover { background: var(--color-paper); }
+  }
+
+  /* ── Karty ze zdjęciami — mobile: wachlarz pod treścią (stały aspect-ratio → zero CLS) ── */
+  .hA-cards {
+    position: relative;
+    z-index: 1;
+    width: min(100% - 2 * var(--gutter), 24rem);
+    aspect-ratio: 1.28;
+    margin: var(--space-xl) auto 0;
+    pointer-events: none;
+  }
+  .hA-card {
+    position: absolute;
+    width: var(--w);
+    will-change: transform;
+  }
+  .hA-card__in {
+    --r: 0deg;
+    border: 5px solid var(--color-paper);
+    border-radius: var(--radius-m);
+    background: var(--color-sand);
+    box-shadow: var(--shadow-photo);
+    overflow: hidden;
+    rotate: var(--r);
+  }
+  .hA-card__in :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--ar);
+    object-fit: cover;
+  }
+  .hA-card--gabinet { --w: 50%; --ar: 4 / 3; left: 0; top: 15%; z-index: 1; }
+  .hA-card--gabinet .hA-card__in { --r: -6deg; }
+  .hA-card--osoba { --w: 40%; --ar: 3 / 4; right: 1%; top: 0; z-index: 2; }
+  .hA-card--osoba .hA-card__in { --r: 5deg; }
+  .hA-card--zabieg { --w: 33%; --ar: 8 / 9; left: 31%; bottom: 0; z-index: 3; }
+  .hA-card--zabieg .hA-card__in { --r: -2deg; }
+
+  /* ── Tablet (przed układem z kartami po bokach) ── */
+  @media (min-width: 40rem) {
+    .hA { padding-top: calc(var(--header-h) + 3.5rem); padding-bottom: 4.5rem; }
+    .hA-eyebrow { max-width: none; letter-spacing: var(--tracking-wide); }
+    .hA-eyebrow::before, .hA-eyebrow::after {
+      display: block;
+      content: '';
+      width: 1.75rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+    .hA-lead { font-size: var(--text-lg); }
+    .hA-cta { flex-direction: row; width: auto; max-width: none; }
+    .hA-cards { width: min(100% - 2 * var(--gutter), 36rem); margin-top: var(--space-2xl); }
+  }
+
+  /* ── Desktop: wyśrodkowana treść, karty swobodnie po bokach ── */
+  @media (min-width: 68.75rem) {
+    .hA {
+      display: grid;
+      place-items: center;
+      min-height: clamp(36rem, 100svh, 60rem);
+      padding-top: calc(var(--header-h) + 2rem);
+      padding-bottom: 5rem;
+    }
+    .hA-hex { top: 46%; width: min(70vw, 56rem); }
+    .hA-cards {
+      position: absolute;
+      inset: 0;
+      width: min(100%, 92rem);
+      aspect-ratio: auto;
+      margin: 0 auto;
+    }
+    .hA-card--gabinet { --w: clamp(13rem, 19vw, 19rem); left: 3%; top: 34%; }
+    .hA-card--osoba { --w: clamp(12rem, 18vw, 18rem); right: 3%; top: calc(var(--header-h) + 3%); }
+    .hA-card--zabieg { --w: clamp(8.5rem, 11vw, 11rem); left: auto; right: 11%; bottom: 7%; }
+    .hA-card--gabinet .hA-card__in { --r: -5deg; }
+    .hA-card--osoba .hA-card__in { --r: 4deg; }
+    .hA-card--zabieg .hA-card__in { --r: -4deg; }
+    .hA-card__in { border-width: 6px; border-radius: var(--radius-l); }
+  }
+
+  /* ── Wejście: staggerowany blur-in, tylko CSS ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .hA-in {
+      animation: hA-in 0.85s var(--ease-out) both;
+      animation-delay: calc(var(--i, 0) * 90ms + 40ms);
+    }
+    .hA-card {
+      animation: hA-card 1s var(--ease-out) both;
+      animation-delay: calc(var(--i, 5) * 90ms + 120ms);
+    }
+    .hA-hex { animation: hA-fade 1.8s var(--ease-out) 0.2s both; }
+    .hA-tak { animation: hA-mark 0.9s var(--ease-out) 0.75s both; }
+
+    /* Dryf kart przy przewijaniu (bez JS, tylko gdzie wspierane) */
+    @supports (animation-timeline: scroll()) {
+      .hA-card {
+        animation:
+          hA-card 1s var(--ease-out) both,
+          hA-drift linear both;
+        animation-delay: calc(var(--i, 5) * 90ms + 120ms), 0s;
+        animation-timeline: auto, scroll(root);
+        animation-range: normal, 0 90svh;
+      }
+      .hA-card--gabinet { --drift: -28px; }
+      .hA-card--osoba { --drift: 46px; }
+      .hA-card--zabieg { --drift: -64px; }
+    }
+  }
+  @keyframes hA-in {
+    from { opacity: 0; filter: blur(12px); transform: translate3d(0, 16px, 0); }
+    to { opacity: 1; filter: blur(0); transform: none; }
+  }
+  @keyframes hA-card {
+    from { opacity: 0; filter: blur(14px); scale: 0.94; }
+    to { opacity: 1; filter: blur(0); scale: 1; }
+  }
+  @keyframes hA-fade {
+    from { opacity: 0; }
+  }
+  @keyframes hA-mark {
+    from { background-size: 0% 100%; }
+  }
+  @keyframes hA-drift {
+    to { translate: 0 var(--drift, 0px); }
+  }
+</style>

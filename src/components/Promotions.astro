@@ -1,0 +1,297 @@
+---
+import { getCollection } from 'astro:content';
+import Icon from './Icon.astro';
+import { applyDiscount, findPriceItem, formatDate, formatPrice, isActive, isoDate } from '../lib/site';
+
+interface Props {
+  limit?: number;
+}
+
+const { limit } = Astro.props;
+
+const [promos, pricing] = await Promise.all([getCollection('promotions'), getCollection('pricing')]);
+const items = promos
+  .filter((p) => isActive(p.data))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, limit)
+  .map((p) => {
+    const found = p.data.example ? findPriceItem(pricing, p.data.example.category, p.data.example.item) : undefined;
+    const base = found?.item.price;
+    const example =
+      found && base !== undefined && p.data.percent
+        ? { name: found.item.name, base, after: applyDiscount(base, p.data.percent) }
+        : undefined;
+    return { ...p, example };
+  });
+---
+
+{
+  items.length > 0 && (
+    <div class="promos">
+      {items.map((promo, i) => (
+        <article
+          class:list={['promo', promo.data.highlight && 'promo--highlight']}
+          data-reveal
+          style={`--i:${Math.min(i, 5)}`}
+          data-valid-until={promo.data.validUntil ? isoDate(promo.data.validUntil) : undefined}
+        >
+          <header class="promo__head">
+            <span class="promo__badge" aria-label={promo.data.percent ? `Rabat ${promo.data.percent} procent` : undefined}>{promo.data.badge}</span>
+            <div class="promo__title">
+              <h3>{promo.data.title}</h3>
+              {promo.data.validUntil && (
+                <span class="chip chip--gold">
+                  <Icon name="calendar" />
+                  Do {formatDate(promo.data.validUntil)}
+                </span>
+              )}
+            </div>
+          </header>
+
+          <p class="promo__summary">{promo.data.summary}</p>
+
+          {promo.data.steps.length > 0 && (
+            <div class="promo__block">
+              <h4 class="promo__label">Jak skorzystać</h4>
+              <ol class="promo__steps" role="list">
+                {promo.data.steps.map((step, n) => (
+                  <li>
+                    <span class="promo__n" aria-hidden="true">{n + 1}</span>
+                    <span>{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          {promo.example && (
+            <p class="promo__example">
+              <span class="promo__label">Przykład</span>
+              <span class="promo__calc">
+                {promo.example.name}
+                <span class="promo__prices">
+                  <span class="price-old">{formatPrice(promo.example.base)}</span>
+                  <Icon name="arrow" size={16} />
+                  <strong class="price-new">{formatPrice(promo.example.after)}</strong>
+                </span>
+              </span>
+            </p>
+          )}
+
+          {promo.data.terms.length > 0 && (
+            <details class="promo__terms">
+              <summary>
+                <span>Zasady i warunki</span>
+                <Icon name="chevron" size={18} />
+              </summary>
+              <ul>
+                {promo.data.terms.map((t) => (
+                  <li>{t}</li>
+                ))}
+              </ul>
+            </details>
+          )}
+        </article>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .promos {
+    display: grid;
+    gap: var(--space-m);
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 52rem) {
+    .promos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .promo {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-l);
+    padding: clamp(1.25rem, 1rem + 1.6vw, 2.25rem);
+  }
+  .promo[hidden] {
+    display: none;
+  }
+  .promo__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-s);
+  }
+  .promo__badge {
+    flex: none;
+    display: grid;
+    place-items: center;
+    min-width: 5.25rem;
+    height: 5.25rem;
+    padding-inline: 0.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-green);
+    color: var(--color-gold-light);
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    letter-spacing: var(--tracking-tight);
+    text-align: center;
+    line-height: 1.1;
+  }
+  .promo__title {
+    display: grid;
+    gap: var(--space-2xs);
+    justify-items: start;
+    min-width: 0;
+  }
+  .promo__title h3 {
+    font-size: var(--text-xl);
+  }
+  .promo__summary {
+    color: var(--color-ink-soft);
+  }
+  .promo__label {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-gold-text);
+    margin-bottom: var(--space-2xs);
+  }
+  .promo__steps {
+    display: grid;
+    gap: var(--space-xs);
+  }
+  .promo__steps li {
+    display: grid;
+    grid-template-columns: 1.75rem 1fr;
+    gap: var(--space-xs);
+    align-items: start;
+    font-size: var(--text-sm);
+  }
+  .promo__n {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: var(--radius-pill);
+    background: var(--color-cream);
+    color: var(--color-gold-text);
+    font-family: var(--font-serif);
+    font-size: var(--text-xs);
+  }
+  .promo__example {
+    display: grid;
+    gap: var(--space-3xs);
+    padding: var(--space-s);
+    border-radius: var(--radius-m);
+    background: var(--color-ivory);
+    border: 1px dashed var(--color-line-strong);
+  }
+  .promo__example .promo__label {
+    margin: 0;
+  }
+  .promo__calc {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-s);
+    font-size: var(--text-sm);
+  }
+  .promo__prices {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-variant-numeric: tabular-nums;
+  }
+  .promo__prices strong {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: var(--text-lg);
+  }
+  .promo__terms {
+    margin-top: auto;
+    border-top: 1px solid var(--color-line);
+    padding-top: var(--space-xs);
+  }
+  .promo__terms summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-s);
+    min-height: 2.75rem;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+  .promo__terms summary::-webkit-details-marker {
+    display: none;
+  }
+  .promo__terms summary :global(svg) {
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .promo__terms[open] summary :global(svg) {
+    transform: rotate(180deg);
+  }
+  .promo__terms ul {
+    padding-left: 1.1rem;
+    display: grid;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    padding-bottom: var(--space-2xs);
+  }
+  .promo__terms li::marker {
+    color: var(--color-gold);
+  }
+
+  .promo--highlight {
+    background: var(--color-green);
+    border-color: transparent;
+    color: var(--color-on-dark);
+  }
+  .promo--highlight .promo__badge {
+    background: var(--color-gold-light);
+    color: var(--color-green-deep);
+  }
+  .promo--highlight .promo__summary,
+  .promo--highlight .promo__terms ul {
+    color: var(--color-on-dark-soft);
+  }
+  .promo--highlight .promo__label {
+    color: var(--color-gold-light);
+  }
+  .promo--highlight .promo__n {
+    background: rgb(255 255 255 / 0.1);
+    color: var(--color-gold-light);
+  }
+  .promo--highlight .promo__example {
+    background: rgb(255 255 255 / 0.06);
+    border-color: var(--color-line-on-dark);
+  }
+  .promo--highlight .price-old {
+    color: var(--color-on-dark-soft);
+  }
+  .promo--highlight .price-new {
+    color: var(--color-gold-light);
+  }
+  .promo--highlight .promo__terms {
+    border-color: var(--color-line-on-dark);
+  }
+  .promo--highlight .chip--gold {
+    background: rgb(255 255 255 / 0.1);
+    color: var(--color-gold-light);
+  }
+</style>
+
+<script>
+  /* Ukrywa po stronie klienta promocje, które wygasły po zbudowaniu strony. */
+  const now = new Date();
+  document.querySelectorAll<HTMLElement>('[data-valid-until]').forEach((el) => {
+    const until = new Date(`${el.dataset.validUntil}T23:59:59`);
+    if (now > until) el.hidden = true;
+  });
+</script>

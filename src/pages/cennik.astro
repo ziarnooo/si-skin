@@ -1,0 +1,238 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import PriceTable from '../components/PriceTable.astro';
+import Promotions from '../components/Promotions.astro';
+import BookingButton from '../components/BookingButton.astro';
+import CTASection from '../components/CTASection.astro';
+import Icon from '../components/Icon.astro';
+import { formatDate, getSettings, isActive, url } from '../lib/site';
+import { breadcrumbSchema } from '../lib/schema';
+
+const [settings, pricing, services, promotions] = await Promise.all([
+  getSettings(),
+  getCollection('pricing'),
+  getCollection('services'),
+  getCollection('promotions'),
+]);
+const categories = [...pricing].sort((a, b) => a.data.order - b.data.order);
+const serviceIds = new Set(services.map((s) => s.id));
+const hasPromos = promotions.some((p) => isActive(p.data));
+const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
+---
+
+<Base
+  title="Cennik zabiegów laserowych i kosmetologicznych | Si Skin"
+  description="Aktualny cennik gabinetu Si Skin we Wrocławiu: depilacja laserowa SHR, zamykanie naczynek, przebarwienia, oczyszczanie wodorowe, stymulatory, modelowanie ust."
+  path="/cennik/"
+  jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site)]}
+>
+  <PageHero
+    eyebrow="Ceny brutto"
+    title="Cennik"
+    lead="Przejrzysta lista zabiegów z czasem trwania i ceną. Ceny weryfikujemy na bieżąco z ofertą w Booksy, gdzie od razu umówisz wizytę."
+    breadcrumbs={crumbs}
+    booking="cennik-top"
+  >
+    <span class="chip chip--paper">
+      <Icon name="check-circle" />
+      Aktualizacja: {formatDate(settings.rating.checkedAt)}
+    </span>
+  </PageHero>
+
+  <nav class="spy" aria-label="Kategorie cennika" data-spy>
+    <div class="spy__scroller">
+      <ul role="list" class="spy__list">
+        {
+          categories.map((c) => (
+            <li>
+              <a class="spy__link" href={`#${c.id}`}>{c.data.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+
+  <section class="section section--tight" aria-label="Cennik zabiegów">
+    <div class="container">
+      <div class="stack-l">
+        {
+          categories.map((c) => (
+            <div class="cat">
+              <PriceTable category={c} level={2} open />
+              <div class="cat__actions">
+                <BookingButton placement={`cennik-${c.id}`} service={c.data.service} />
+                {c.data.service && serviceIds.has(c.data.service) && (
+                  <a class="link-arrow" href={url(`/${c.data.service}/`)}>
+                    Opis zabiegu
+                    <Icon name="arrow" size={16} />
+                  </a>
+                )}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <aside class="packages card" data-reveal>
+        <Icon name="gift" size={26} />
+        <p>
+          <strong class="serif">Pakiety zabiegów.</strong>
+          Pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie — zapytaj o nie podczas wizyty lub bezpłatnej konsultacji.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  {
+    hasPromos && (
+      <section class="section section--cream" aria-labelledby="promocje-h">
+        <div class="container">
+          <div class="section-head section-head--split" data-reveal>
+            <h2 id="promocje-h">Promocje</h2>
+            <p class="muted">
+              Zniżki za polecenie, opinię, selfie i karta stałego klienta. <a href={url('/promocje/')}>Wszystkie promocje i zasady</a>
+            </p>
+          </div>
+          <Promotions limit={2} />
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection placement="cennik-bottom" />
+</Base>
+
+<style>
+  .spy {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 5;
+    background: color-mix(in srgb, var(--color-ivory) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border-block: 1px solid var(--color-line);
+  }
+  .spy__scroller {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .spy__scroller::-webkit-scrollbar {
+    display: none;
+  }
+  .spy__list {
+    display: flex;
+    gap: var(--space-2xs);
+    width: max-content;
+    min-width: 100%;
+    padding: var(--space-xs) var(--gutter);
+    margin-inline: auto;
+  }
+  @media (min-width: 76rem) {
+    .spy__list {
+      justify-content: center;
+    }
+  }
+  .spy__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--color-ink-soft);
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      transform var(--dur-press) var(--ease-out);
+  }
+  .spy__link:active {
+    transform: scale(0.97);
+  }
+  .spy__link[aria-current='true'] {
+    background: var(--color-green);
+    border-color: var(--color-green);
+    color: var(--color-on-dark);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .spy__link:hover:not([aria-current='true']) {
+      border-color: var(--color-line-strong);
+      color: var(--color-ink);
+    }
+  }
+  .cat__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m);
+    padding: var(--space-s) var(--space-xs) 0;
+  }
+  .packages {
+    display: flex;
+    gap: var(--space-s);
+    align-items: flex-start;
+    margin-top: var(--space-xl);
+    background: var(--color-sage-light);
+    border-color: transparent;
+  }
+  .packages :global(svg) {
+    flex: none;
+    color: var(--color-green);
+  }
+  .packages strong {
+    font-weight: 400;
+    margin-right: 0.35em;
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-spy]');
+  if (nav) {
+    const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
+    const byId = new Map(links.map((a) => [a.hash.slice(1), a]));
+    const scroller = nav.querySelector<HTMLElement>('.spy__scroller');
+    const visible = new Set<string>();
+    let current = '';
+
+    const setCurrent = (id: string) => {
+      if (id === current) return;
+      current = id;
+      links.forEach((a) => {
+        if (a === byId.get(id)) {
+          a.setAttribute('aria-current', 'true');
+          if (scroller) {
+            const left = a.offsetLeft - (scroller.clientWidth - a.offsetWidth) / 2;
+            scroller.scrollTo({ left, behavior: 'smooth' });
+          }
+        } else {
+          a.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    const targets = Array.from(byId.keys())
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+        const first = targets.find((t) => visible.has(t.id));
+        if (first) setCurrent(first.id);
+      },
+      { rootMargin: '-25% 0px -55% 0px' },
+    );
+    targets.forEach((t) => observer.observe(t));
+
+    const hash = location.hash.slice(1);
+    if (hash) document.getElementById(hash)?.setAttribute('open', '');
+  }
+</script>
