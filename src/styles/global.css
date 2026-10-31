@@ -262,6 +262,9 @@ em.accent, .accent {
   color: var(--color-ink);
 }
 .prose img { border-radius: var(--radius-m); }
+/* Szerokie tabele przewijają się w poziomie zamiast rozpychać stronę na telefonie */
+.prose table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: var(--text-sm); }
+.prose th, .prose td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--color-line); text-align: left; vertical-align: top; min-width: 9rem; }
 
 /* ── Animacje wejścia (progressive enhancement) ──────────────── */
 @media (prefers-reduced-motion: no-preference) {

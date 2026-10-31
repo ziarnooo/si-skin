@@ -46,6 +46,8 @@ const embedSrc = `https://maps.google.com/maps?q=${query}&output=embed`;
     border-radius: var(--radius-l);
     border: 1px solid var(--color-line);
     background: var(--color-sage-light);
+    /* Stała szerokość: inaczej aspect-ratio + min-height rozpychały mapę (i stronę) na telefonie. */
+    width: 100%;
     min-height: 24rem;
     aspect-ratio: 16 / 10;
   }
