@@ -1,10 +1,13 @@
 /**
  * Stopka: gigantyczne SISKIN jako siatka kropek (canvas) z „latarką” pod kursorem.
  *  - kształt liter = ścieżki z SVG w DOM (ten sam viewBox/przycięcie), próbkowane na offscreen canvas,
- *  - w spoczynku kropki są blade; w promieniu kursora rozjaśniają się, rosną i lekko odpychają się sprężyną,
+ *  - spoczynek: kropki liter tylko odrobinę ciemniejsze od tła stopki (tłoczenie),
+ *  - w promieniu kursora (smoothstep) kropki liter robią się złote (jaśniejsze złoto w centrum),
+ *    a w tle (poza literami) pojawiają się rzadkie, mrugające zielone kropki — gęściej przy kursorze,
+ *  - rozmiar kropek stały, bez przesunięć,
  *  - dotyk: automatyczny „przejazd” światła po wejściu w widok + reakcja na dotyk/przeciąganie,
- *  - prefers-reduced-motion: statyczne, w pełni odsłonięte kropki,
- *  - lazy init (IntersectionObserver), rAF stoi poza ekranem i gdy sprężyny się uspokoją.
+ *  - prefers-reduced-motion: statyczne litery w przygaszonym złocie, bez szumu,
+ *  - lazy init (IntersectionObserver), rAF stoi poza ekranem i gdy wszystko wygaśnie.
  */
 
 const stage = document.querySelector<HTMLElement>('[data-footer-dots]');
@@ -23,9 +26,13 @@ function init(
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse = matchMedia('(hover: none)').matches;
 
-  const REST_ALPHA = 0.2;
-  const BUCKETS = 10;
+  const BUCKETS = 12;
+  const TOP = BUCKETS - 1;
   const SAMPLE = 4; // próbek na komórkę (na oś) przy odczycie kształtu
+  const REST_BLACK_MIX = 0.25; // ile czerni domieszać do zieleni stopki w spoczynku
+  const REDUCED_LEVEL = 0.6; // poziom „złota” liter przy reduced motion
+  const NOISE_GREEN_ALPHA = 0.85;
+  const NOISE_SAGE_ALPHA = 0.3;
 
   /* viewBox + ścieżki liter z SVG (transformacja grupy z logo.svg: translate(0,1027) scale(.1,-.1)) */
   const [vx, vy, vw, vh] = (svg.getAttribute('viewBox') ?? '0 0 1434 172').split(/\s+/).map(Number);
@@ -39,7 +46,47 @@ function init(
   const gsy = sc ? Number(sc[2]) : 1;
   const paths = [...svg.querySelectorAll('path')].map((p) => new Path2D(p.getAttribute('d') ?? ''));
 
-  /* Stan siatki */
+  /* ---------- kolory z tokenów CSS ---------- */
+  type RGB = [number, number, number];
+  const probe = document.createElement('canvas');
+  probe.width = probe.height = 1;
+  const pctx = probe.getContext('2d', { willReadFrequently: true });
+  function token(name: string): RGB {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    if (!pctx || !v) return [0, 0, 0];
+    pctx.clearRect(0, 0, 1, 1);
+    pctx.fillStyle = v;
+    pctx.fillRect(0, 0, 1, 1);
+    const d = pctx.getImageData(0, 0, 1, 1).data;
+    return [d[0], d[1], d[2]];
+  }
+  const mix = (a: RGB, b: RGB, t: number): RGB => [
+    a[0] + (b[0] - a[0]) * t,
+    a[1] + (b[1] - a[1]) * t,
+    a[2] + (b[2] - a[2]) * t,
+  ];
+  const css = (c: RGB) => `rgb(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])})`;
+
+  let letterColors: string[] = [];
+  let greenColor = '';
+  let sageColor = '';
+  function buildPalette() {
+    const deep = token('--color-green-deep');
+    const gold = token('--color-gold');
+    const goldLight = token('--color-gold-light');
+    const rest = mix(deep, [0, 0, 0], REST_BLACK_MIX);
+    letterColors = [];
+    for (let b = 0; b < BUCKETS; b++) {
+      const t = b / TOP;
+      let c = mix(rest, gold, Math.min(1, t * 1.15));
+      if (t > 0.6) c = mix(c, goldLight, ((t - 0.6) / 0.4) * 0.7);
+      letterColors.push(css(c));
+    }
+    greenColor = css(token('--color-green'));
+    sageColor = css(token('--color-sage'));
+  }
+
+  /* ---------- stan siatki ---------- */
   let W = 0;
   let H = 0;
   let dpr = 1;
@@ -48,13 +95,12 @@ function init(
   let n = 0;
   let bx = new Float32Array(0);
   let by = new Float32Array(0);
-  let cov = new Float32Array(0);
-  let ox = new Float32Array(0);
-  let oy = new Float32Array(0);
-  let vxs = new Float32Array(0);
-  let vys = new Float32Array(0);
-  let li = new Float32Array(0);
-  let color = '#b08d52';
+  let kind = new Uint8Array(0); // 0 = litera, 1 = szum zielony, 2 = szum szałwiowy
+  let thr = new Float32Array(0); // próg pojawienia się (szum)
+  let ph = new Float32Array(0); // faza mrugania
+  let sp = new Float32Array(0); // prędkość mrugania (rad/s)
+  let li = new Float32Array(0); // wygładzone oświetlenie 0..1
+  let ef = new Float32Array(0); // efektywny poziom do rysowania (z mrugnięciem)
 
   /* Kursor / latarka */
   let px = 0; // pozycja docelowa (viewport)
@@ -78,7 +124,7 @@ function init(
     if (!W) return;
     H = (W * vh) / vw;
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    color = getComputedStyle(stage).color || color;
+    buildPalette();
 
     const target = Math.min(6, Math.max(3.5, W / 250));
     const cols = Math.max(1, Math.round(W / target));
@@ -107,7 +153,7 @@ function init(
 
     const bxl: number[] = [];
     const byl: number[] = [];
-    const cvl: number[] = [];
+    const kl: number[] = [];
     const cellArea = SAMPLE * SAMPLE * 255;
     for (let j = 0; j < rows; j++) {
       for (let i = 0; i < cols; i++) {
@@ -117,49 +163,83 @@ function init(
           for (let sx = 0; sx < SAMPLE; sx++) sum += data[rowOff + sx * 4];
         }
         const c = sum / cellArea;
-        if (c > 0.28) {
+        if (c > 0.35) {
           bxl.push((i + 0.5) * spacing);
           byl.push((j + 0.5) * spacing);
-          cvl.push(Math.min(1, 0.55 + c * 0.6));
+          kl.push(0);
+        } else if (!reduced && c < 0.08) {
+          /* tło: tylko komórki wyraźnie poza literami */
+          bxl.push((i + 0.5) * spacing);
+          byl.push((j + 0.5) * spacing);
+          kl.push(Math.random() < 0.22 ? 2 : 1);
         }
       }
     }
     n = bxl.length;
     bx = Float32Array.from(bxl);
     by = Float32Array.from(byl);
-    cov = Float32Array.from(cvl);
-    ox = new Float32Array(n);
-    oy = new Float32Array(n);
-    vxs = new Float32Array(n);
-    vys = new Float32Array(n);
+    kind = Uint8Array.from(kl);
+    thr = new Float32Array(n);
+    ph = new Float32Array(n);
+    sp = new Float32Array(n);
     li = new Float32Array(n);
-    if (reduced) li.fill(1);
+    ef = new Float32Array(n);
+    for (let k = 0; k < n; k++) {
+      /* próg: im wyższy, tym bliżej kursora dopiero kropka się pojawi → gęstość rośnie ku środkowi, zawsze rzadko */
+      thr[k] = 0.3 + Math.random() * 2.4;
+      ph[k] = Math.random() * Math.PI * 2;
+      sp[k] = 1.5 + Math.random() * 3.5;
+    }
+    if (reduced) {
+      li.fill(REDUCED_LEVEL);
+      ef.fill(REDUCED_LEVEL);
+    }
     built = true;
     stage.setAttribute('data-dots', '');
     draw();
   }
 
-  /* ---------- rysowanie ---------- */
+  /* ---------- rysowanie (kropki grupowane w koszyki kolor/alfa) ---------- */
   function draw() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = color;
-    const r0 = spacing * 0.27;
-    const paths: Path2D[] = [];
-    for (let b = 0; b < BUCKETS; b++) paths.push(new Path2D());
-    const top = BUCKETS - 1;
-    for (let k = 0; k < n; k++) {
-      const l = li[k];
-      const b = Math.min(top, Math.round(l * top));
-      const r = r0 * cov[k] * (1 + 0.5 * l);
-      const x = bx[k] + ox[k];
-      const y = by[k] + oy[k];
-      paths[b].moveTo(x + r, y);
-      paths[b].arc(x, y, r, 0, Math.PI * 2);
-    }
+    const r = spacing * 0.3;
+    const letters: Path2D[] = [];
+    const greens: Path2D[] = [];
+    const sages: Path2D[] = [];
     for (let b = 0; b < BUCKETS; b++) {
-      ctx.globalAlpha = REST_ALPHA + (1 - REST_ALPHA) * (b / top);
-      ctx.fill(paths[b]);
+      letters.push(new Path2D());
+      greens.push(new Path2D());
+      sages.push(new Path2D());
+    }
+    for (let k = 0; k < n; k++) {
+      const b = Math.round(ef[k] * TOP);
+      const x = bx[k];
+      const y = by[k];
+      const kd = kind[k];
+      if (kd === 0) {
+        letters[b].moveTo(x + r, y);
+        letters[b].arc(x, y, r, 0, Math.PI * 2);
+      } else if (b > 0) {
+        const p = kd === 1 ? greens[b] : sages[b];
+        p.moveTo(x + r, y);
+        p.arc(x, y, r, 0, Math.PI * 2);
+      }
+    }
+    ctx.globalAlpha = 1;
+    for (let b = 0; b < BUCKETS; b++) {
+      ctx.fillStyle = letterColors[b];
+      ctx.fill(letters[b]);
+    }
+    ctx.fillStyle = greenColor;
+    for (let b = 1; b < BUCKETS; b++) {
+      ctx.globalAlpha = (b / TOP) * NOISE_GREEN_ALPHA;
+      ctx.fill(greens[b]);
+    }
+    ctx.fillStyle = sageColor;
+    for (let b = 1; b < BUCKETS; b++) {
+      ctx.globalAlpha = (b / TOP) * NOISE_SAGE_ALPHA;
+      ctx.fill(sages[b]);
     }
     ctx.globalAlpha = 1;
   }
@@ -170,7 +250,6 @@ function init(
     if (!visible || !built) return;
     const dt = Math.min(64, last ? now - last : 16.7);
     last = now;
-    const f = dt / 16.667;
 
     /* przejazd światła (dotyk) */
     const rect = canvas.getBoundingClientRect();
@@ -193,6 +272,7 @@ function init(
 
     /* wygładzenie pozycji latarki */
     const follow = 1 - Math.exp(-dt / 55);
+    let torchMoving = false;
     if (torchOn) {
       if (Math.abs(px - tx) + Math.abs(py - ty) < 0.5) {
         tx = px;
@@ -200,78 +280,59 @@ function init(
       } else {
         tx += (px - tx) * follow;
         ty += (py - ty) * follow;
+        torchMoving = true;
       }
     }
     const lx = tx - rect.left;
     const ly = ty - rect.top;
     const R = radius;
     const R2 = R * R;
+    /* latarka „świeci” tylko, gdy jej koło zahacza o napis – poza tym nic nie liczymy w pętli */
+    const lit = torchOn && lx > -R && lx < W + R && ly > -R && ly < H + R;
 
-    const kIn = 1 - Math.exp(-dt / 90);
-    const kOut = 1 - Math.exp(-dt / 320);
-    const damp = Math.pow(0.8, f);
-    const stiff = 0.13 * f;
-    const push = spacing * 1.5;
+    const kIn = 1 - Math.exp(-dt / 100);
+    const kOut = 1 - Math.exp(-dt / 380);
+    const time = now * 0.001;
 
     let active = false;
     for (let k = 0; k < n; k++) {
       let target = 0;
-      let tox = 0;
-      let toy = 0;
-      if (torchOn) {
+      if (lit) {
         const dx = bx[k] - lx;
         const dy = by[k] - ly;
         const d2 = dx * dx + dy * dy;
         if (d2 < R2) {
-          const d = Math.sqrt(d2);
-          const q = d / R;
-          const s = 1 - q;
+          const s = 1 - Math.sqrt(d2) / R;
           target = s * s * (3 - 2 * s); // smoothstep: miękki zanik do krawędzi
-          if (d > 0.001) {
-            const mag = push * target * q * 1.6;
-            tox = (dx / d) * mag;
-            toy = (dy / d) * mag;
-          }
         }
       }
       const l = li[k];
-      const nl = l + (target - l) * (target > l ? kIn : kOut);
+      let nl = l + (target - l) * (target > l ? kIn : kOut);
+      if (nl < 0.003 && target === 0) nl = 0;
       li[k] = nl;
+      if (nl !== target && Math.abs(nl - target) > 0.004) active = true;
 
-      const ax = (tox - ox[k]) * stiff;
-      const ay = (toy - oy[k]) * stiff;
-      const nvx = (vxs[k] + ax) * damp;
-      const nvy = (vys[k] + ay) * damp;
-      vxs[k] = nvx;
-      vys[k] = nvy;
-      ox[k] += nvx * f;
-      oy[k] += nvy * f;
-
-      if (
-        Math.abs(nl - target) > 0.004 ||
-        Math.abs(ox[k] - tox) > 0.02 ||
-        Math.abs(oy[k] - toy) > 0.02 ||
-        Math.abs(nvx) > 0.01 ||
-        Math.abs(nvy) > 0.01
-      ) {
-        active = true;
+      if (nl === 0) {
+        ef[k] = 0;
+        continue;
+      }
+      const flick = 0.5 + 0.5 * Math.sin(time * sp[k] + ph[k]);
+      if (kind[k] === 0) {
+        ef[k] = nl * (1 - 0.2 * flick);
+      } else {
+        /* szum: pojawia się, gdy oświetlenie przekroczy indywidualny próg, i mruga */
+        const a = (nl - thr[k]) / 0.12 + 1;
+        const presence = a <= 0 ? 0 : a >= 1 ? 1 : a * a * (3 - 2 * a);
+        ef[k] = presence * (0.4 + 0.6 * flick);
       }
     }
 
     draw();
 
-    const torchMoving = torchOn && Math.abs(px - tx) + Math.abs(py - ty) >= 0.5;
-    if (active || torchMoving || sweepStart >= 0) {
+    /* petla trwa, gdy latarka coś oświetla (mruganie), przesuwa się, trwa przejazd lub jeszcze gasną kropki */
+    if (lit || active || torchMoving || sweepStart >= 0) {
       raf = requestAnimationFrame(frame);
     } else {
-      /* wszystko uspokojone – zeruj resztki i stań */
-      if (!torchOn) {
-        for (let k = 0; k < n; k++) {
-          li[k] = 0;
-          ox[k] = oy[k] = vxs[k] = vys[k] = 0;
-        }
-        draw();
-      }
       last = 0;
     }
   }
@@ -303,48 +364,40 @@ function init(
     torchOn = false;
     wake();
   }
-  function onMove(e: PointerEvent) {
-    setPointer(e);
-  }
   function onUp(e: PointerEvent) {
     if (e.pointerType === 'mouse') return;
     clearTimeout(releaseTimer);
     releaseTimer = window.setTimeout(release, 700);
   }
-  function onLeaveDoc() {
-    release();
-  }
 
   function listen() {
-    window.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('pointerdown', onMove, { passive: true });
+    window.addEventListener('pointermove', setPointer, { passive: true });
+    window.addEventListener('pointerdown', setPointer, { passive: true });
     window.addEventListener('pointerup', onUp, { passive: true });
     window.addEventListener('pointercancel', onUp, { passive: true });
     window.addEventListener('scroll', wake, { passive: true });
-    window.addEventListener('blur', onLeaveDoc);
-    document.documentElement.addEventListener('mouseleave', onLeaveDoc);
+    window.addEventListener('blur', release);
+    document.documentElement.addEventListener('mouseleave', release);
   }
   function unlisten() {
-    window.removeEventListener('pointermove', onMove);
-    window.removeEventListener('pointerdown', onMove);
+    window.removeEventListener('pointermove', setPointer);
+    window.removeEventListener('pointerdown', setPointer);
     window.removeEventListener('pointerup', onUp);
     window.removeEventListener('pointercancel', onUp);
     window.removeEventListener('scroll', wake);
-    window.removeEventListener('blur', onLeaveDoc);
-    document.documentElement.removeEventListener('mouseleave', onLeaveDoc);
+    window.removeEventListener('blur', release);
+    document.documentElement.removeEventListener('mouseleave', release);
   }
 
   /* ---------- widoczność + lazy init ---------- */
-  let resizeObserver: ResizeObserver | undefined;
   function start() {
     build();
-    resizeObserver = new ResizeObserver(() => {
+    new ResizeObserver(() => {
       if (stage.clientWidth && stage.clientWidth !== W) {
         build();
         wake();
       }
-    });
-    resizeObserver.observe(stage);
+    }).observe(stage);
   }
 
   const io = new IntersectionObserver(
@@ -380,7 +433,8 @@ function init(
           sweepStart = performance.now();
           wake();
         };
-        built ? go() : setTimeout(go, 60);
+        if (built) go();
+        else setTimeout(go, 60);
       },
       { threshold: 0.35 },
     );
