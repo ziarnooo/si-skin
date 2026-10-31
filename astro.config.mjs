@@ -44,6 +44,8 @@ export default defineConfig({
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   image: { responsiveStyles: true },
   markdown: { processor: satteri({ hastPlugins: [baseLinksPlugin] }) },
+  // Kompresja HTML w Astro usuwała spacje między tekstem a linkami („podczas<a>…”).
+  compressHTML: false,
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/admin/') && !page.includes('/dev/') && !page.endsWith('/404/'),

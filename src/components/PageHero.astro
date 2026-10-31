@@ -42,7 +42,7 @@ const hasChips = Astro.slots.has('default');
       </div>
       {
         image && (
-          <div class="photo media" data-reveal="clip">
+          <div class="photo media photo--settle">
             <Picture
               src={image}
               alt={imageAlt}
@@ -140,6 +140,11 @@ const hasChips = Astro.slots.has('default');
     @keyframes rise {
       from { opacity: 0; transform: translate3d(0, 18px, 0); }
       to { opacity: 1; transform: none; }
+    }
+    /* Zdjęcie LCP: widoczne od razu, tylko delikatnie „osiada” (bez ukrywania). */
+    .photo--settle :global(img) { animation: settle 1.2s var(--ease-out) both; }
+    @keyframes settle {
+      from { transform: scale(1.06); }
     }
   }
 </style>

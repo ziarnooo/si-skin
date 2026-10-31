@@ -6,9 +6,12 @@ import { formatDate, isoDate, url } from '../lib/site';
 interface Props {
   post: CollectionEntry<'blog'>;
   index?: number;
+  /** Poziom nagłówka tytułu (h2 na liście bloga, h3 w sekcjach pod h2). */
+  level?: 2 | 3;
 }
 
-const { post, index = 0 } = Astro.props;
+const { post, index = 0, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
 const { title, description, image, imageAlt, pubDate } = post.data;
 ---
 
@@ -30,7 +33,7 @@ const { title, description, image, imageAlt, pubDate } = post.data;
     </div>
     <div class="post-card__body">
       <time class="xs muted" datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
-      <h3>{title}</h3>
+      <Heading class="post-card__title">{title}</Heading>
       <p class="small muted">{description}</p>
       <span class="link-arrow">Czytaj artykuł</span>
     </div>
@@ -70,7 +73,7 @@ const { title, description, image, imageAlt, pubDate } = post.data;
     padding: var(--space-m);
     flex: 1;
   }
-  .post-card__body h3 {
+  .post-card__title {
     font-size: var(--text-xl);
   }
   .post-card__body .link-arrow {

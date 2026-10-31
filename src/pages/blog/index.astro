@@ -28,7 +28,7 @@ const crumbs = [{ name: 'Blog', path: '/blog/' }];
   <section class="section section--tight" aria-label="Artykuły">
     <div class="container">
       <div class="card-grid">
-        {posts.map((post, i) => <PostCard post={post} index={i} />)}
+        {posts.map((post, i) => <PostCard post={post} index={i} level={2} />)}
       </div>
     </div>
   </section>

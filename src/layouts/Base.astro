@@ -2,8 +2,6 @@
 import '../styles/global.css';
 import serifLatin from '@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-400-normal.woff2?url';
 import serifLatinExt from '@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-ext-400-normal.woff2?url';
-import sansLatin from '@fontsource/hedvig-letters-sans/files/hedvig-letters-sans-latin-400-normal.woff2?url';
-import sansLatinExt from '@fontsource/hedvig-letters-sans/files/hedvig-letters-sans-latin-ext-400-normal.woff2?url';
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -25,8 +23,9 @@ interface Props {
 }
 const { title, description, image, path, jsonLd, noindex, type, heroTone = 'light' } = Astro.props;
 
-// Polskie znaki (ą, ę, ł, ś…) leżą w latin-ext — oba podzbiory są od razu potrzebne.
-const fonts = [serifLatin, serifLatinExt, sansLatin, sansLatinExt];
+// Preload tylko kroju nagłówków (element LCP). Polskie znaki są w latin-ext, więc oba podzbiory.
+// Krój bezszeryfowy ładuje się normalnie z @font-face (font-display: swap).
+const fonts = [serifLatin, serifLatinExt];
 ---
 
 <!doctype html>
