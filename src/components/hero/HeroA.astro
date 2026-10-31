@@ -28,7 +28,7 @@ const widths = [160, 240, 320, 480];
       Powiedz <span class="hA-tak">TAK</span> swojej skórze
     </h1>
     <p class="hA-lead hA-in" style="--i:2">
-      Bezbolesna depilacja laserowa SHR, oczyszczanie wodorowe i zabiegi na twarz — dobieramy je do tego,
+      Bezbolesna depilacja laserowa SHR, oczyszczanie wodorowe i zabiegi na twarz – dobieramy je do tego,
       czego naprawdę potrzebuje Twoja skóra.
     </p>
     <div class="hA-cta hA-in" style="--i:3">
@@ -170,7 +170,6 @@ const widths = [160, 240, 320, 480];
     line-height: 1.5;
     text-wrap: balance;
   }
-  .hA-eyebrow::before, .hA-eyebrow::after { display: none; }
   .hA-title {
     max-width: 11.5em;
     font-size: clamp(2.6rem, 1.55rem + 5.4vw, 6.25rem);
@@ -219,7 +218,7 @@ const widths = [160, 240, 320, 480];
     .hA-rating:hover { background: var(--color-paper); }
   }
 
-  /* ── Karty ze zdjęciami — mobile: wachlarz pod treścią (stały aspect-ratio → zero CLS) ── */
+  /* ── Karty ze zdjęciami – mobile: wachlarz pod treścią (stały aspect-ratio → zero CLS) ── */
   .hA-cards {
     position: relative;
     z-index: 1;
@@ -260,14 +259,6 @@ const widths = [160, 240, 320, 480];
   @media (min-width: 40rem) {
     .hA { padding-top: calc(var(--header-h) + 3.5rem); padding-bottom: 4.5rem; }
     .hA-eyebrow { max-width: none; letter-spacing: var(--tracking-wide); }
-    .hA-eyebrow::before, .hA-eyebrow::after {
-      display: block;
-      content: '';
-      width: 1.75rem;
-      height: 1px;
-      background: currentColor;
-      opacity: 0.6;
-    }
     .hA-lead { font-size: var(--text-lg); }
     .hA-cta { flex-direction: row; width: auto; max-width: none; }
     .hA-cards { width: min(100% - 2 * var(--gutter), 36rem); margin-top: var(--space-2xl); }

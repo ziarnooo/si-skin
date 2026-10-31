@@ -2,7 +2,7 @@
 import { getSettings, url } from '../lib/site';
 
 /**
- * Baner zgód. W HTML jest tylko <template> (zero kosztu dla LCP) — skrypt consent.ts
+ * Baner zgód. W HTML jest tylko <template> (zero kosztu dla LCP) – skrypt consent.ts
  * wstrzykuje go po załadowaniu strony. Ten sam komponent przekazuje do skryptów
  * konfigurację analityki z ustawień (settings.yaml → analytics).
  */
@@ -31,7 +31,7 @@ const configJson = JSON.stringify(config).replace(/</g, '\\u003c');
     <div data-consent-view="main">
       <h2 class="consent__title" id="consent-title">Szanujemy Twoją prywatność</h2>
       <p class="consent__text" id="consent-desc">
-        Używamy plików cookies, aby strona działała, oraz — za Twoją zgodą — do statystyk i reklam.
+        Używamy plików cookies, aby strona działała, oraz – za Twoją zgodą – do statystyk i reklam.
         Możesz je zaakceptować, odrzucić lub dopasować.
         <a href={url('/polityka-prywatnosci/')}>Polityka prywatności</a>
       </p>
@@ -51,14 +51,14 @@ const configJson = JSON.stringify(config).replace(/</g, '\\u003c');
               <strong>Niezbędne</strong>
               <span>Zapamiętują Twój wybór i zapewniają działanie strony. Zawsze aktywne.</span>
             </span>
-            <input class="consent__switch" type="checkbox" checked disabled aria-label="Niezbędne — zawsze aktywne" />
+            <input class="consent__switch" type="checkbox" checked disabled aria-label="Niezbędne – zawsze aktywne" />
           </label>
         </li>
         <li>
           <label class="consent__row">
             <span class="consent__label">
               <strong>Analityczne</strong>
-              <span>Google Analytics — anonimowe statystyki odwiedzin i kliknięć w rezerwację.</span>
+              <span>Google Analytics – anonimowe statystyki odwiedzin i kliknięć w rezerwację.</span>
             </span>
             <input class="consent__switch" type="checkbox" name="analytics" aria-label="Analityczne" />
           </label>
@@ -67,7 +67,7 @@ const configJson = JSON.stringify(config).replace(/</g, '\\u003c');
           <label class="consent__row">
             <span class="consent__label">
               <strong>Marketingowe</strong>
-              <span>Meta Pixel — pomiar skuteczności reklam na Facebooku i Instagramie.</span>
+              <span>Meta Pixel – pomiar skuteczności reklam na Facebooku i Instagramie.</span>
             </span>
             <input class="consent__switch" type="checkbox" name="marketing" aria-label="Marketingowe" />
           </label>

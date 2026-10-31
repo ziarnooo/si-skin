@@ -11,7 +11,7 @@ Oczyszczanie wodorowe to jeden z zabiegów pielęgnacyjnych twarzy w naszym gabi
 
 ## Czym jest HydroPeel H2?
 
-HydroPeel H2 to wieloetapowe oczyszczanie i regeneracja skóry, a zarazem zabieg przeciwstarzeniowy. Polega na wprowadzaniu w głębokie struktury skóry mikroskopijnych cząsteczek aktywnego wodoru, które oczyszczają komórki skóry oraz eliminują wolne rodniki — odpowiedzialne za procesy starzenia. Dzięki niewielkim rozmiarom i małej masie wodór może dotrzeć do głębokich struktur skóry.
+HydroPeel H2 to wieloetapowe oczyszczanie i regeneracja skóry, a zarazem zabieg przeciwstarzeniowy. Polega na wprowadzaniu w głębokie struktury skóry mikroskopijnych cząsteczek aktywnego wodoru, które oczyszczają komórki skóry oraz eliminują wolne rodniki – odpowiedzialne za procesy starzenia. Dzięki niewielkim rozmiarom i małej masie wodór może dotrzeć do głębokich struktur skóry.
 
 Podstawą zabiegu z wykorzystaniem aparatury este:med HydroPeel H2 jest aktywny wodór wytwarzany dzięki wysokiej jakości generatorowi. Urządzenie usuwa z wody tlen oraz niekorzystne jony chloru, siarki i fosforu i nasyca ją aktywnym wodorem oraz korzystnymi jonami wapnia, magnezu i potasu.
 
@@ -22,7 +22,7 @@ Przebieg dopasowujemy do potrzeb Twojej skóry. W podstawowym wariancie obejmuje
 1. ocenę stanu i kondycji skóry,
 2. terapię dostosowaną do jej potrzeb (kwasy, peeling lub dogłębne oczyszczanie),
 3. właściwe oczyszczanie wodorowe,
-4. maskę dobraną indywidualnie do Twojej skóry — albo ampułkę i mezoterapię bezigłową (elektroporację), która wtłacza substancje odżywcze w głębsze warstwy skóry.
+4. maskę dobraną indywidualnie do Twojej skóry – albo ampułkę i mezoterapię bezigłową (elektroporację), która wtłacza substancje odżywcze w głębsze warstwy skóry.
 
 Do pierwszej wizyty otrzymujesz w cenie zabiegu indywidualny Plan Pielęgnacyjny oraz Plan Zabiegowy.
 
@@ -61,7 +61,7 @@ W Booksy znajdziesz kilka wariantów zabiegu:
 | Mezoterapia mikroigłowa: twarz + szyja | 1 godz. 20 min | 649 zł |
 | Mezoterapia mikroigłowa: twarz + szyja + dekolt | 1 godz. 30 min | 729 zł |
 
-W wariantach z mezoterapią mikroigłową oczyszczanie wodorowe przygotowuje skórę do terapii, usuwając zanieczyszczenia i zwiększając wchłanianie substancji aktywnych. Jeśli nie wiesz, który wariant wybrać, możesz zacząć od konsultacji — dobierzemy zabieg do potrzeb Twojej skóry. Inne zabiegi pielęgnacyjne opisaliśmy na stronie [zabiegów pielęgnacyjnych twarzy](/zabiegi-pielegnacyjne-twarzy/).
+W wariantach z mezoterapią mikroigłową oczyszczanie wodorowe przygotowuje skórę do terapii, usuwając zanieczyszczenia i zwiększając wchłanianie substancji aktywnych. Jeśli nie wiesz, który wariant wybrać, możesz zacząć od konsultacji – dobierzemy zabieg do potrzeb Twojej skóry. Inne zabiegi pielęgnacyjne opisaliśmy na stronie [zabiegów pielęgnacyjnych twarzy](/zabiegi-pielegnacyjne-twarzy/).
 
 ## Umów się na oczyszczanie wodorowe
 

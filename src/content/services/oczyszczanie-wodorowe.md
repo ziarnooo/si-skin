@@ -7,8 +7,8 @@ featured: true
 seo:
   title: Oczyszczanie wodorowe HydroPeel Wrocław | Si Skin
   description: Oczyszczanie wodorowe HydroPeel H2 we Wrocławiu – oczyszczenie, nawilżenie i rozświetlenie skóry. Od 369 zł, z indywidualną maską i planem pielęgnacji.
-excerpt: Wieloetapowe oczyszczanie i regeneracja skóry aktywnym wodorem — świeża, oczyszczona i nawilżona cera oraz zabieg przeciwstarzeniowy w jednym.
-lead: HydroPeel H2 to wieloetapowe oczyszczanie wodorowe, regeneracja skóry i zabieg przeciwstarzeniowy. Mikroskopijne cząsteczki aktywnego wodoru oczyszczają komórki skóry i pomagają zwalczać wolne rodniki — odpowiedzialne za procesy starzenia.
+excerpt: Wieloetapowe oczyszczanie i regeneracja skóry aktywnym wodorem – świeża, oczyszczona i nawilżona cera oraz zabieg przeciwstarzeniowy w jednym.
+lead: HydroPeel H2 to wieloetapowe oczyszczanie wodorowe, regeneracja skóry i zabieg przeciwstarzeniowy. Mikroskopijne cząsteczki aktywnego wodoru oczyszczają komórki skóry i pomagają zwalczać wolne rodniki – odpowiedzialne za procesy starzenia.
 image: ../../assets/images/oczyszczanie-wodorowe.jpg
 imageAlt: Urządzenie do oczyszczania wodorowego HydroPeel H2 w gabinecie Si Skin
 priceFrom: 369
@@ -99,17 +99,17 @@ Przebieg zabiegu:
 4. Ampułka indywidualnie dobrana do Twojej skóry.
 5. Mezoterapia bezigłowa.
 
-Mezoterapia bezigłowa to elektroporacja — wtłoczenie ampułki, maski lub substancji odżywczych dobranych indywidualnie w głębsze warstwy skóry. Elektroporacja polega na działaniu krótkich impulsów napięcia elektrycznego na komórki i tkanki, co zwiększa przepuszczalność błon komórkowych, do których dostaje się preparat.
+Mezoterapia bezigłowa to elektroporacja – wtłoczenie ampułki, maski lub substancji odżywczych dobranych indywidualnie w głębsze warstwy skóry. Elektroporacja polega na działaniu krótkich impulsów napięcia elektrycznego na komórki i tkanki, co zwiększa przepuszczalność błon komórkowych, do których dostaje się preparat.
 
 ### Mezoterapia mikroigłowa z oczyszczaniem wodorowym
 
-To nasz autorski zabieg — terapia łącząca zaawansowane oczyszczenie skóry, indywidualnie dobrane składniki aktywne oraz kontrolowaną stymulację regeneracji. Oczyszczanie wodorowe przygotowuje skórę do terapii, usuwając zanieczyszczenia i zwiększając wchłanianie substancji aktywnych. Następnie wykonujemy mezoterapię mikroigłową z ampułką dobraną do aktualnych potrzeb skóry. Zabieg kończy profesjonalna maska regenerująca oraz indywidualny plan pielęgnacyjny podtrzymujący efekty.
+To nasz autorski zabieg – terapia łącząca zaawansowane oczyszczenie skóry, indywidualnie dobrane składniki aktywne oraz kontrolowaną stymulację regeneracji. Oczyszczanie wodorowe przygotowuje skórę do terapii, usuwając zanieczyszczenia i zwiększając wchłanianie substancji aktywnych. Następnie wykonujemy mezoterapię mikroigłową z ampułką dobraną do aktualnych potrzeb skóry. Zabieg kończy profesjonalna maska regenerująca oraz indywidualny plan pielęgnacyjny podtrzymujący efekty.
 
 Do wyboru mamy trzy zakresy zabiegu:
 
-- twarz (oczyszczanie wodorowe, ampułka, maska) — 549 zł, ok. 1 godz. 10 min,
-- twarz i szyja — 649 zł, ok. 1 godz. 20 min,
-- twarz, szyja i dekolt — 729 zł, ok. 1 godz. 30 min.
+- twarz (oczyszczanie wodorowe, ampułka, maska) – 549 zł, ok. 1 godz. 10 min,
+- twarz i szyja – 649 zł, ok. 1 godz. 20 min,
+- twarz, szyja i dekolt – 729 zł, ok. 1 godz. 30 min.
 
 **Wskazania:** odwodnienie, utrata jędrności, zmarszczki, przebarwienia, blizny potrądzikowe, rozszerzone pory, skóra szara i pozbawiona blasku, profilaktyka anti-age.
 
@@ -117,4 +117,4 @@ Do wyboru mamy trzy zakresy zabiegu:
 
 ## Nie wiesz, który zabieg wybrać?
 
-Umów się na bezpłatną konsultację kosmetologiczną — zdiagnozujemy potrzeby Twojej skóry i dobierzemy odpowiednią terapię. Więcej o naszych zabiegach pielęgnacyjnych, w tym terapiach proXN, znajdziesz na stronie [zabiegi pielęgnacyjne twarzy](/zabiegi-pielegnacyjne-twarzy/).
+Umów się na bezpłatną konsultację kosmetologiczną – zdiagnozujemy potrzeby Twojej skóry i dobierzemy odpowiednią terapię. Więcej o naszych zabiegach pielęgnacyjnych, w tym terapiach proXN, znajdziesz na stronie [zabiegi pielęgnacyjne twarzy](/zabiegi-pielegnacyjne-twarzy/).

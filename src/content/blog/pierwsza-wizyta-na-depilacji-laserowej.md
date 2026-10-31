@@ -11,14 +11,14 @@ Pierwsza wizyta na depilacji laserowej często budzi sporo pytań: jak długo po
 
 ## Nie wiesz, czy to dla Ciebie? Zacznij od konsultacji
 
-Jeśli masz wątpliwości, możesz umówić się na bezpłatną konsultację, która trwa 20 minut. Rozwiewamy na niej pytania, ustalamy plan działania i dobieramy odpowiednią terapię. Konsultację rezerwujesz online na Booksy — tak samo jak sam zabieg.
+Jeśli masz wątpliwości, możesz umówić się na bezpłatną konsultację, która trwa 20 minut. Rozwiewamy na niej pytania, ustalamy plan działania i dobieramy odpowiednią terapię. Konsultację rezerwujesz online na Booksy – tak samo jak sam zabieg.
 
 ## Jak przygotować skórę do zabiegu?
 
 Przygotowanie jest proste, ale ważne dla bezpieczeństwa i skuteczności:
 
 - **Odrost 2–3 mm.** W dniu zabiegu zostaw włoski o długości 2–3 mm. To nie jest zabieg na gładko ogoloną skórę.
-- **Bez wosku i pęsety.** Na 2–3 tygodnie przed zabiegiem nie depiluj okolicy woskiem ani pęsetą — laser działa na włosy wraz z cebulką.
+- **Bez wosku i pęsety.** Na 2–3 tygodnie przed zabiegiem nie depiluj okolicy woskiem ani pęsetą – laser działa na włosy wraz z cebulką.
 - **Bez opalania.** Nie opalaj skóry na ok. 2–5 dni przed zabiegiem. Po intensywnej opaleniźnie odczekaj 1–2 tygodnie. Opalenizna i samoopalacz są przeciwwskazaniem.
 - **Przyjdź zdrowa.** W dniu zabiegu nie przyjmuj leków przeciwzapalnych ani antybiotyków. Od ostatniej dawki antybiotyku muszą minąć co najmniej 2 tygodnie.
 
@@ -26,13 +26,13 @@ Kilka leków i preparatów wymaga dłuższej przerwy: aspiryna i leki rozrzedzaj
 
 ## Jak wygląda sam zabieg?
 
-Przed pierwszym zabiegiem zawsze przeprowadzamy wywiad — pytamy o stan zdrowia, przyjmowane leki i skórę. Następnie wykwalifikowana kosmetolożka dobiera parametry lasera do Twojej karnacji, koloru włosa i odczuć. Pracujemy na platformie SHR EPIL MOTION z metodą In Motion i schłodzoną głowicą, która chroni skórę i dba o komfort.
+Przed pierwszym zabiegiem zawsze przeprowadzamy wywiad – pytamy o stan zdrowia, przyjmowane leki i skórę. Następnie wykwalifikowana kosmetolożka dobiera parametry lasera do Twojej karnacji, koloru włosa i odczuć. Pracujemy na platformie SHR EPIL MOTION z metodą In Motion i schłodzoną głowicą, która chroni skórę i dba o komfort.
 
 Czas zabiegu zależy od okolicy: od 5 minut (np. linia brzucha), przez 10 minut (pachy, bikini płytkie), po 15–20 minut (łydki, plecy). Przykładowe ceny to pachy 239 zł, bikini płytkie 279 zł, łydki z kolanami i stopami 339 zł; pełny cennik znajdziesz w zakładce [Cennik](/cennik/).
 
 ## Co po zabiegu?
 
-Zaraz po zabiegu może pojawić się zaczerwienienie i delikatne pieczenie. W kolejnej fazie gojenia mogą wystąpić strupki i swędzenie — to naturalna reakcja skóry. Żeby ją wspomóc:
+Zaraz po zabiegu może pojawić się zaczerwienienie i delikatne pieczenie. W kolejnej fazie gojenia mogą wystąpić strupki i swędzenie – to naturalna reakcja skóry. Żeby ją wspomóc:
 
 - nie opalaj skóry bezpośrednio po zabiegu,
 - unikaj kosmetyków drażniących (np. z alkoholem, antycellulitowych),
@@ -41,7 +41,7 @@ Zaraz po zabiegu może pojawić się zaczerwienienie i delikatne pieczenie. W ko
 
 ## Kiedy zobaczysz efekty i ile będzie wizyt?
 
-Pierwsze efekty są widoczne już po pierwszym zabiegu — część włosków wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze. Pełna seria to zwykle 7–9 wizyt w odstępach co 4–12 tygodni, dopasowanych do cyklu wzrostu włosa w danej okolicy. Pakiety na serię zabiegów kupisz na miejscu w gabinecie.
+Pierwsze efekty są widoczne już po pierwszym zabiegu – część włosków wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze. Pełna seria to zwykle 7–9 wizyt w odstępach co 4–12 tygodni, dopasowanych do cyklu wzrostu włosa w danej okolicy. Pakiety na serię zabiegów kupisz na miejscu w gabinecie.
 
 ## Kiedy zabieg nie jest możliwy?
 

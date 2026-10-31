@@ -16,4 +16,4 @@ Przede wszystkim przed zabiegiem nie powinno się opalać, a także korzystać z
 
 Warto również pamiętać o tym, by na tydzień przed zabiegiem nie stosować preparatów o działaniu przeciwbólowym oraz leków, które rozrzedzają krew (np. Ibuprom, Aspiryna). Nie wolno także pić ziołowych naparów z dziurawca czy nagietka, które mają działanie światłouczulające (zioła odstawiamy na miesiąc przed zabiegiem). Przeprowadzenie zabiegu z wykorzystaniem lasera wyklucza także: ciąża, bielactwo, łuszczyca, epilepsja, nieustabilizowana cukrzyca, skłonność do powstawania bliznowców, nowotwory czy choroby serca.
 
-Jeśli nie masz pewności, czy możesz przystąpić do zabiegu, umów się na bezpłatną konsultację — przed pierwszym zabiegiem zawsze przeprowadzamy wywiad.
+Jeśli nie masz pewności, czy możesz przystąpić do zabiegu, umów się na bezpłatną konsultację – przed pierwszym zabiegiem zawsze przeprowadzamy wywiad.

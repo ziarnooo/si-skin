@@ -34,7 +34,7 @@ const embedSrc = `https://maps.google.com/maps?q=${query}&output=embed`;
           <span class="visually-hidden">(nowa karta)</span>
         </a>
       </div>
-      <p class="map__note xs muted">Mapa ładuje się dopiero po kliknięciu — wtedy połączymy się z serwerami Google.</p>
+      <p class="map__note xs muted">Mapa ładuje się dopiero po kliknięciu – wtedy połączymy się z serwerami Google.</p>
     </div>
   </div>
 </div>
@@ -128,7 +128,7 @@ const embedSrc = `https://maps.google.com/maps?q=${query}&output=embed`;
     button?.addEventListener('click', () => {
       const iframe = document.createElement('iframe');
       iframe.src = root.dataset.src ?? '';
-      iframe.title = 'Mapa Google — lokalizacja gabinetu Si Skin, ul. Królewiecka 121/3, Wrocław';
+      iframe.title = 'Mapa Google – lokalizacja gabinetu Si Skin, ul. Królewiecka 121/3, Wrocław';
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
       iframe.allowFullscreen = true;

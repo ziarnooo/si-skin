@@ -1,4 +1,4 @@
-# Si Skin — strona gabinetu (Astro)
+# Si Skin – strona gabinetu (Astro)
 
 Szybka, statyczna strona gabinetu kosmetologii estetycznej i laseroterapii Si Skin (Wrocław).
 Astro 7, czysty TypeScript/CSS bez frameworków UI, publikacja na GitHub Pages
@@ -18,7 +18,7 @@ npm run preview    # podgląd zbudowanej strony
 ## Jak edytować treści (panel /admin)
 
 Wszystkie treści leżą w `src/content/` i można je edytować dwojako: w plikach albo w panelu
-**`<adres strony>/admin/`** (Sveltia CMS) — po polsku, z podpowiedziami przy każdym polu.
+**`<adres strony>/admin/`** (Sveltia CMS) – po polsku, z podpowiedziami przy każdym polu.
 Panel zapisuje zmiany jako commity w repozytorium `ziarnooo/si-skin` (gałąź `main`),
 a GitHub Actions publikuje stronę po ok. 1–3 minutach.
 
@@ -29,7 +29,7 @@ a GitHub Actions publikuje stronę po ok. 1–3 minutach.
 3. *Permissions → Repository permissions*: **Contents: Read and write** (reszta bez zmian).
 4. Ustaw wygaśnięcie (np. 1 rok), wygeneruj token i skopiuj go (pokazywany jest raz).
 5. Otwórz `/admin/`, wybierz **Sign in with GitHub using a token** (logowanie tokenem) i wklej token.
-   Token zostaje tylko w przeglądarce — nie wysyłaj go nikomu i nie wpisuj do plików.
+   Token zostaje tylko w przeglądarce – nie wysyłaj go nikomu i nie wpisuj do plików.
 
 ### Co gdzie jest w panelu
 
@@ -45,16 +45,16 @@ a GitHub Actions publikuje stronę po ok. 1–3 minutach.
 
 Dobre praktyki:
 
-- Błąd w danych (np. litera zamiast ceny) zatrzyma build z czytelnym komunikatem zamiast publikować uszkodzoną stronę —
+- Błąd w danych (np. litera zamiast ceny) zatrzyma build z czytelnym komunikatem zamiast publikować uszkodzoną stronę –
   poprzednia wersja strony zostaje wtedy online.
-- Linki do innych stron w tekstach wpisuj jako `/epilacja-shr/` (bez domeny i bez `/si-skin`) — prefiks dokleja się automatycznie.
-- Panel przepisuje pliki YAML w ujednoliconym formacie, więc komentarze z początku plików mogą zniknąć po pierwszym zapisie — to normalne.
+- Linki do innych stron w tekstach wpisuj jako `/epilacja-shr/` (bez domeny i bez `/si-skin`) – prefiks dokleja się automatycznie.
+- Panel przepisuje pliki YAML w ujednoliconym formacie, więc komentarze z początku plików mogą zniknąć po pierwszym zapisie – to normalne.
 - Identyfikatory (`epilacja-shr`, `r01`…) łączą dane między plikami. Istniejących nie zmieniaj.
 - Dodanie **nowej kategorii cennika**: dodaj ją w zakładce „Cennik”, a żeby można ją było wybrać przy zabiegu lub promocji,
   dopisz jedną linię z jej identyfikatorem do list `options` w `public/admin/config.yml`.
 - Zmieniasz schemat danych (`src/content.config.ts`)? Zaktualizuj też `public/admin/config.yml`.
 
-## Wygląd — `src/styles/tokens.css`
+## Wygląd – `src/styles/tokens.css`
 
 Kolory, fonty, odstępy, zaokrąglenia, cienie i czasy animacji są zdefiniowane **wyłącznie** w
 [`src/styles/tokens.css`](src/styles/tokens.css) jako zmienne CSS. Komponenty używają tylko `var(--…)`.
@@ -63,7 +63,7 @@ które czytają kolory z tego pliku).
 
 ## Przeniesienie na domenę si-skin.pl
 
-Adres i ścieżka bazowa są konfigurowane zmiennymi środowiskowymi (`astro.config.mjs`) — kod nie zawiera zaszytych ścieżek.
+Adres i ścieżka bazowa są konfigurowane zmiennymi środowiskowymi (`astro.config.mjs`) – kod nie zawiera zaszytych ścieżek.
 
 1. W repozytorium na GitHubie: **Settings → Secrets and variables → Actions → Variables** →
    `SITE_URL` = `https://www.si-skin.pl`, `BASE_PATH` = `/`.
@@ -80,7 +80,7 @@ dodaj tam kolejne, jeśli zależy Wam na zachowaniu starych linków.
 
 - Baner zgód (`ConsentBanner.astro`, `src/scripts/consent.ts`) pojawia się po załadowaniu strony (nie wpływa na LCP).
   Wybór („Akceptuj wszystkie”, „Tylko niezbędne” albo własne ustawienia) zapisuje się w `localStorage`
-  z numerem wersji — zmiana `CONSENT_VERSION` w `consent.ts` ponownie zapyta wszystkich odwiedzających.
+  z numerem wersji – zmiana `CONSENT_VERSION` w `consent.ts` ponownie zapyta wszystkich odwiedzających.
   Link/przycisk z atrybutem `data-consent-open` (np. w stopce) otwiera ustawienia ponownie.
 - Google Analytics 4 i Meta Pixel (`src/scripts/analytics.ts`) ładują się **tylko** gdy hostname strony =
   `analytics.productionHost` **i** odwiedzający wyraził zgodę (analityczne → GA4, marketingowe → Meta Pixel).
@@ -103,9 +103,9 @@ Wszystko poniżej jest generowane przy buildzie z tych samych treści co strona:
 | `/.well-known/agent-skills/index.json` + `*/SKILL.md` | opis umiejętności (jak umówić wizytę, jak czytać cennik) z sumą SHA-256 |
 | `/.well-known/api-catalog` | katalog (RFC 9727) wskazujący `/api/site.json` |
 | WebMCP (`src/scripts/webmcp.ts`) | w przeglądarkach z `modelContext` rejestruje narzędzia tylko do odczytu: `get_services`, `get_prices`, `get_contact_and_hours`, `get_booking_link` |
-| JSON-LD | `BeautySalon`, `Service`, `Article`, `FAQPage`, `BreadcrumbList` (`src/lib/schema.ts`); bez `aggregateRating` — opinie z Booksy pokazujemy jako treść, nie jako własną ocenę w danych strukturalnych |
+| JSON-LD | `BeautySalon`, `Service`, `Article`, `FAQPage`, `BreadcrumbList` (`src/lib/schema.ts`); bez `aggregateRating` – opinie z Booksy pokazujemy jako treść, nie jako własną ocenę w danych strukturalnych |
 
-Strona **nie** udostępnia API rezerwacji, serwera MCP/A2A ani OAuth — rezerwacja odbywa się w Booksy lub telefonicznie,
+Strona **nie** udostępnia API rezerwacji, serwera MCP/A2A ani OAuth – rezerwacja odbywa się w Booksy lub telefonicznie,
 a narzędzia agentów są wyłącznie do odczytu.
 
 ### Obrazy udostępniania (OG)
@@ -117,10 +117,10 @@ awaryjnie `/og/default.png`. Ścieżkę buduje funkcja `ogImagePath()` z `src/li
 ### Hosting a nagłówki HTTP
 
 GitHub Pages **nie pozwala ustawiać własnych nagłówków** (`Link`, `Content-Type` dla `.md`, cache) ani negocjacji treści
-(`Accept: text/markdown`), a `robots.txt` i `/.well-known/` działają tylko na domenie głównej — dlatego po przeniesieniu
+(`Accept: text/markdown`), a `robots.txt` i `/.well-known/` działają tylko na domenie głównej – dlatego po przeniesieniu
 na `www.si-skin.pl` (`BASE_PATH=/`) wszystko jest pod właściwymi adresami.
 Plik `public/_headers` jest gotowy dla **Cloudflare Pages** (lub Netlify): ustawia nagłówki `Link`
-(`api-catalog`, `describedby`), typy MIME plików Markdown i cache. Cloudflare Pages jest rekomendowanym docelowym hostingiem —
+(`api-catalog`, `describedby`), typy MIME plików Markdown i cache. Cloudflare Pages jest rekomendowanym docelowym hostingiem –
 daje te nagłówki, darmowy CDN i możliwość dodania negocjacji Markdown (`Accept: text/markdown`) przez Worker/Transform Rules.
 Przeniesienie nie wymaga zmian w kodzie: build `npm run build`, katalog wyjściowy `dist`, zmienne `SITE_URL` i `BASE_PATH=/`.
 
@@ -128,7 +128,7 @@ Przeniesienie nie wymaga zmian w kodzie: build `npm run build`, katalog wyjścio
 
 ```text
 src/
-  content/        treści (YAML/Markdown) — edytowane w /admin
+  content/        treści (YAML/Markdown) – edytowane w /admin
   content.config.ts  schematy treści
   components/     komponenty Astro (Header, Footer, SEO, ConsentBanner…)
   layouts/        Base.astro

@@ -1,5 +1,5 @@
 /**
- * Analityka: GA4 + Meta Pixel — ładowane leniwie, tylko na domenie produkcyjnej
+ * Analityka: GA4 + Meta Pixel – ładowane leniwie, tylko na domenie produkcyjnej
  * (settings.analytics.productionHost) i tylko po zgodzie użytkownika.
  * Konfiguracja przychodzi z Astro przez <script type="application/json" id="si-config">,
  * nic nie jest zaszyte w kodzie.
@@ -54,7 +54,7 @@ function ensureGtag(): Gtag {
     // eslint-disable-next-line prefer-rest-params
     w.dataLayer!.push(arguments);
   };
-  // Consent Mode v2 — wszystko domyślnie odrzucone, zanim cokolwiek się załaduje.
+  // Consent Mode v2 – wszystko domyślnie odrzucone, zanim cokolwiek się załaduje.
   w.gtag('consent', 'default', {
     ad_storage: 'denied',
     ad_user_data: 'denied',

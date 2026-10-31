@@ -1,5 +1,5 @@
 /*
- * Hero A — „miąższ” (miękki, powoli płynący gradient) na WebGL + paralaksa kart.
+ * Hero A – „miąższ” (miękki, powoli płynący gradient) na WebGL + paralaksa kart.
  * Cały kod startuje w requestIdleCallback, więc nigdy nie opóźnia LCP.
  *  - pauza poza ekranem i w ukrytej karcie,
  *  - prefers-reduced-motion: jedna statyczna klatka, bez paralaksy,
@@ -93,7 +93,7 @@ function createMesh(canvas: HTMLCanvasElement, hero: HTMLElement) {
 
   return {
     resize() {
-      // Gradient jest miękki — połowa rozdzielczości, DPR ≤ 1.5.
+      // Gradient jest miękki – połowa rozdzielczości, DPR ≤ 1.5.
       const scale = Math.min(window.devicePixelRatio || 1, 1.5) * 0.5;
       const w = Math.max(2, Math.round(hero.clientWidth * scale));
       const h = Math.max(2, Math.round(hero.clientHeight * scale));

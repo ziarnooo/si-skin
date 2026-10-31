@@ -78,7 +78,7 @@ async function register(modelContext: ModelContext, siteJsonUrl: string): Promis
     },
     {
       name: 'get_booking_link',
-      description: 'Link do rezerwacji wizyty online w Booksy oraz telefon. Rezerwacji nie da się dokonać z poziomu narzędzia — użytkownik finalizuje ją w Booksy.',
+      description: 'Link do rezerwacji wizyty online w Booksy oraz telefon. Rezerwacji nie da się dokonać z poziomu narzędzia – użytkownik finalizuje ją w Booksy.',
       inputSchema: none,
       annotations: readOnly,
       execute: () => text(data.booking),

@@ -7,10 +7,10 @@ featured: false
 seo:
   title: Zamykanie naczynek laserem Wrocław – od 149 zł | Si Skin
   description: "Laserowe zamykanie naczynek we Wrocławiu: teleangiektazje, rumień, punkty rubinowe. Zabieg od 149 zł, efekty już po pierwszym zabiegu. Umów wizytę online."
-excerpt: Nieinwazyjne zamykanie popękanych, czerwonych naczynek laserem SHR EPIL MOTION — szybko, precyzyjnie i bez przerwy w codziennych zajęciach.
-lead: Czerwone lub sine żyłki widoczne na skórze nie znikają same, a dla wielu osób są źródłem kompleksów. Zamykamy je laserem w nieinwazyjnym zabiegu — po wizycie od razu wracasz do codziennych czynności.
+excerpt: Nieinwazyjne zamykanie popękanych, czerwonych naczynek laserem SHR EPIL MOTION – szybko, precyzyjnie i bez przerwy w codziennych zajęciach.
+lead: Czerwone lub sine żyłki widoczne na skórze nie znikają same, a dla wielu osób są źródłem kompleksów. Zamykamy je laserem w nieinwazyjnym zabiegu – po wizycie od razu wracasz do codziennych czynności.
 image: ../../assets/images/naczynka-1.jpg
-imageAlt: Uśmiechnięta kobieta dotykająca policzków — cera po zabiegu zamykania naczynek
+imageAlt: Uśmiechnięta kobieta dotykająca policzków – cera po zabiegu zamykania naczynek
 gallery:
   - src: ../../assets/images/naczynka-przed-po.jpg
     alt: Efekt laserowego zamykania naczynek SHR – przed i po zabiegu
@@ -20,11 +20,11 @@ priceFrom: 149
 duration: 10 min – 1 godz. 15 min
 pricing: [zamykanie-naczynek]
 highlights:
-  - Precyzyjny — laser pozwala zamykać nawet bardzo małe naczynka
-  - Bezpieczny i nieinwazyjny — nie obciąża organizmu i nie uszkadza naskórka
+  - Precyzyjny – laser pozwala zamykać nawet bardzo małe naczynka
+  - Bezpieczny i nieinwazyjny – nie obciąża organizmu i nie uszkadza naskórka
   - Efekty widoczne już po pierwszym zabiegu, pełna poprawa po ok. 2 tygodniach
-  - Szybki — sam zabieg może trwać zaledwie 20 minut
-  - Wszechstronny — niweluje różne rodzaje zmian naczyniowych
+  - Szybki – sam zabieg może trwać zaledwie 20 minut
+  - Wszechstronny – niweluje różne rodzaje zmian naczyniowych
 sessions:
   count: zwykle 1–2 wizyty
   interval: co 3–4 tygodnie
@@ -34,17 +34,17 @@ details:
     items:
       - Na ok. 1 tydzień przed zabiegiem nie opalaj skóry (nadmierna ekspozycja na słońce, solarium, samoopalacz).
       - Na 3 tygodnie przed zabiegiem nie wykonuj peelingów, mikrodermabrazji ani innych zabiegów inwazyjnych.
-      - W dniu zabiegu przyjdź zdrowa — bez przyjmowania leków przeciwzapalnych i antybiotyków.
+      - W dniu zabiegu przyjdź zdrowa – bez przyjmowania leków przeciwzapalnych i antybiotyków.
   - title: Po zabiegu
-    text: Może wystąpić zaczerwienienie skóry i delikatne pieczenie. W kolejnej fazie gojenia mogą pojawić się strupki oraz swędzenie — to naturalna reakcja organizmu. Regeneracja skóry po zabiegu to podstawa.
+    text: Może wystąpić zaczerwienienie skóry i delikatne pieczenie. W kolejnej fazie gojenia mogą pojawić się strupki oraz swędzenie – to naturalna reakcja organizmu. Regeneracja skóry po zabiegu to podstawa.
     items:
       - Bezpośrednio po zabiegu powstrzymaj się od opalania.
       - Nie stosuj kosmetyków drażniących (np. z alkoholem) ani peelingów.
       - Powstrzymaj się od inwazyjnych zabiegów kosmetycznych i intensywnych sportów.
-      - Pamiętaj o odpowiednim nawodnieniu skóry oraz — jeśli zalecimy — stosuj delikatne żele i kremy regenerujące.
+      - Pamiętaj o odpowiednim nawodnieniu skóry oraz – jeśli zalecimy – stosuj delikatne żele i kremy regenerujące.
   - title: Wskazania
     items:
-      - Teleangiektazje — popękane, widoczne czerwone naczynka, tzw. „pajączki”.
+      - Teleangiektazje – popękane, widoczne czerwone naczynka, tzw. „pajączki”.
       - Rumień stały.
       - Rumień występujący pod wpływem m.in. stresu, emocji, spożytego alkoholu, pikantnych posiłków, nagłych zmian temperatury.
       - Punkty rubinowe.
@@ -53,11 +53,11 @@ details:
       - Ciąża, karmienie piersią.
       - Antybiotyki (od ostatniej dawki muszą minąć co najmniej 2 tygodnie).
       - 'Choroby wewnętrzne: nowotwór, cukrzyca, aktywna infekcja, epilepsja i inne zaburzenia neurologiczne, alergia.'
-      - Zmieniony kolor skóry — opalenizna lub samoopalacz (do 2–5 dni przed zabiegiem).
+      - Zmieniony kolor skóry – opalenizna lub samoopalacz (do 2–5 dni przed zabiegiem).
       - 'Choroby skóry: aktywna opryszczka, obecność zmian barwnikowych lub bielactwo, łuszczyca, liszaj płaski, toczeń rumieniowaty układowy, fotodermatozy, przerwanie ciągłości skóry.'
       - Choroby serca, wysokie ciśnienie.
       - Stosowanie kremów z retinolem i miejscowych maści z antybiotykiem.
-      - Leki światłouczulające — sulfonamidy, retinoidy, tetracykliny (6 miesięcy przed).
+      - Leki światłouczulające – sulfonamidy, retinoidy, tetracykliny (6 miesięcy przed).
       - 'Zioła: dziurawiec, nagietek, bratek, skrzyp polny, rumianek (miesiąc przed).'
       - Aspiryna i leki rozrzedzające krew (odstaw na 1 tydzień przed zabiegiem).
       - Skłonność do bliznowacenia i przebarwień.
@@ -68,19 +68,19 @@ details:
       - Terapia hormonalna (antykoncepcja hormonalna nie jest przeciwwskazaniem).
 faq:
   - q: Czy laserowe zamykanie naczynek boli?
-    a: Zabieg jest nieinwazyjny i bezbolesny. Laser koncentruje energię na konkretnej tkance i nie uszkadza naskórka. Po zabiegu może pojawić się zaczerwienienie skóry i delikatne pieczenie, a w kolejnej fazie gojenia także strupki i swędzenie — to naturalna reakcja organizmu.
+    a: Zabieg jest nieinwazyjny i bezbolesny. Laser koncentruje energię na konkretnej tkance i nie uszkadza naskórka. Po zabiegu może pojawić się zaczerwienienie skóry i delikatne pieczenie, a w kolejnej fazie gojenia także strupki i swędzenie – to naturalna reakcja organizmu.
   - q: Ile zabiegów zamykania naczynek potrzebuję?
     a: W większości przypadków wystarczą jedna lub dwie wizyty. Zabieg rekomendujemy powtarzać co 3–4 tygodnie, a dokładny plan ustalamy po wywiadzie kosmetologicznym i ocenie poziomu unaczynienia skóry.
   - q: Kiedy zobaczę efekty zabiegu?
     a: Rezultat widać od razu po pierwszym zabiegu. Pełna poprawa wyglądu skóry występuje po mniej więcej dwóch tygodniach.
   - q: Jak długo trwa zabieg?
-    a: Sam proces zamykania naczynek laserem może trwać tylko 20 minut. Czas wizyty zależy od obszaru — w cenniku podajemy czas dla każdej okolicy, np. pojedyncze naczynko to ok. 10 minut, a twarz z maską ok. 45 minut.
+    a: Sam proces zamykania naczynek laserem może trwać tylko 20 minut. Czas wizyty zależy od obszaru – w cenniku podajemy czas dla każdej okolicy, np. pojedyncze naczynko to ok. 10 minut, a twarz z maską ok. 45 minut.
   - q: Jak przygotować się do zabiegu?
     a: Na ok. tydzień przed zabiegiem nie opalaj skóry i nie stosuj samoopalaczy ani solarium. Na trzy tygodnie przed zabiegiem nie wykonuj peelingów i innych bardziej inwazyjnych zabiegów. W dniu zabiegu przyjdź zdrowa i nie przyjmuj leków przeciwzapalnych ani antybiotyków.
   - q: Czy mogę opalać się po zabiegu?
     a: Bezpośrednio po zabiegu powstrzymaj się od opalania. Unikaj też kosmetyków drażniących (np. z alkoholem), peelingów, inwazyjnych zabiegów kosmetycznych i intensywnych sportów. Pamiętaj o nawodnieniu skóry.
   - q: Kiedy nie można wykonać zabiegu?
-    a: Zabiegu nie wykonujemy m.in. w ciąży i w trakcie karmienia piersią, przy chorobach nowotworowych, indywidualnej terapii hormonalnej, aktywnej opalenizie oraz opaleniźnie z samoopalacza. Przed zabiegiem przeprowadzamy szczegółowy wywiad kosmetologiczny, oceniamy stan i typ skóry oraz przedstawiamy ewentualne przeciwwskazania — priorytetem jest Twoje bezpieczeństwo.
+    a: Zabiegu nie wykonujemy m.in. w ciąży i w trakcie karmienia piersią, przy chorobach nowotworowych, indywidualnej terapii hormonalnej, aktywnej opalenizie oraz opaleniźnie z samoopalacza. Przed zabiegiem przeprowadzamy szczegółowy wywiad kosmetologiczny, oceniamy stan i typ skóry oraz przedstawiamy ewentualne przeciwwskazania – priorytetem jest Twoje bezpieczeństwo.
 notice: Gwarancją najwyższej jakości i skuteczności terapii jest regularna wymiana lampy w głowicy zabiegowej. Laser objęty jest stałą opieką techniczną serwisu GANC-SERVICE, będącego pionierem zaawansowanych rozwiązań i urządzeń kosmetologicznych.
 ---
 
@@ -92,7 +92,7 @@ Pod wpływem indywidualnie dobranej wiązki impulsów świetlnych ściany naczyn
 
 ## Dlaczego warto wybrać laserowe zamykanie naczynek?
 
-Zabieg wyróżnia się innowacyjnością i dużą precyzją. Laser pozwala na terapię nawet bardzo małych naczynek, którym nie dałaby rady tradycyjna, znana już skleroterapia. Laserowe zamykanie naczynek technologią E-light jest zabiegiem nieinwazyjnym — nie uszkadza naskórka, lecz koncentruje swoją energię jedynie na konkretnej tkance. Rezultat bezbolesnej terapii widać szybko — od razu po pierwszym zabiegu. Pełna poprawa wyglądu skóry występuje po mniej więcej dwóch tygodniach.
+Zabieg wyróżnia się innowacyjnością i dużą precyzją. Laser pozwala na terapię nawet bardzo małych naczynek, którym nie dałaby rady tradycyjna, znana już skleroterapia. Laserowe zamykanie naczynek technologią E-light jest zabiegiem nieinwazyjnym – nie uszkadza naskórka, lecz koncentruje swoją energię jedynie na konkretnej tkance. Rezultat bezbolesnej terapii widać szybko – od razu po pierwszym zabiegu. Pełna poprawa wyglądu skóry występuje po mniej więcej dwóch tygodniach.
 
 ## Co warto wiedzieć o zabiegu zamykania naczynek?
 
@@ -106,6 +106,6 @@ Laserowego zamykania naczynek nie wykonuje się m.in. u osób, które cierpią n
 
 Przed wykonaniem zabiegu zamykania naczynek na twarzy przeprowadzamy szczegółowy wywiad kosmetologiczny. Oceniamy stan i typ skóry oraz poziom jej unaczynienia, a następnie rzetelnie przedstawiamy ewentualne przeciwwskazania, ponieważ priorytetem jest bezpieczeństwo każdej klientki i każdego klienta.
 
-## Zamykanie naczynek we Wrocławiu — umów wizytę
+## Zamykanie naczynek we Wrocławiu – umów wizytę
 
-Marzysz o szybkim i bezbolesnym zniwelowaniu zmian naczyniowych? Skorzystaj z zabiegu laserowego zamykania naczynek w naszym gabinecie przy ul. Królewieckiej 121/3 we Wrocławiu. Umów się na wizytę online w Booksy i ciesz się naturalnymi efektami — Twoja twarz odzyska jednolity koloryt i gładką powierzchnię. Jeśli masz pytania, zadzwoń do nas pod numer 694 642 573 lub napisz na siskin.contact@gmail.com — chętnie doradzimy i przedstawimy szczegóły oferty.
+Marzysz o szybkim i bezbolesnym zniwelowaniu zmian naczyniowych? Skorzystaj z zabiegu laserowego zamykania naczynek w naszym gabinecie przy ul. Królewieckiej 121/3 we Wrocławiu. Umów się na wizytę online w Booksy i ciesz się naturalnymi efektami – Twoja twarz odzyska jednolity koloryt i gładką powierzchnię. Jeśli masz pytania, zadzwoń do nas pod numer 694 642 573 lub napisz na siskin.contact@gmail.com – chętnie doradzimy i przedstawimy szczegóły oferty.

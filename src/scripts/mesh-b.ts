@@ -1,5 +1,5 @@
 /**
- * Hero B — miękki, żywy „miąższ”: metabale w tonach marki (WebGL, ~0.4 px CSS na piksel).
+ * Hero B – miękki, żywy „miąższ”: metabale w tonach marki (WebGL, ~0.4 px CSS na piksel).
  * Kolory czytane z tokenów (--m0…--m4 na korzeniu hero). Reakcja na mysz.
  * Start na idle (LCP = tekst), pauza poza ekranem / w tle karty, statyczna klatka przy reduced-motion.
  */

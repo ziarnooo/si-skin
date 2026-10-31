@@ -42,16 +42,18 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
   </PageHero>
 
   <nav class="spy" aria-label="Kategorie cennika" data-spy>
-    <div class="spy__scroller">
-      <ul role="list" class="spy__list">
-        {
-          categories.map((c) => (
-            <li>
-              <a class="spy__link" href={`#${c.id}`}>{c.data.title}</a>
-            </li>
-          ))
-        }
-      </ul>
+    <div class="spy__bar">
+      <div class="spy__scroller" data-spy-scroller>
+        <ul role="list" class="spy__list">
+          {
+            categories.map((c) => (
+              <li>
+                <a class="spy__link" href={`#${c.id}`}>{c.data.title}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -80,7 +82,7 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
         <Icon name="gift" size={26} />
         <p>
           <strong class="serif">Pakiety zabiegów.</strong>
-          Pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie — zapytaj o nie podczas wizyty lub bezpłatnej konsultacji.
+          Pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie – zapytaj o nie podczas wizyty lub bezpłatnej konsultacji.
         </p>
       </aside>
     </div>
@@ -106,19 +108,68 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
 </Base>
 
 <style>
+  @property --fade-start {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --fade-end {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+  }
+  /* Przezroczysty, lepki wrapper: dokładnie taki sam inset jak pływający pasek nagłówka */
   .spy {
     position: sticky;
     top: var(--header-h);
     z-index: 5;
-    background: color-mix(in srgb, var(--color-ivory) 88%, transparent);
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
-    border-block: 1px solid var(--color-line);
+    margin-top: var(--radius-xl);
+    padding: var(--space-2xs) var(--gutter) 0;
+    pointer-events: none;
+  }
+  .spy__bar {
+    pointer-events: auto;
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--color-paper) 78%, transparent);
+    box-shadow: var(--shadow-m);
+    -webkit-backdrop-filter: blur(16px) saturate(1.5);
+    backdrop-filter: blur(16px) saturate(1.5);
   }
   .spy__scroller {
+    --fade-size: 2.5rem;
+    position: relative;
     overflow-x: auto;
     scrollbar-width: none;
+    overscroll-behavior-x: contain;
     -webkit-overflow-scrolling: touch;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      var(--color-ink) var(--fade-start),
+      var(--color-ink) calc(100% - var(--fade-end)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      var(--color-ink) var(--fade-start),
+      var(--color-ink) calc(100% - var(--fade-end)),
+      transparent 100%
+    );
+    transition:
+      --fade-start var(--dur) var(--ease-out),
+      --fade-end var(--dur) var(--ease-out);
+  }
+  .spy[data-fade-start] .spy__scroller {
+    --fade-start: var(--fade-size);
+  }
+  .spy[data-fade-end] .spy__scroller {
+    --fade-end: var(--fade-size);
   }
   .spy__scroller::-webkit-scrollbar {
     display: none;
@@ -128,13 +179,8 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
     gap: var(--space-2xs);
     width: max-content;
     min-width: 100%;
-    padding: var(--space-xs) var(--gutter);
-    margin-inline: auto;
-  }
-  @media (min-width: 76rem) {
-    .spy__list {
-      justify-content: center;
-    }
+    padding: 0.375rem;
+    justify-content: safe center;
   }
   .spy__link {
     display: inline-flex;
@@ -143,7 +189,7 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
     padding: 0.4rem 1rem;
     border-radius: var(--radius-pill);
     border: 1px solid var(--color-line);
-    background: var(--color-paper);
+    background: var(--color-ivory);
     font-size: var(--text-xs);
     white-space: nowrap;
     text-decoration: none;
@@ -198,9 +244,28 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
   if (nav) {
     const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
     const byId = new Map(links.map((a) => [a.hash.slice(1), a]));
-    const scroller = nav.querySelector<HTMLElement>('.spy__scroller');
+    const scroller = nav.querySelector<HTMLElement>('[data-spy-scroller]');
     const visible = new Set<string>();
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
     let current = '';
+
+    // Miękkie krawędzie tylko po tej stronie, w którą da się jeszcze przewinąć
+    let fadeFrame = 0;
+    const updateFades = () => {
+      fadeFrame = 0;
+      if (!scroller) return;
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      nav.toggleAttribute('data-fade-start', scroller.scrollLeft > 1);
+      nav.toggleAttribute('data-fade-end', scroller.scrollLeft < max - 1);
+    };
+    const queueFades = () => {
+      if (!fadeFrame) fadeFrame = requestAnimationFrame(updateFades);
+    };
+    if (scroller) {
+      scroller.addEventListener('scroll', queueFades, { passive: true });
+      new ResizeObserver(queueFades).observe(scroller);
+      updateFades();
+    }
 
     const setCurrent = (id: string) => {
       if (id === current) return;
@@ -210,7 +275,7 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
           a.setAttribute('aria-current', 'true');
           if (scroller) {
             const left = a.offsetLeft - (scroller.clientWidth - a.offsetWidth) / 2;
-            scroller.scrollTo({ left, behavior: 'smooth' });
+            scroller.scrollTo({ left, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
           }
         } else {
           a.removeAttribute('aria-current');

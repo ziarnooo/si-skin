@@ -3,7 +3,7 @@ import { absoluteUrl } from '../../lib/site';
 
 export const prerender = true;
 
-/** RFC 9727 — katalog API jako linkset+json. Wskazuje wyłącznie to, co strona faktycznie udostępnia. */
+/** RFC 9727 – katalog API jako linkset+json. Wskazuje wyłącznie to, co strona faktycznie udostępnia. */
 export const GET: APIRoute = ({ site }) => {
   const siteJson = absoluteUrl('/api/site.json', site);
   const catalog = {

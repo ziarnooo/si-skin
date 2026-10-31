@@ -3,7 +3,7 @@ import { formatPrice, lowestPrice } from '../../lib/site';
 
 export type Service = CollectionEntry<'services'>;
 
-/** Najniższa cena zabiegu: `priceFrom` z opisu zabiegu, a gdy go brak — najniższa pozycja pierwszej kategorii cennika. */
+/** Najniższa cena zabiegu: `priceFrom` z opisu zabiegu, a gdy go brak – najniższa pozycja pierwszej kategorii cennika. */
 export async function servicePriceFrom(service: Service): Promise<number | undefined> {
   if (service.data.priceFrom !== undefined) return service.data.priceFrom;
   const first = service.data.pricing[0];

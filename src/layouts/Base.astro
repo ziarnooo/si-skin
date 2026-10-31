@@ -77,9 +77,9 @@ const fonts = [serifLatin, serifLatinExt];
     background-color: var(--color-ivory);
   }
 
-  /* Słowa „zapalane” przez scroll — dzielone w motion.ts ([data-words]) */
+  /* Słowa „zapalane” przez scroll – dzielone w motion.ts ([data-words]) */
   @media (prefers-reduced-motion: no-preference) {
-    /* Nieodsłonięte słowa mają kolor --color-muted (kontrast AA), odsłonięte — pełny tusz. */
+    /* Nieodsłonięte słowa mają kolor --color-muted (kontrast AA), odsłonięte – pełny tusz. */
     [data-words-ready] .w {
       --p: clamp(0, calc(var(--scroll, 0) * (var(--n, 1) + 1) - var(--k, 0)), 1);
       color: color-mix(in oklab, var(--color-ink) calc(var(--p) * 100%), var(--color-muted));

@@ -13,7 +13,7 @@ export async function getSettings(): Promise<Settings> {
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/** Ścieżka wewnętrzna z prefiksem `base` (GitHub Pages) — `url('/cennik/')`. */
+/** Ścieżka wewnętrzna z prefiksem `base` (GitHub Pages) – `url('/cennik/')`. */
 export function url(path = '/'): string {
   if (/^(https?:|mailto:|tel:|#)/.test(path)) return path;
   const clean = path.startsWith('/') ? path : `/${path}`;
@@ -26,7 +26,7 @@ export function absoluteUrl(path: string, site: URL | undefined): string {
 }
 
 /**
- * Link do Booksy z parametrami UTM — `placement` mówi, z którego miejsca
+ * Link do Booksy z parametrami UTM – `placement` mówi, z którego miejsca
  * strony kliknięto (np. "hero", "cennik", "epilacja-shr"), co widać w GA4.
  */
 export function bookingUrl(settings: Settings, placement: string): string {

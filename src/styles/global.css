@@ -77,14 +77,6 @@ em.accent, .accent {
   text-transform: uppercase;
   color: var(--color-gold-text);
 }
-.eyebrow::before {
-  content: '';
-  width: 1.75rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-.eyebrow--plain::before { display: none; }
 .pill-label {
   display: inline-block;
   padding: 0.3rem 0.85rem;

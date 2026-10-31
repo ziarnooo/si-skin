@@ -28,7 +28,7 @@ function saveConsent(state: ConsentState): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: CONSENT_VERSION, ts: Date.now(), ...state }));
   } catch {
-    /* tryb prywatny / zablokowany storage — wybór obowiązuje do końca wizyty */
+    /* tryb prywatny / zablokowany storage – wybór obowiązuje do końca wizyty */
   }
 }
 
@@ -102,7 +102,7 @@ function showBanner(view: 'main' | 'settings', focus: boolean): void {
   main.hidden = view !== 'main';
   settings.hidden = view !== 'settings';
   document.body.appendChild(el);
-  // Dwie klatki: najpierw element w DOM, potem klasa — dzięki temu działa przejście.
+  // Dwie klatki: najpierw element w DOM, potem klasa – dzięki temu działa przejście.
   requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-in')));
   root = el;
   if (focus) focusables[view]()?.focus({ preventScroll: true });

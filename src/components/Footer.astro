@@ -33,7 +33,7 @@ const { address, hours, social } = settings;
         <h2 class="headline">Powiedz <em class="accent">TAK</em> swojej skórze</h2>
       </div>
       <div class="pitch-cta">
-        <p>Wybierz termin online w Booksy — odpowiadamy też telefonicznie.</p>
+        <p>Wybierz termin online w Booksy – odpowiadamy też telefonicznie.</p>
         <BookingButton placement="footer" variant="on-dark" size="lg" />
       </div>
     </div>
@@ -142,9 +142,18 @@ const { address, hours, social } = settings;
       </ul>
     </div>
 
-    <div class="giant" data-inview aria-hidden="true" set:html={wordmark} />
+    <div class="giant" data-inview aria-hidden="true">
+      <div class="giant-stage" data-footer-dots>
+        <Fragment set:html={wordmark} />
+        <canvas class="dots" aria-hidden="true"></canvas>
+      </div>
+    </div>
   </div>
 </footer>
+
+<script>
+  import '../scripts/footer-dots.ts';
+</script>
 
 <style>
   .footer {
@@ -276,31 +285,50 @@ const { address, hours, social } = settings;
     gap: 0 var(--space-m);
   }
 
-  /* Gigantyczne SISKIN — wjeżdża od dołu razem ze scrollem */
+  /* Gigantyczne SISKIN – wjeżdża od dołu razem ze scrollem.
+     Siatka kropek (canvas) nakłada się na SVG; SVG zostaje w przepływie (bez CLS)
+     i jest wersją awaryjną bez JS. */
   .giant {
     view-timeline: --giant block;
     overflow: hidden;
     padding: var(--space-l) 0 var(--space-m);
     color: var(--color-gold);
   }
-  .giant :global(svg) {
+  .giant-stage {
+    position: relative;
+  }
+  .giant-stage :global(svg) {
     width: 100%;
     height: auto;
+    transition: opacity 0.4s var(--ease-out);
   }
+  .dots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1434 / 172;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-out);
+  }
+  .giant-stage[data-dots] :global(svg) { opacity: 0; }
+  .giant-stage[data-dots] .dots { opacity: 1; }
   @media (prefers-reduced-motion: no-preference) {
-    .giant :global(svg) {
+    .giant-stage {
       opacity: 0;
       transform: translate3d(0, 60%, 0);
       transition:
         transform 1.2s var(--ease-out),
         opacity 0.9s var(--ease-out);
     }
-    .giant:global(.is-in) :global(svg) {
+    .giant:global(.is-in) .giant-stage {
       opacity: 1;
       transform: none;
     }
     @supports (animation-timeline: view()) {
-      .giant :global(svg) {
+      .giant-stage {
         opacity: 1;
         transform: none;
         transition: none;

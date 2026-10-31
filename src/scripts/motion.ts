@@ -1,5 +1,5 @@
 /**
- * Ruch strony — vanilla, bez zależności.
+ * Ruch strony – vanilla, bez zależności.
  *  - [data-reveal] / [data-inview]  → klasa .is-in (raz), [data-stagger] układa kolejność
  *  - html[data-scrolled]            → stan nagłówka po przewinięciu
  *  - html[data-past-hero]           → pasek mobilny (po przewinięciu pierwszego ekranu)
@@ -190,7 +190,7 @@ function initMagnetic() {
     el.addEventListener('pointerenter', (e) => {
       if (e.pointerType !== 'mouse') return;
       const r = el.getBoundingClientRect();
-      // rect bazowy — bez aktualnego przesunięcia
+      // rect bazowy – bez aktualnego przesunięcia
       rect = new DOMRect(r.left - x, r.top - y, r.width, r.height);
     });
     el.addEventListener(

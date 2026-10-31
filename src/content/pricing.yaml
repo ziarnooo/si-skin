@@ -1,6 +1,6 @@
-# Cennik — klucz = identyfikator kategorii (używany w usługach i promocjach).
+# Cennik – klucz = identyfikator kategorii (używany w usługach i promocjach).
 # Ceny w zł brutto, źródło: aktualna oferta w Booksy (ceny bazowe, przed rabatem Booksy).
-# Wyjątek: makijaż permanentny brwi — ceny z dotychczasowego cennika strony.
+# Wyjątek: makijaż permanentny brwi – ceny z dotychczasowego cennika strony.
 
 konsultacje:
   title: Konsultacje kosmetologiczne

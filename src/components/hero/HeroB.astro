@@ -1,6 +1,6 @@
 ---
 /**
- * HeroB — „Heksagon”: wyśrodkowany, wielki serif + zdjęcia w sześciokątach z logo,
+ * HeroB – „Heksagon”: wyśrodkowany, wielki serif + zdjęcia w sześciokątach z logo,
  * pod spodem żywy gradient (metabale WebGL, src/scripts/mesh-b.ts).
  * Mobile: tekst, potem plaster miodu z trzech zdjęć. Desktop: zdjęcia „unoszą się” po bokach nagłówka.
  */
@@ -19,7 +19,7 @@ const last2 = rating.count % 100;
 const opinions =
   rating.count === 1 ? 'opinia' : last >= 2 && last <= 4 && !(last2 >= 12 && last2 <= 14) ? 'opinie' : 'opinii';
 
-/** Zaokrąglony sześciokąt „pointy-top” jak w logo (w×h — układ współrzędnych). */
+/** Zaokrąglony sześciokąt „pointy-top” jak w logo (w×h – układ współrzędnych). */
 const V: [number, number][] = [[0.5, 0], [1, 0.25], [1, 0.75], [0.5, 1], [0, 0.75], [0, 0.25]];
 function hexPath(w: number, h: number, t = 0.12): string {
   const f = (n: number) => +n.toFixed(3);
@@ -63,7 +63,7 @@ const sizes = '(min-width: 62rem) 20vw, 44vw';
       <p class="hb__lead hb-in" style="--i:5">
         Bezbolesna{' '}<a href={url('/epilacja-shr/')}>depilacja laserowa SHR</a>,{' '}
         <a href={url('/oczyszczanie-wodorowe/')}>oczyszczanie wodorowe</a>{' '}i{' '}
-        <a href={url('/zabiegi/')}>zabiegi na twarz</a>{' '}— z&nbsp;planem dopasowanym do&nbsp;Twojej skóry.
+        <a href={url('/zabiegi/')}>zabiegi na twarz</a>{' '}– z&nbsp;planem dopasowanym do&nbsp;Twojej skóry.
       </p>
 
       <div class="hb__cta hb-in" style="--i:6">
@@ -297,7 +297,7 @@ const sizes = '(min-width: 62rem) 20vw, 44vw';
     .hb__rating:hover { border-color: var(--color-line-strong); }
   }
 
-  /* ── Sześciokąty — mobile: plaster miodu pod tekstem ── */
+  /* ── Sześciokąty – mobile: plaster miodu pod tekstem ── */
   .hb__hexes {
     position: relative;
     width: min(100%, 24rem);

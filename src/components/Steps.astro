@@ -17,7 +17,7 @@ const defaultSteps: Step[] = [
   },
   {
     title: 'Wywiad i konsultacja',
-    text: 'Zaczynamy od rozmowy i oceny stanu Twojej skóry. Bezpłatna konsultacja trwa 20 minut — rozwiewamy wątpliwości i ustalamy plan działania.',
+    text: 'Zaczynamy od rozmowy i oceny stanu Twojej skóry. Bezpłatna konsultacja trwa 20 minut – rozwiewamy wątpliwości i ustalamy plan działania.',
     icon: 'user',
   },
   {
@@ -133,7 +133,7 @@ const { steps = defaultSteps } = Astro.props;
     .step:nth-child(odd) .step__text { margin-left: auto; }
   }
 
-  /* Linia postępu wypełnia się wraz ze scrollem (CSS scroll-driven; bez wsparcia — linia od razu pełna) */
+  /* Linia postępu wypełnia się wraz ze scrollem (CSS scroll-driven; bez wsparcia – linia od razu pełna) */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .steps::after {

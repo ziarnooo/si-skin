@@ -73,7 +73,7 @@ function wrap(font: Font, text: string, size: number, maxWidth: number): string[
   return lines;
 }
 
-/** Tekst jako ścieżki SVG (bez kerningu — wystarcza przy dużym kroju szeryfowym). */
+/** Tekst jako ścieżki SVG (bez kerningu – wystarcza przy dużym kroju szeryfowym). */
 function textPaths(font: Font, text: string, x: number, baseline: number, size: number, fill: string): string {
   const scale = size / font.unitsPerEm;
   let cursor = x;

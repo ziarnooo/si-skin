@@ -7,13 +7,13 @@ featured: false
 seo:
   title: Modelowanie ust Wrocław – naturalny efekt | Si Skin
   description: Naturalne modelowanie ust we Wrocławiu – Hyamira, Stylage, Revolax, Restylane. 999 zł bez względu na ilość preparatu, hialuronidaza 749 zł. Umów wizytę.
-excerpt: Usta szyte na miarę — naturalne, subtelne i delikatne, bez efektu przerysowania. Stała cena zabiegu niezależnie od ilości preparatu.
-lead: Naturalne, subtelne i delikatne modelowanie ust szytych na miarę. Te trzy wartości określają nasz styl pracy — tak, aby nikt nie zauważył różnicy poza Tobą. Bez efektu przerysowania i karykaturalnych wielkości.
+excerpt: Usta szyte na miarę – naturalne, subtelne i delikatne, bez efektu przerysowania. Stała cena zabiegu niezależnie od ilości preparatu.
+lead: Naturalne, subtelne i delikatne modelowanie ust szytych na miarę. Te trzy wartości określają nasz styl pracy – tak, aby nikt nie zauważył różnicy poza Tobą. Bez efektu przerysowania i karykaturalnych wielkości.
 image: ../../assets/images/usta-efekt-1.jpg
-imageAlt: Naturalnie wymodelowane usta — efekt zabiegu w gabinecie Si Skin
+imageAlt: Naturalnie wymodelowane usta – efekt zabiegu w gabinecie Si Skin
 gallery:
   - src: ../../assets/images/usta-efekt-2.jpg
-    alt: Usta po modelowaniu — efekt zabiegu w gabinecie Si Skin
+    alt: Usta po modelowaniu – efekt zabiegu w gabinecie Si Skin
 priceFrom: 749
 duration: 40 min – 1 godz.
 pricing: [modelowanie-ust]
@@ -22,11 +22,11 @@ highlights:
   - Bez efektu przerysowania, karykaturalnych wielkości i wyglądu „glonojada”
   - Preparaty Hyamira, Stylage, Revolax i Restylane
   - Stała cena zabiegu niezależnie od ilości zużytego preparatu
-  - Hialuronidaza — korekta migracji, asymetrii i grudek po wcześniejszych zabiegach
+  - Hialuronidaza – korekta migracji, asymetrii i grudek po wcześniejszych zabiegach
 details:
   - title: Przygotowanie do zabiegu
     items:
-      - W dniu zabiegu przyjdź zdrowa — bez przyjmowania leków przeciwzapalnych i antybiotyków.
+      - W dniu zabiegu przyjdź zdrowa – bez przyjmowania leków przeciwzapalnych i antybiotyków.
       - Na 12 godzin przed zabiegiem nie pij kawy, alkoholu i napojów energetycznych.
       - Unikaj stosowania leków przeciwzapalnych na kilka dni przed zabiegiem.
       - Zaprzestań (co najmniej na 2–3 tygodnie przed zabiegiem) przyjmowania środków powodujących obniżoną krzepliwość krwi (np. aspiryna, witamina E, ibuprofen, olej rybny).
@@ -66,22 +66,22 @@ faq:
   - q: Jakimi preparatami modelujecie usta?
     a: Pracujemy na preparatach Hyamira, Stylage, Revolax i Restylane. Zabieg wykonujemy tak, aby uzyskać naturalny, subtelny efekt.
   - q: Ile kosztuje modelowanie ust?
-    a: Zabieg kosztuje 999 zł i trwa ok. 1 godziny. Cena jest stała — nie zależy od ilości zużytego preparatu.
+    a: Zabieg kosztuje 999 zł i trwa ok. 1 godziny. Cena jest stała – nie zależy od ilości zużytego preparatu.
   - q: Czy usta będą wyglądały sztucznie?
-    a: Naszym celem jest efekt, którego nikt nie zauważy poza Tobą — usta naturalne, subtelne i delikatne, szyte na miarę. Pracujemy bez efektu przerysowania i karykaturalnych wielkości.
+    a: Naszym celem jest efekt, którego nikt nie zauważy poza Tobą – usta naturalne, subtelne i delikatne, szyte na miarę. Pracujemy bez efektu przerysowania i karykaturalnych wielkości.
   - q: Jak przygotować się do zabiegu?
     a: W dniu zabiegu przyjdź zdrowa, bez przyjmowania leków przeciwzapalnych i antybiotyków, a na 12 godzin przed zabiegiem nie pij kawy, alkoholu i napojów energetycznych. Na 2–3 tygodnie przed zabiegiem odstaw środki obniżające krzepliwość krwi, np. aspirynę, witaminę E, ibuprofen i olej rybny.
   - q: Czego unikać po zabiegu?
     a: Nie uciskaj i nie masuj ust, nie pij przez rurkę i unikaj przygryzania ust. Przez 4 tygodnie nie korzystaj z usług dentystycznych, a do 5 dni po zabiegu unikaj alkoholu i wysiłku fizycznego. Pełna lista zaleceń jest w sekcji „Rekomendacje po zabiegu”.
   - q: Co zrobić, gdy efekt wcześniejszego zabiegu mi nie odpowiada?
-    a: Możemy skorygować go hialuronidazą (749 zł, ok. 40 min) — enzymem rozkładającym kwas hialuronowy. Zabieg szybko rozpuszcza nadmiar wypełniacza, koryguje migracje i asymetrie, usuwa grudki oraz poprawia niepożądane efekty po wcześniejszych zabiegach z użyciem wypełniaczy na bazie kwasu hialuronowego.
+    a: Możemy skorygować go hialuronidazą (749 zł, ok. 40 min) – enzymem rozkładającym kwas hialuronowy. Zabieg szybko rozpuszcza nadmiar wypełniacza, koryguje migracje i asymetrie, usuwa grudki oraz poprawia niepożądane efekty po wcześniejszych zabiegach z użyciem wypełniaczy na bazie kwasu hialuronowego.
   - q: Kiedy nie wykonamy zabiegu?
     a: Przeciwwskazaniem są m.in. ciąża i karmienie piersią, zakażenia i stany zapalne skóry w okolicy zabiegu (np. opryszczka), zaburzenia krzepnięcia krwi, cukrzyca, choroby sercowo-naczyniowe oraz chemio- lub radioterapia w ciągu ostatniego roku. Pełną listę znajdziesz w sekcji „Przeciwwskazania”.
 ---
 
 ## Usta szyte na miarę
 
-Naturalne, subtelne i delikatne modelowanie ust szytych na miarę. Te trzy główne wartości określają nasz styl modelowania ust — takiego, aby nikt nie zauważył różnicy poza Tobą. Bez efektu przerysowania, karykaturalnych wielkości i wyglądu „glonojada”.
+Naturalne, subtelne i delikatne modelowanie ust szytych na miarę. Te trzy główne wartości określają nasz styl modelowania ust – takiego, aby nikt nie zauważył różnicy poza Tobą. Bez efektu przerysowania, karykaturalnych wielkości i wyglądu „glonojada”.
 
 Tworzymy usta tylko dla Ciebie, podkręcając Twoje indywidualne piękno, dodając tym samym pewności siebie i przekuwając często Twój kompleks w atut.
 
@@ -91,7 +91,7 @@ Modelowanie ust wykonujemy preparatami Hyamira, Stylage, Revolax i Restylane. Ce
 
 W dniu zabiegu należy być zdrowym, nie przyjmować żadnych leków przeciwzapalnych ani antybiotyków. 12 godzin przed zabiegiem nie należy pić kawy, alkoholu i napojów energetycznych.
 
-## Hialuronidaza — korekta po wcześniejszych zabiegach
+## Hialuronidaza – korekta po wcześniejszych zabiegach
 
 Hialuronidaza jest enzymem stosowanym w medycynie estetycznej, rozkładającym kwas hialuronowy. Zabieg z jej wykorzystaniem (749 zł, ok. 40 min):
 

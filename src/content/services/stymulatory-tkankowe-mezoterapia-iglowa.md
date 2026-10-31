@@ -7,8 +7,8 @@ featured: false
 seo:
   title: Stymulatory tkankowe, mezoterapia igłowa Wrocław | Si Skin
   description: Stymulatory tkankowe i mezoterapia igłowa we Wrocławiu – Jalupro, Profhilo, Sunekos, Nucleofill, Neauvia. Od 400 zł. Preparat dobieramy na konsultacji.
-excerpt: Regeneracja, nawilżenie i odbudowa struktury skóry dzięki stymulacji kolagenu i elastyny — naturalny lifting i poprawa owalu twarzy.
-lead: Regeneracja, nawilżenie, odżywienie i odbudowa struktury skóry dzięki stymulacji komórek kolagenu i elastyny. Naturalny lifting, poprawa owalu twarzy i delikatna volumetria — preparat dobieramy indywidualnie podczas konsultacji przed zabiegiem.
+excerpt: Regeneracja, nawilżenie i odbudowa struktury skóry dzięki stymulacji kolagenu i elastyny – naturalny lifting i poprawa owalu twarzy.
+lead: Regeneracja, nawilżenie, odżywienie i odbudowa struktury skóry dzięki stymulacji komórek kolagenu i elastyny. Naturalny lifting, poprawa owalu twarzy i delikatna volumetria – preparat dobieramy indywidualnie podczas konsultacji przed zabiegiem.
 image: ../../assets/images/stymulatory-1.jpg
 imageAlt: Kobieta z promienną skórą twarzy
 gallery:
@@ -26,7 +26,7 @@ highlights:
 details:
   - title: Przygotowanie do zabiegu
     items:
-      - W dniu zabiegu przyjdź zdrowa — bez przyjmowania leków przeciwzapalnych i antybiotyków.
+      - W dniu zabiegu przyjdź zdrowa – bez przyjmowania leków przeciwzapalnych i antybiotyków.
       - Na 12 godzin przed zabiegiem nie pij kawy, alkoholu i napojów energetycznych.
       - Unikaj stosowania leków przeciwzapalnych na kilka dni przed zabiegiem.
       - Zaprzestań (co najmniej na 2–3 tygodnie przed zabiegiem) przyjmowania środków powodujących obniżoną krzepliwość krwi (np. aspiryna, witamina E, ibuprofen, olej rybny).
@@ -38,7 +38,7 @@ details:
     items:
       - Miejsce poddane zabiegowi traktuj ze szczególną ostrożnością i sterylnością.
       - Unikaj uciskania i masażu twarzy lub innego miejsca poddanego zabiegowi.
-      - Zachowaj wysoką higienę dłoni — istnieje duże ryzyko wtórnego zakażenia.
+      - Zachowaj wysoką higienę dłoni – istnieje duże ryzyko wtórnego zakażenia.
       - Unikaj stosowania kosmetyków podrażniających, np. z alkoholem.
       - Unikaj spożywania alkoholu przez 48 godzin po zabiegu.
       - Unikaj wysiłku fizycznego bezpośrednio po zabiegu (4–5 dni).
@@ -83,7 +83,7 @@ details:
       - Zaburzenia psychiczne.
       - Tendencja do niestosowania się do zaleceń pozabiegowych.
       - Przyjmowanie NLPZ w ciągu tygodnia przed planowanym zabiegiem.
-  - title: Możliwe skutki uboczne po zabiegu — częste
+  - title: Możliwe skutki uboczne po zabiegu – częste
     items:
       - Zaczerwienienie.
       - Obrzęk.
@@ -93,14 +93,14 @@ details:
       - Swędzenie.
       - Ból.
       - Zgrubienie lub grudki.
-  - title: Możliwe powikłania po zabiegu — rzadkie
+  - title: Możliwe powikłania po zabiegu – rzadkie
     items:
       - Zakażenie wirusowe.
       - Zakażenie bakteryjne.
       - Powstanie blizn.
       - Reakcje alergiczne.
       - Asymetria twarzy.
-  - title: Możliwe powikłania po zabiegu — bardzo rzadkie
+  - title: Możliwe powikłania po zabiegu – bardzo rzadkie
     items:
       - Bliznowce.
       - Martwica.
@@ -114,7 +114,7 @@ faq:
   - q: Ile zabiegów potrzebuję?
     a: To zależy od preparatu. Przy Neauvia Organic Hydro Deluxe zazwyczaj wystarcza seria 4 zabiegów w odstępach 3 tygodni, a zabieg uzupełniający warto wykonać po sześciu miesiącach. W przypadku Tropokolagenu Guna Tissue cykl zabiegowy to seria od 4 do 7 zabiegów co 14 dni.
   - q: Który preparat jest do okolicy oczu?
-    a: Do delikatnej skóry wokół oczu mamy Jalupro Young Eye, RRS HA Eyes oraz Sunekos 200. Okolicę oczu można też poprawiać Tropokolagenem Guna Tissue — jedna ampułka (2 ml) wystarcza m.in. na mezoterapię okolicy oczu.
+    a: Do delikatnej skóry wokół oczu mamy Jalupro Young Eye, RRS HA Eyes oraz Sunekos 200. Okolicę oczu można też poprawiać Tropokolagenem Guna Tissue – jedna ampułka (2 ml) wystarcza m.in. na mezoterapię okolicy oczu.
   - q: Ile trwa zabieg i ile kosztuje?
     a: Wizyta trwa zwykle 50–60 minut, a ceny zaczynają się od 400 zł (RRS HA Eyes). Dokładne ceny każdego preparatu znajdziesz w cenniku poniżej.
   - q: Jak przygotować się do zabiegu?
@@ -124,7 +124,7 @@ faq:
 notice: Należy stosować się ściśle do zaleceń przedzabiegowych i pozabiegowych. Wystąpienie jakichkolwiek reakcji niepożądanych należy niezwłocznie zgłosić specjaliście wykonującemu zabieg.
 ---
 
-## Stymulatory tkankowe — eliksir młodości w jednej ampułce
+## Stymulatory tkankowe – eliksir młodości w jednej ampułce
 
 Stymulatory tkankowe wykorzystywane w medycynie estetycznej i przeciwstarzeniowej służą do regeneracji, nawilżenia, odżywienia i odbudowy struktury skóry dzięki stymulacji komórek kolagenu i elastyny. Naturalny lifting, poprawa owalu twarzy, spłycenie zmarszczek, napięcie skóry i delikatna volumetria to główne zalety tego zabiegu. Preparat dociera do głębszych warstw skóry. Stymulatory tkankowe to eliksir młodości zamknięty w jednej ampułce.
 
@@ -152,15 +152,15 @@ Preparat wzmacnia i zagęszcza skórę oraz przeciwdziała zwiotczeniu i utracie
 
 Preparat do wstrzykiwania o działaniu przeciwstarzeniowym, odżywiającym i ujędrniającym. Przeciwdziała utracie objętości twarzy, redukuje zmarszczki i nawilża skórę. Chroniona patentem formuła zawiera kwas hialuronowy i kombinację aminokwasów, prekursorów kolagenu i elastyny. Ta kombinacja pomaga stymulować regenerację macierzy pozakomórkowej.
 
-### Jalupro Young Eye — okolica oczu
+### Jalupro Young Eye – okolica oczu
 
 Produkt zaprojektowany specjalnie z myślą o delikatnej skórze wokół oczu. Redukuje zmarszczki, kurze łapki, cienie pod oczami i wiotką skórę. Wykorzystuje najnowsze osiągnięcia biotechnologii w pielęgnacji objawów starzenia się skóry.
 
-### RRS® HA Eyes — okolica oczu
+### RRS® HA Eyes – okolica oczu
 
 Produkt oparty na kwasie hialuronowym w połączeniu z różnymi kompleksami biorewitalizującymi. Formuła jest zaprojektowana do mezoterapii okolicy oka. Ma działanie antyoksydacyjne: nawilża, poprawia mikrokrążenie, wyrównuje koloryt skóry i poprawia kontur oczu.
 
-### Sunekos® 200 — okolica oczu
+### Sunekos® 200 – okolica oczu
 
 Preparat do wstrzykiwania o działaniu anti-aging. Przeciwdziała utracie napięcia skóry, redukuje zmarszczki i nawilża skórę. Chroniona patentem formuła zawiera kwas hialuronowy i kombinację aminokwasów, prekursorów kolagenu i elastyny, która pomaga stymulować regenerację macierzy pozakomórkowej.
 
@@ -168,7 +168,7 @@ Preparat do wstrzykiwania o działaniu anti-aging. Przeciwdziała utracie napię
 
 Mezoterapia to jeden z najpopularniejszych zabiegów estetycznych poprawiających jakość skóry. Jej celem jest dostarczenie substancji aktywnych bezpośrednio do skóry oraz jej nawilżenie. Neauvia Hydro Deluxe zawiera 18 mg/ml czystego kwasu hialuronowego pozyskiwanego z Bacillus subtilis. Takie stężenie pozwala uzyskać rezultaty widoczne już od pierwszego zabiegu. Preparat zawiera także 0,01% hydroksyapatytu wapnia, który dodatkowo pobudza produkcję kolagenu, poprawiając skuteczność terapii.
 
-Do osiągnięcia optymalnych rezultatów wystarcza zazwyczaj seria 4 zabiegów przeprowadzonych w odstępach 3 tygodni. Chcąc zapewnić długotrwały rezultat, warto przeprowadzić zabieg uzupełniający po upływie sześciu miesięcy. Zabieg wykonujemy w dwóch wariantach — z jedną lub dwiema ampułkami po 2,5 ml.
+Do osiągnięcia optymalnych rezultatów wystarcza zazwyczaj seria 4 zabiegów przeprowadzonych w odstępach 3 tygodni. Chcąc zapewnić długotrwały rezultat, warto przeprowadzić zabieg uzupełniający po upływie sześciu miesięcy. Zabieg wykonujemy w dwóch wariantach – z jedną lub dwiema ampułkami po 2,5 ml.
 
 Zalety:
 

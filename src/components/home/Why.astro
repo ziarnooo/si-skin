@@ -30,7 +30,7 @@ const values: Value[] = [
   {
     icon: 'clock',
     title: 'Bezpłatna konsultacja',
-    text: 'Rozwiewamy wątpliwości, oceniamy stan skóry i ustalamy plan działania — zanim zdecydujesz się na zabieg.',
+    text: 'Rozwiewamy wątpliwości, oceniamy stan skóry i ustalamy plan działania – zanim zdecydujesz się na zabieg.',
     size: 'third',
     tone: 'light',
     stat: '20 min',
@@ -58,7 +58,7 @@ const values: Value[] = [
     <div class="section-head section-head--center" data-reveal>
       <span class="eyebrow eyebrow--plain">Dlaczego Si Skin</span>
       <h2 id="why-title">Zwolnij i&nbsp;zadbaj o&nbsp;siebie <em class="accent">w&nbsp;dobrych rękach</em></h2>
-      <p class="lead">Nowoczesna technologia, doświadczenie i spokojna atmosfera — tak pracujemy od pierwszej wizyty.</p>
+      <p class="lead">Nowoczesna technologia, doświadczenie i spokojna atmosfera – tak pracujemy od pierwszej wizyty.</p>
     </div>
 
     <ul class="bento" role="list">
@@ -80,7 +80,7 @@ const values: Value[] = [
               {value.quote && (
                 <figure class="vcard__quote">
                   <blockquote>„{value.quote.text}”</blockquote>
-                  <figcaption>— {value.quote.author}, klientka</figcaption>
+                  <figcaption>{value.quote.author}, klientka</figcaption>
                 </figure>
               )}
             </article>
@@ -187,7 +187,7 @@ const values: Value[] = [
 </style>
 
 <script>
-  // Poświata podąża za kursorem (tylko myszka — dotyk i tak jej nie widzi)
+  // Poświata podąża za kursorem (tylko myszka – dotyk i tak jej nie widzi)
   if (matchMedia('(hover: hover) and (pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
     document.querySelectorAll<HTMLElement>('[data-glow]').forEach((card) => {
       card.addEventListener(

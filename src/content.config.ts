@@ -5,13 +5,13 @@ import { z } from 'astro/zod';
 /**
  * Wszystkie treści strony żyją w `src/content/`.
  * Edytujesz je w panelu /admin (Sveltia CMS) albo bezpośrednio w plikach.
- * Schematy poniżej pilnują, żeby literówka w danych nie zepsuła strony —
+ * Schematy poniżej pilnują, żeby literówka w danych nie zepsuła strony –
  * build zatrzyma się z czytelnym błędem zamiast opublikować uszkodzoną treść.
  */
 
 const faqItem = z.object({ q: z.string(), a: z.string() });
 
-/** Zabiegi — każdy plik .md to osobna podstrona (adres = nazwa pliku). */
+/** Zabiegi – każdy plik .md to osobna podstrona (adres = nazwa pliku). */
 const services = defineCollection({
   loader: glob({ base: './src/content/services', pattern: '*.md' }),
   schema: ({ image }) =>
@@ -58,7 +58,7 @@ const priceItem = z.object({
   note: z.string().optional(),
 });
 
-/** Cennik — kategorie w kolejności `order`. Ceny w zł brutto (liczby). */
+/** Cennik – kategorie w kolejności `order`. Ceny w zł brutto (liczby). */
 const pricing = defineCollection({
   loader: file('src/content/pricing.yaml'),
   schema: z.object({
@@ -79,7 +79,7 @@ const pricing = defineCollection({
   }),
 });
 
-/** Promocje — rabat liczony automatycznie na przykładowej cenie z cennika. */
+/** Promocje – rabat liczony automatycznie na przykładowej cenie z cennika. */
 const promotions = defineCollection({
   loader: file('src/content/promotions.yaml'),
   schema: z.object({

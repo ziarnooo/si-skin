@@ -60,9 +60,9 @@ const asset = (file: string) => path.resolve(process.cwd(), 'src/assets/images',
 
 function priceItemLine(item: PricingCategory['data']['groups'][number]['items'][number]): string {
   const value = typeof item.price === 'number' ? money(item.price) : (item.priceText ?? '');
-  const parts = [`- ${item.name}${value ? ` — ${value}` : ''}`];
+  const parts = [`- ${item.name}${value ? ` – ${value}` : ''}`];
   if (item.duration) parts.push(`(${item.duration})`);
-  if (item.note) parts.push(`— ${item.note}`);
+  if (item.note) parts.push(`(${item.note})`);
   return parts.join(' ');
 }
 
@@ -173,7 +173,7 @@ const STATIC_PAGES: { path: string; title: string; description: string; image: s
   { path: '/promocje/', title: 'Promocje', description: 'Aktualne promocje i zniżki w gabinecie Si Skin we Wrocławiu.', image: 'promocje-przyjaciolki.jpg' },
   { path: '/karty-podarunkowe/', title: 'Karty podarunkowe', description: 'Personalizowany voucher podarunkowy na zabieg lub wybraną kwotę, ważny 6 miesięcy.', image: 'voucher.jpg' },
   { path: '/kontakt/', title: 'Kontakt', description: 'Si Skin, ul. Królewiecka 121/3, Wrocław. Telefon, godziny otwarcia i rezerwacja online.', image: 'gabinet-drzwi.jpg' },
-  { path: '/o-nas/', title: 'O nas', description: 'Poznaj zespół i gabinet Si Skin — kosmetologia estetyczna i laseroterapia we Wrocławiu.', image: 'weronika-grincewicz.jpg' },
+  { path: '/o-nas/', title: 'O nas', description: 'Poznaj zespół i gabinet Si Skin – kosmetologia estetyczna i laseroterapia we Wrocławiu.', image: 'weronika-grincewicz.jpg' },
   { path: '/blog/', title: 'Blog', description: 'Porady i wiedza o laseroterapii, depilacji laserowej i pielęgnacji skóry od kosmetolożek Si Skin.', image: 'liscie-cien.jpg' },
 ];
 
@@ -191,12 +191,12 @@ export async function getSitePages(site: Site): Promise<SitePage[]> {
 
   const home: SitePage = {
     path: '/',
-    title: `${settings.name} — ${settings.tagline}`,
+    title: `${settings.name} – ${settings.tagline}`,
     description: settings.description,
     kind: 'home',
     image: asset('gabinet-1.jpg'),
     markdown: async () => {
-      const lines = [`# ${settings.name} — ${settings.tagline}`, '', `> ${settings.description}`, '', '## Zabiegi', ''];
+      const lines = [`# ${settings.name} – ${settings.tagline}`, '', `> ${settings.description}`, '', '## Zabiegi', ''];
       for (const s of services) {
         lines.push(`- [${s.data.navTitle}](${abs(`/${s.id}/`, site)}): ${s.data.excerpt}`);
       }
@@ -215,7 +215,7 @@ export async function getSitePages(site: Site): Promise<SitePage[]> {
         '',
         contactBlock(settings),
         '',
-        `Oceny klientów: ${settings.rating.value.toFixed(1)}/5 w ${settings.rating.source} (${settings.rating.count} opinii, stan na ${isoDate(settings.rating.checkedAt)}) — ${settings.rating.url}`,
+        `Oceny klientów: ${settings.rating.value.toFixed(1)}/5 w ${settings.rating.source} (${settings.rating.count} opinii, stan na ${isoDate(settings.rating.checkedAt)}) – ${settings.rating.url}`,
         '',
         bookingBlock(settings, 'agent-home'),
       );
@@ -240,7 +240,7 @@ export async function getSitePages(site: Site): Promise<SitePage[]> {
         if (!items.length) continue;
         lines.push(`## ${CATEGORY_LABELS[key]}`, '');
         for (const s of items) {
-          const price = typeof s.data.priceFrom === 'number' ? ` — od ${money(s.data.priceFrom)}` : '';
+          const price = typeof s.data.priceFrom === 'number' ? ` – od ${money(s.data.priceFrom)}` : '';
           lines.push(`- [${s.data.navTitle}](${abs(`/${s.id}/`, site)})${price}: ${s.data.excerpt}`);
         }
         lines.push('');
@@ -265,7 +265,7 @@ export async function getSitePages(site: Site): Promise<SitePage[]> {
         if (p.terms.length) lines.push('Warunki:', '', ...p.terms.map((t) => `- ${t}`), '');
         const example = p.example && p.percent ? findPriceItem(pricing, p.example.category, p.example.item) : undefined;
         if (example?.item.price && p.percent) {
-          lines.push(`Przykład: ${example.item.name} — ${money(example.item.price)} → ${money(applyDiscount(example.item.price, p.percent))}.`, '');
+          lines.push(`Przykład: ${example.item.name} – ${money(example.item.price)} → ${money(applyDiscount(example.item.price, p.percent))}.`, '');
         }
       }
       return lines.join('\n');
@@ -283,7 +283,7 @@ export async function getSitePages(site: Site): Promise<SitePage[]> {
     '/o-nas/': () => {
       const lines = ['# O nas', '', settings.description, ''];
       for (const m of team.map((e) => e.data).sort((a, b) => a.order - b.order)) {
-        lines.push(`## ${m.name} — ${m.role}`, '');
+        lines.push(`## ${m.name} – ${m.role}`, '');
         if (m.specializations.length) lines.push(`Specjalizacje: ${m.specializations.join(', ')}`, '');
         if (m.bio) lines.push(m.bio.replace(/\s+/g, ' ').trim(), '');
       }
@@ -462,7 +462,7 @@ export async function buildLlmsFullTxt(site: Site): Promise<string> {
   const posts = pages.filter((p) => p.kind === 'blog');
 
   return [
-    `# ${settings.name} — pełna treść serwisu`,
+    `# ${settings.name} – pełna treść serwisu`,
     '',
     `> ${settings.description}`,
     '',
@@ -507,7 +507,7 @@ export async function buildSkillMarkdown(name: (typeof SKILLS)[number]['name'], 
       ...header,
       `# Umawianie wizyty w ${settings.name}`,
       '',
-      'Gabinet nie ma publicznego API rezerwacji — rezerwacje przyjmujemy przez Booksy lub telefonicznie. Agent nie może sam zarezerwować terminu; jego zadaniem jest przekazać użytkownikowi właściwy link i potrzebne informacje.',
+      'Gabinet nie ma publicznego API rezerwacji – rezerwacje przyjmujemy przez Booksy lub telefonicznie. Agent nie może sam zarezerwować terminu; jego zadaniem jest przekazać użytkownikowi właściwy link i potrzebne informacje.',
       '',
       '## Kroki',
       '',
@@ -523,7 +523,7 @@ export async function buildSkillMarkdown(name: (typeof SKILLS)[number]['name'], 
       '',
       '## Adres',
       '',
-      `${settings.address.street}, ${settings.address.postalCode} ${settings.address.city} — ${settings.mapsUrl}`,
+      `${settings.address.street}, ${settings.address.postalCode} ${settings.address.city} – ${settings.mapsUrl}`,
       '',
     ].join('\n');
   }
@@ -534,9 +534,9 @@ export async function buildSkillMarkdown(name: (typeof SKILLS)[number]['name'], 
     '',
     '## Źródła (wszystkie statyczne, bez uwierzytelniania)',
     '',
-    `- ${abs('/api/site.json', site)} — JSON: usługi, ceny, godziny, promocje, link do rezerwacji.`,
-    `- ${abs('/cennik/index.md', site)} — cennik w Markdown.`,
-    `- ${abs('/llms-full.txt', site)} — pełna treść serwisu.`,
+    `- ${abs('/api/site.json', site)} – JSON: usługi, ceny, godziny, promocje, link do rezerwacji.`,
+    `- ${abs('/cennik/index.md', site)} – cennik w Markdown.`,
+    `- ${abs('/llms-full.txt', site)} – pełna treść serwisu.`,
     '',
     '## Zasady interpretacji',
     '',

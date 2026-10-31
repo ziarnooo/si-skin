@@ -3,7 +3,7 @@ import { absoluteUrl, isoDate, type Settings } from './site';
 
 /**
  * Dane strukturalne (JSON-LD) dla Google i agentów AI.
- * Wszystkie funkcje zwracają zwykłe obiekty z `@context` — wrzucamy je do `jsonLd` w <Base>.
+ * Wszystkie funkcje zwracają zwykłe obiekty z `@context` – wrzucamy je do `jsonLd` w <Base>.
  * Celowo NIE dodajemy `aggregateRating` do LocalBusiness: opinie z Booksy publikujemy
  * jako treść strony, ale Google traktuje własne oceny firmy jako "self-serving".
  */

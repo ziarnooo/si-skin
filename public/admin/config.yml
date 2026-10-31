@@ -1,9 +1,9 @@
 # ─────────────────────────────────────────────────────────────────────────────
-#  PANEL EDYCJI TREŚCI — Sveltia CMS
+#  PANEL EDYCJI TREŚCI – Sveltia CMS
 #  Adres panelu: <adres strony>/admin/
 #  Panel zapisuje zmiany jako commity w repozytorium GitHub; po kilku minutach
 #  strona publikuje się sama (GitHub Actions).
-#  Struktura poniżej odzwierciedla src/content.config.ts — jeśli dodasz pole
+#  Struktura poniżej odzwierciedla src/content.config.ts – jeśli dodasz pole
 #  w schemacie, dodaj je też tutaj.
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -79,12 +79,12 @@ collections:
                 label: Rezerwacja online
                 widget: object
                 fields:
-                  - { name: url, label: Link do Booksy, widget: string, hint: 'Adres profilu w Booksy — do niego prowadzą wszystkie przyciski rezerwacji.' }
+                  - { name: url, label: Link do Booksy, widget: string, hint: 'Adres profilu w Booksy – do niego prowadzą wszystkie przyciski rezerwacji.' }
                   - { name: label, label: Tekst przycisku, widget: string, hint: 'Domyślnie „Umów wizytę”.' }
               - name: rating
                 label: Ocena w Booksy
                 widget: object
-                hint: 'Ręcznie aktualizowana — sprawdź w Booksy i zmień, gdy liczba opinii wyraźnie wzrośnie.'
+                hint: 'Ręcznie aktualizowana – sprawdź w Booksy i zmień, gdy liczba opinii wyraźnie wzrośnie.'
                 fields:
                   - { name: value, label: Średnia ocena, widget: number, value_type: float, min: 1, max: 5 }
                   - { name: count, label: Liczba opinii, widget: number, value_type: int, min: 0 }
@@ -104,7 +104,7 @@ collections:
                 widget: object
                 hint: 'Skrypty analityczne działają tylko na domenie produkcyjnej i po zgodzie odwiedzającego.'
                 fields:
-                  - { name: productionHost, label: Domena produkcyjna, widget: string, hint: 'Np. www.si-skin.pl — na innych adresach analityka jest wyłączona.' }
+                  - { name: productionHost, label: Domena produkcyjna, widget: string, hint: 'Np. www.si-skin.pl – na innych adresach analityka jest wyłączona.' }
                   - { name: ga4, label: Identyfikator Google Analytics 4, widget: string, required: false, hint: 'Zaczyna się od G-.' }
                   - { name: metaPixel, label: Identyfikator Meta Pixel, widget: string, required: false }
               - name: utm
@@ -246,7 +246,7 @@ collections:
             map_key_field: id
             summary: '{{title}}'
             fields:
-              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Krótki, unikalny skrót bez polskich znaków i spacji, np. epilacja-shr. Używany do łączenia z zabiegami i promocjami — nie zmieniaj istniejących.' }
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Krótki, unikalny skrót bez polskich znaków i spacji, np. epilacja-shr. Używany do łączenia z zabiegami i promocjami – nie zmieniaj istniejących.' }
               - { name: title, label: Nazwa kategorii, widget: string }
               - { name: order, label: Kolejność, widget: number, value_type: int }
               - { name: service, label: Powiązany zabieg (adres strony), widget: string, required: false, hint: 'Nazwa pliku zabiegu bez .md, np. epilacja-shr. Dodaje link „Zobacz zabieg”.' }
@@ -312,7 +312,7 @@ collections:
                 label: Przykład ceny z cennika
                 widget: object
                 required: false
-                hint: 'Wskaż pozycję z cennika — strona pokaże jej cenę przed i po rabacie.'
+                hint: 'Wskaż pozycję z cennika – strona pokaże jej cenę przed i po rabacie.'
                 fields:
                   - name: category
                     label: Kategoria cennika
@@ -380,7 +380,7 @@ collections:
             map_key_field: id
             summary: '{{author}}: {{text}}'
             fields:
-              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. r50 — dowolny unikalny skrót.' }
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. r50 – dowolny unikalny skrót.' }
               - { name: author, label: Autor (imię), widget: string }
               - { name: text, label: Treść opinii, widget: text }
               - { name: service, label: Zabieg, widget: string, required: false }
@@ -409,7 +409,7 @@ collections:
             map_key_field: id
             summary: '{{q}}'
             fields:
-              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. f40 — dowolny unikalny skrót.' }
+              - { name: id, label: Identyfikator, widget: string, pattern: ['^[a-z0-9-]+$', 'Tylko małe litery, cyfry i myślniki'], hint: 'Np. f40 – dowolny unikalny skrót.' }
               - name: category
                 label: Kategoria
                 widget: select
