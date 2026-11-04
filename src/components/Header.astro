@@ -216,22 +216,29 @@ const after: NavLink[] = [
   .header {
     --hdr-fg: var(--color-ink);
     --hdr-fg-soft: var(--color-ink-soft);
-    --hdr-accent: var(--color-gold-text);
+    --hdr-accent: var(--color-accent-text);
+    --hdr-logo: var(--color-olive);
     position: fixed;
     inset: 0 0 auto 0;
     z-index: var(--z-header);
     padding: 0.625rem var(--gutter) 0;
     pointer-events: none;
   }
-  /* Ciemne hero: jasny tekst, dopóki nagłówek jest przezroczysty */
+  /* Ciemne hero: białe logo i tekst, dopóki nagłówek jest przezroczysty */
   :global(html:not([data-scrolled])) .header[data-tone='dark'] {
     --hdr-fg: var(--color-on-dark);
     --hdr-fg-soft: var(--color-on-dark-soft);
-    --hdr-accent: var(--color-gold-light);
+    --hdr-accent: var(--color-khaki-light);
+    --hdr-logo: var(--color-on-dark);
+  }
+  :global(html:not([data-scrolled])) .header[data-tone='dark'] .actions :global(.cta) {
+    --btn-bg: var(--color-on-dark);
+    --btn-fg: var(--color-olive);
   }
   :global(html:not([data-scrolled])) .header[data-tone='dark'] .pill:has([data-open]) {
     --hdr-fg: var(--color-ink);
-    --hdr-accent: var(--color-gold-text);
+    --hdr-accent: var(--color-accent-text);
+    --hdr-logo: var(--color-olive);
   }
 
   .pill {
@@ -269,10 +276,12 @@ const after: NavLink[] = [
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    color: inherit;
+    color: var(--hdr-logo);
     text-decoration: none;
     flex: none;
+    transition: color var(--dur) var(--ease-out);
   }
+  .brand :global(.logo) { color: inherit; }
   .mark {
     width: 1.85rem;
     flex: none;
@@ -381,7 +390,7 @@ const after: NavLink[] = [
     line-height: 1.35;
     text-transform: uppercase;
     text-wrap: balance;
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     margin-bottom: var(--space-2xs);
     padding-bottom: var(--space-xs);
     border-bottom: 1px solid var(--color-line);
@@ -425,7 +434,7 @@ const after: NavLink[] = [
     top: 50%;
     display: grid;
     margin-top: -7px;
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     opacity: 0;
     transform: translate3d(-6px, 0, 0);
     transition:
@@ -433,13 +442,13 @@ const after: NavLink[] = [
       transform var(--dur) var(--ease-out);
     pointer-events: none;
   }
-  .mega-group a[aria-current] { color: var(--color-gold-text); }
+  .mega-group a[aria-current] { color: var(--color-accent-text); }
   .mega-group a:focus-visible .mega-arrow {
     opacity: 1;
     transform: none;
   }
   @media (hover: hover) {
-    .mega-group a:hover { color: var(--color-gold-text); }
+    .mega-group a:hover { color: var(--color-accent-text); }
     .mega-group a:hover .mega-arrow {
       opacity: 1;
       transform: none;
@@ -565,7 +574,7 @@ const after: NavLink[] = [
     color: var(--color-ink);
   }
   .drawer-nav [aria-current],
-  .acc-trigger[data-current] { color: var(--color-gold-text); }
+  .acc-trigger[data-current] { color: var(--color-accent-text); }
   .acc-trigger :global(svg) { transition: transform var(--dur) var(--ease-out); }
   .acc-trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
   .acc {
@@ -594,7 +603,7 @@ const after: NavLink[] = [
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     margin: var(--space-2xs) 0;
   }
   .acc ul a {
@@ -604,7 +613,7 @@ const after: NavLink[] = [
     text-decoration: none;
     color: var(--color-ink-soft);
   }
-  .acc ul a[aria-current] { color: var(--color-gold-text); }
+  .acc ul a[aria-current] { color: var(--color-accent-text); }
   .drawer-foot {
     display: grid;
     gap: var(--space-s);

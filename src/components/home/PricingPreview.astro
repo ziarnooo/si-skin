@@ -73,7 +73,7 @@ const cards = plan.flatMap((entry) => {
                 <h3 class="pp__title">{card.title}</h3>
                 <p class="pp__lead">{card.lead}</p>
                 {card.discount && (
-                  <span class="chip chip--gold">
+                  <span class="chip chip--accent">
                     {card.discount.upTo ? 'do ' : ''}−{card.discount.percent}% · {card.discount.label}
                   </span>
                 )}
@@ -135,15 +135,15 @@ const cards = plan.flatMap((entry) => {
     transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
   }
   .pp--dark {
-    background: var(--color-green);
-    border-color: var(--color-green);
+    background: var(--color-olive);
+    border-color: var(--color-olive);
     color: var(--color-on-dark);
   }
   .pp--dark .pp__lead, .pp--dark .pp__name small { color: var(--color-on-dark-soft); }
   .pp--dark .pp__row { border-color: var(--color-line-on-dark); }
   .pp--dark .price-old { color: var(--color-on-dark-soft); }
-  .pp--dark .price-new { color: var(--color-gold-light); }
-  .pp--dark .chip--gold { background: rgb(220 194 140 / 0.16); color: var(--color-gold-light); }
+  .pp--dark .price-new { color: var(--color-khaki-light); }
+  .pp--dark .chip--accent { background: color-mix(in srgb, var(--color-khaki-light) 16%, transparent); color: var(--color-khaki-light); }
   .pp__head { display: grid; gap: var(--space-2xs); justify-items: start; }
   .pp__title { font-size: var(--text-2xl); }
   .pp__lead { color: var(--color-ink-soft); font-size: var(--text-sm); margin-bottom: var(--space-2xs); }

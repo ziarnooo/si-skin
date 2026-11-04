@@ -68,22 +68,22 @@ function init(
   const css = (c: RGB) => `rgb(${Math.round(c[0])},${Math.round(c[1])},${Math.round(c[2])})`;
 
   let letterColors: string[] = [];
-  let greenColor = '';
-  let sageColor = '';
+  let oliveColor = '';
+  let khakiColor = '';
   function buildPalette() {
-    const deep = token('--color-green-deep');
-    const gold = token('--color-gold');
-    const goldLight = token('--color-gold-light');
+    const deep = token('--color-olive-deep');
+    const khaki = token('--color-khaki');
+    const khakiLight = token('--color-khaki-light');
     const rest = mix(deep, [0, 0, 0], REST_BLACK_MIX);
     letterColors = [];
     for (let b = 0; b < BUCKETS; b++) {
       const t = b / TOP;
-      let c = mix(rest, gold, Math.min(1, t * 1.15));
-      if (t > 0.6) c = mix(c, goldLight, ((t - 0.6) / 0.4) * 0.7);
+      let c = mix(rest, khaki, Math.min(1, t * 1.15));
+      if (t > 0.6) c = mix(c, khakiLight, ((t - 0.6) / 0.4) * 0.7);
       letterColors.push(css(c));
     }
-    greenColor = css(token('--color-green'));
-    sageColor = css(token('--color-sage'));
+    oliveColor = css(token('--color-olive'));
+    khakiColor = css(token('--color-khaki'));
   }
 
   /* ---------- stan siatki ---------- */
@@ -205,12 +205,12 @@ function init(
     ctx.clearRect(0, 0, W, H);
     const r = spacing * 0.3;
     const letters: Path2D[] = [];
-    const greens: Path2D[] = [];
-    const sages: Path2D[] = [];
+    const olives: Path2D[] = [];
+    const khakis: Path2D[] = [];
     for (let b = 0; b < BUCKETS; b++) {
       letters.push(new Path2D());
-      greens.push(new Path2D());
-      sages.push(new Path2D());
+      olives.push(new Path2D());
+      khakis.push(new Path2D());
     }
     for (let k = 0; k < n; k++) {
       const b = Math.round(ef[k] * TOP);
@@ -221,7 +221,7 @@ function init(
         letters[b].moveTo(x + r, y);
         letters[b].arc(x, y, r, 0, Math.PI * 2);
       } else if (b > 0) {
-        const p = kd === 1 ? greens[b] : sages[b];
+        const p = kd === 1 ? olives[b] : khakis[b];
         p.moveTo(x + r, y);
         p.arc(x, y, r, 0, Math.PI * 2);
       }
@@ -231,15 +231,15 @@ function init(
       ctx.fillStyle = letterColors[b];
       ctx.fill(letters[b]);
     }
-    ctx.fillStyle = greenColor;
+    ctx.fillStyle = oliveColor;
     for (let b = 1; b < BUCKETS; b++) {
       ctx.globalAlpha = (b / TOP) * NOISE_GREEN_ALPHA;
-      ctx.fill(greens[b]);
+      ctx.fill(olives[b]);
     }
-    ctx.fillStyle = sageColor;
+    ctx.fillStyle = khakiColor;
     for (let b = 1; b < BUCKETS; b++) {
       ctx.globalAlpha = (b / TOP) * NOISE_SAGE_ALPHA;
-      ctx.fill(sages[b]);
+      ctx.fill(khakis[b]);
     }
     ctx.globalAlpha = 1;
   }

@@ -123,11 +123,11 @@ const reviews = (pool.length ? pool : all).slice(0, limit);
     padding: var(--space-l);
     min-height: 19rem;
     border-radius: var(--radius-l);
-    background: var(--color-green);
+    background: var(--color-olive);
     border: 1px solid var(--color-line-on-dark);
     transition: transform var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
   }
-  .review__quote { color: var(--color-gold); line-height: 0; }
+  .review__quote { color: var(--color-khaki); line-height: 0; }
   .review__stars { display: flex; gap: 2px; color: var(--color-star); }
   .review__text {
     margin: 0;
@@ -154,7 +154,7 @@ const reviews = (pool.length ? pool : all).slice(0, limit);
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: var(--color-gold-light);
+    background: var(--color-khaki-light);
     color: var(--color-ink);
     font-family: var(--font-serif);
     font-size: var(--text-base);
@@ -184,7 +184,7 @@ const reviews = (pool.length ? pool : all).slice(0, limit);
     opacity: 0.45;
     transition: width var(--dur) var(--ease-out), opacity var(--dur) var(--ease-out), background-color var(--dur) var(--ease-out);
   }
-  .dot[aria-current='true'] span { width: 1.5rem; opacity: 1; background: var(--color-gold-light); }
+  .dot[aria-current='true'] span { width: 1.5rem; opacity: 1; background: var(--color-khaki-light); }
   .carousel__nav { display: flex; gap: var(--space-xs); }
   .nav-btn {
     display: grid;
@@ -203,7 +203,7 @@ const reviews = (pool.length ? pool : all).slice(0, limit);
   .nav-btn:disabled { opacity: 0.35; cursor: default; }
   @media (hover: hover) and (pointer: fine) {
     .nav-btn:not(:disabled):hover { background: rgb(255 255 255 / 0.1); }
-    .review:hover { border-color: var(--color-gold); }
+    .review:hover { border-color: var(--color-khaki); }
   }
   @media (min-width: 40rem) {
     .review { flex-basis: 22rem; }

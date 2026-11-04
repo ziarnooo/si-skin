@@ -40,7 +40,7 @@ const items = promos
             <div class="promo__title">
               <h3>{promo.data.title}</h3>
               {promo.data.validUntil && (
-                <span class="chip chip--gold">
+                <span class="chip chip--accent">
                   <Icon name="calendar" />
                   Do {formatDate(promo.data.validUntil)}
                 </span>
@@ -133,8 +133,8 @@ const items = promos
     height: 5.25rem;
     padding-inline: 0.75rem;
     border-radius: var(--radius-pill);
-    background: var(--color-green);
-    color: var(--color-gold-light);
+    background: var(--color-olive);
+    color: var(--color-khaki-light);
     font-family: var(--font-serif);
     font-size: var(--text-xl);
     letter-spacing: var(--tracking-tight);
@@ -158,7 +158,7 @@ const items = promos
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     margin-bottom: var(--space-2xs);
   }
   .promo__steps {
@@ -179,7 +179,7 @@ const items = promos
     height: 1.75rem;
     border-radius: var(--radius-pill);
     background: var(--color-cream);
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     font-family: var(--font-serif);
     font-size: var(--text-xs);
   }
@@ -245,28 +245,28 @@ const items = promos
     padding-bottom: var(--space-2xs);
   }
   .promo__terms li::marker {
-    color: var(--color-gold);
+    color: var(--color-khaki);
   }
 
   .promo--highlight {
-    background: var(--color-green);
+    background: var(--color-olive);
     border-color: transparent;
     color: var(--color-on-dark);
   }
   .promo--highlight .promo__badge {
-    background: var(--color-gold-light);
-    color: var(--color-green-deep);
+    background: var(--color-khaki-light);
+    color: var(--color-olive-deep);
   }
   .promo--highlight .promo__summary,
   .promo--highlight .promo__terms ul {
     color: var(--color-on-dark-soft);
   }
   .promo--highlight .promo__label {
-    color: var(--color-gold-light);
+    color: var(--color-khaki-light);
   }
   .promo--highlight .promo__n {
     background: rgb(255 255 255 / 0.1);
-    color: var(--color-gold-light);
+    color: var(--color-khaki-light);
   }
   .promo--highlight .promo__example {
     background: rgb(255 255 255 / 0.06);
@@ -276,14 +276,14 @@ const items = promos
     color: var(--color-on-dark-soft);
   }
   .promo--highlight .price-new {
-    color: var(--color-gold-light);
+    color: var(--color-khaki-light);
   }
   .promo--highlight .promo__terms {
     border-color: var(--color-line-on-dark);
   }
-  .promo--highlight .chip--gold {
+  .promo--highlight .chip--accent {
     background: rgb(255 255 255 / 0.1);
-    color: var(--color-gold-light);
+    color: var(--color-khaki-light);
   }
 </style>
 

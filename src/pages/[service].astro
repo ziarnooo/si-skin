@@ -69,7 +69,7 @@ const jsonLd = [
     breadcrumbs={crumbs}
     booking={`service-${service.id}-top`}
   >
-    {priceChip && <span class="chip chip--gold">{priceChip}</span>}
+    {priceChip && <span class="chip chip--accent">{priceChip}</span>}
     {
       d.duration && (
         <span class="chip chip--paper">
@@ -321,8 +321,8 @@ const jsonLd = [
     width: 2.25rem;
     height: 2.25rem;
     border-radius: var(--radius-pill);
-    background: var(--color-green);
-    color: var(--color-gold-light);
+    background: var(--color-olive);
+    color: var(--color-khaki-light);
   }
   .price-cta {
     display: flex;
@@ -332,14 +332,14 @@ const jsonLd = [
   .sessions {
     display: grid;
     gap: var(--space-l);
-    background: var(--color-green);
+    background: var(--color-olive);
     color: var(--color-on-dark);
     border-color: transparent;
     border-radius: var(--radius-xl);
     padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
   }
   .sessions .eyebrow {
-    color: var(--color-gold-light);
+    color: var(--color-khaki-light);
     margin-bottom: var(--space-xs);
   }
   .sessions__facts {
@@ -444,19 +444,19 @@ const jsonLd = [
     gap: var(--space-2xs);
   }
   .acc__body li::marker {
-    color: var(--color-gold);
+    color: var(--color-khaki);
   }
 
   .notice {
     display: flex;
     gap: var(--space-s);
     align-items: flex-start;
-    background: var(--color-sage-light);
+    background: var(--color-khaki-pale);
     border-color: transparent;
   }
   .notice :global(svg) {
     flex: none;
-    color: var(--color-green);
+    color: var(--color-olive);
   }
 
   .grid-3 {

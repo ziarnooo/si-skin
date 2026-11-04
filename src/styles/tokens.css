@@ -8,19 +8,19 @@
  */
 
 @font-face {
-  font-family: 'Hedvig Letters Serif';
+  font-family: 'Noto Serif Display';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../../node_modules/@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-400-normal.woff2') format('woff2');
+  src: url('../../node_modules/@fontsource/noto-serif-display/files/noto-serif-display-latin-400-normal.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Hedvig Letters Serif';
+  font-family: 'Noto Serif Display';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../../node_modules/@fontsource/hedvig-letters-serif/files/hedvig-letters-serif-latin-ext-400-normal.woff2') format('woff2');
+  src: url('../../node_modules/@fontsource/noto-serif-display/files/noto-serif-display-latin-ext-400-normal.woff2') format('woff2');
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
@@ -43,9 +43,9 @@
 @font-face {
   font-family: 'Serif Fallback';
   src: local('Georgia'), local('Times New Roman');
-  size-adjust: 96%;
-  ascent-override: 92%;
-  descent-override: 26%;
+  size-adjust: 107%;
+  ascent-override: 100%;
+  descent-override: 27%;
 }
 @font-face {
   font-family: 'Sans Fallback';
@@ -56,37 +56,38 @@
 }
 
 :root {
-  /* ── Kolory marki ─────────────────────────────────────────── */
-  --color-ivory: #f8f5ef;        /* główne tło strony */
-  --color-cream: #f1ebe1;        /* tło sekcji alternatywnych */
-  --color-sand: #e5dac8;         /* akcenty, linie dekoracyjne */
-  --color-paper: #fffdf9;        /* karty */
-  --color-sage: #b7c2b1;         /* szałwia (ściany gabinetu) */
-  --color-sage-light: #dfe5da;
-  --color-gold: #b08d52;         /* złoto z logo – tylko duże elementy / dekoracje */
-  --color-gold-light: #dcc28c;
-  --color-gold-text: #7c5f2c;    /* złoto do małego tekstu (kontrast AA) */
-  --color-green: #2f3c34;        /* butelkowa zieleń (voucher) */
-  --color-green-deep: #1f2823;   /* stopka, ciemne sekcje */
-  --color-ink: #1f2420;          /* główny kolor tekstu */
-  --color-ink-soft: #4a514b;     /* tekst pomocniczy */
-  --color-muted: #6a706a;        /* opisy, podpisy (AA na jasnym tle) */
-  --color-on-dark: #f4efe6;      /* tekst na ciemnym tle */
-  --color-on-dark-soft: #c9c4ba;
-  --color-line: rgb(31 36 32 / 0.12);
-  --color-line-strong: rgb(31 36 32 / 0.22);
-  --color-line-on-dark: rgb(244 239 230 / 0.14);
-  --color-focus: #8a6a33;
-  --color-star: #c79a3c;
-  --color-success: #4d6b55;
+  /* ── Kolory marki (paleta Social Bloom: #37371B, #AFAE90, #F0EADE) ── */
+  --color-ivory: #f7f4ee;        /* główne tło strony */
+  --color-cream: #f0eade;        /* krem marki – tło sekcji alternatywnych */
+  --color-sand: #dedbca;         /* linie dekoracyjne, tła zdjęć */
+  --color-paper: #fffdf8;        /* karty */
+  --color-khaki: #afae90;        /* khaki marki – duże elementy, dekoracje */
+  --color-khaki-light: #d3d2bb;  /* akcenty na ciemnym tle */
+  --color-khaki-pale: #e6e5d7;   /* delikatne tła */
+  --color-accent-text: #5e5d36;  /* akcent do małego tekstu na jasnym tle (kontrast AA) */
+  --color-olive: #37371b;        /* oliwka marki – hero, przyciski, logo na jasnym tle */
+  --color-olive-deep: #27270f;   /* stopka, ciemne sekcje */
+  --color-olive-soft: #4a4a2b;   /* jaśniejsze plamy w tle hero */
+  --color-olive-mist: #5b5a39;
+  --color-ink: #23231a;          /* główny kolor tekstu */
+  --color-ink-soft: #4a4a3c;     /* tekst pomocniczy */
+  --color-muted: #65645a;        /* opisy, podpisy (AA na jasnym tle) */
+  --color-on-dark: #ffffff;      /* tekst i logo na ciemnym tle */
+  --color-on-dark-soft: #d9d7c9;
+  --color-line: rgb(35 35 26 / 0.12);
+  --color-line-strong: rgb(35 35 26 / 0.22);
+  --color-line-on-dark: rgb(255 255 255 / 0.16);
+  --color-focus: #5e5d36;
+  --color-star: #8c8b68;
+  --color-success: #56603a;
 
   /* Gradienty */
-  --gradient-gold: linear-gradient(135deg, #8f6f3a 0%, #d8bd85 45%, #a7843f 100%);
-  --gradient-hero: linear-gradient(180deg, #efe6d6 0%, #f4eee4 45%, var(--color-ivory) 100%);
+  --gradient-accent: linear-gradient(135deg, #a3a283 0%, #dcdbc6 45%, #b2b193 100%);
+  --gradient-hero: linear-gradient(180deg, #ebe5d6 0%, #f2eee4 45%, var(--color-ivory) 100%);
   --gradient-footer: linear-gradient(180deg, var(--color-ivory) 0%, var(--color-cream) 100%);
 
   /* ── Typografia ───────────────────────────────────────────── */
-  --font-serif: 'Hedvig Letters Serif', 'Serif Fallback', Georgia, serif;
+  --font-serif: 'Noto Serif Display', 'Serif Fallback', Georgia, serif;
   --font-sans: 'Hedvig Letters Sans', 'Sans Fallback', system-ui, sans-serif;
 
   --text-xs: 0.8125rem;                                   /* 13px */
@@ -129,10 +130,10 @@
   --radius-xl: 2.5rem;
   --radius-pill: 999px;
 
-  --shadow-s: 0 1px 2px rgb(31 36 32 / 0.06), 0 2px 8px rgb(31 36 32 / 0.04);
-  --shadow-m: 0 2px 6px rgb(31 36 32 / 0.05), 0 12px 32px rgb(31 36 32 / 0.08);
-  --shadow-l: 0 8px 24px rgb(31 36 32 / 0.08), 0 32px 80px rgb(31 36 32 / 0.12);
-  --shadow-photo: 0 18px 50px -12px rgb(60 45 20 / 0.35);
+  --shadow-s: 0 1px 2px rgb(35 35 26 / 0.06), 0 2px 8px rgb(35 35 26 / 0.04);
+  --shadow-m: 0 2px 6px rgb(35 35 26 / 0.05), 0 12px 32px rgb(35 35 26 / 0.08);
+  --shadow-l: 0 8px 24px rgb(35 35 26 / 0.08), 0 32px 80px rgb(35 35 26 / 0.12);
+  --shadow-photo: 0 18px 50px -12px rgb(39 39 15 / 0.35);
 
   /* ── Ruch (zasady Emila Kowalskiego: krótko, ease-out, bez przesady) ── */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

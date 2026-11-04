@@ -35,7 +35,7 @@ const pluralize = (n: number) => (n === 1 ? 'pozycja' : n % 10 >= 2 && n % 10 <=
   <div class="pt__panel">
     {activeDiscount && (
       <p class="pt__promo">
-        <span class="chip chip--gold">{activeDiscount.label}{activeDiscount.upTo ? ': do' : ':'} −{activeDiscount.percent}%</span>
+        <span class="chip chip--accent">{activeDiscount.label}{activeDiscount.upTo ? ': do' : ':'} −{activeDiscount.percent}%</span>
         {activeDiscount.upTo ? (
           <span class="small muted">Pokazujemy ceny bazowe. Aktualną cenę po rabacie zobaczysz przy rezerwacji w Booksy.</span>
         ) : (
@@ -174,7 +174,7 @@ const pluralize = (n: number) => (n === 1 ? 'pozycja' : n % 10 >= 2 && n % 10 <=
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
     text-transform: uppercase;
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     margin: var(--space-xs) 0 var(--space-3xs);
   }
   .pt__list {
@@ -243,7 +243,7 @@ const pluralize = (n: number) => (n === 1 ? 'pozycja' : n % 10 >= 2 && n % 10 <=
   .pt__footnote :global(svg) {
     flex: none;
     margin-top: 0.15rem;
-    color: var(--color-gold);
+    color: var(--color-khaki);
   }
   @media (min-width: 40rem) {
     .pt__summary,

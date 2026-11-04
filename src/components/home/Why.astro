@@ -105,7 +105,7 @@ const values: Value[] = [
   }
   .cell { display: grid; }
   .vcard {
-    --glow: rgb(176 141 82 / 0.22);
+    --glow: color-mix(in srgb, var(--color-khaki) 40%, transparent);
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -129,12 +129,12 @@ const values: Value[] = [
     transition: opacity var(--dur-slow) var(--ease-out);
   }
   .vcard--dark {
-    background: var(--color-green);
+    background: var(--color-olive);
     border-color: var(--color-line-on-dark);
     color: var(--color-on-dark);
   }
   .vcard--dark .vcard__text { color: var(--color-on-dark-soft); }
-  .vcard--sage { background: var(--color-sage-light); border-color: rgb(47 60 52 / 0.12); }
+  .vcard--sage { background: var(--color-khaki-pale); border-color: color-mix(in srgb, var(--color-olive) 12%, transparent); }
   .vcard__icon {
     position: relative;
     display: grid;
@@ -142,9 +142,9 @@ const values: Value[] = [
     width: 4rem;
     height: 4rem;
     margin-bottom: var(--space-s);
-    color: var(--color-gold);
+    color: var(--color-khaki);
   }
-  .vcard--dark .vcard__icon { color: var(--color-gold-light); }
+  .vcard--dark .vcard__icon { color: var(--color-khaki-light); }
   .vcard__icon :global(.vcard__hex) { position: absolute; inset: 0; stroke-width: 1; }
   .vcard__icon :global(.vcard__glyph) { position: relative; }
   .vcard__stat {
@@ -155,9 +155,9 @@ const values: Value[] = [
     font-size: var(--text-3xl);
     line-height: 1;
     letter-spacing: var(--tracking-tight);
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
   }
-  .vcard--dark .vcard__stat { color: var(--color-gold-light); }
+  .vcard--dark .vcard__stat { color: var(--color-khaki-light); }
   .vcard__title { font-size: var(--text-xl); margin-top: auto; }
   .vcard__text { color: var(--color-ink-soft); font-size: var(--text-sm); max-width: 30rem; }
   .vcard__quote { margin: var(--space-xs) 0 0; padding-top: var(--space-xs); border-top: 1px solid var(--color-line); }
@@ -181,7 +181,7 @@ const values: Value[] = [
     .vcard { min-height: 18rem; }
   }
   @media (hover: hover) and (pointer: fine) {
-    .vcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-gold); }
+    .vcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-khaki); }
     .vcard:hover::before { opacity: 1; }
   }
 </style>

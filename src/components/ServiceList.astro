@@ -45,7 +45,7 @@ const rows = await Promise.all(
                 {service.data.duration}
               </li>
             )}
-            {price && <li class="chip chip--gold">{price}</li>}
+            {price && <li class="chip chip--accent">{price}</li>}
           </ul>
           <div class="svc__actions">
             <BookingButton
@@ -105,7 +105,7 @@ const rows = await Promise.all(
     grid-area: num;
     font-family: var(--font-serif);
     font-size: var(--text-xl);
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
     line-height: 1;
   }
   .svc__body {

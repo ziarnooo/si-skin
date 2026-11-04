@@ -33,7 +33,7 @@ const watchUrl = `https://www.youtube.com/watch?v=${id}`;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: var(--radius-l);
-    background: var(--color-green-deep);
+    background: var(--color-olive-deep);
     box-shadow: var(--shadow-l);
   }
   .yt__poster {
@@ -55,7 +55,7 @@ const watchUrl = `https://www.youtube.com/watch?v=${id}`;
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgb(31 40 35 / 0) 40%, rgb(31 40 35 / 0.45));
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-olive-deep) 0%, transparent) 40%, color-mix(in srgb, var(--color-olive-deep) 45%, transparent));
   }
   .yt__play {
     position: relative;
@@ -74,7 +74,7 @@ const watchUrl = `https://www.youtube.com/watch?v=${id}`;
   .yt__poster:active .yt__play { transform: scale(0.95); }
   @media (hover: hover) and (pointer: fine) {
     .yt__poster:hover img { transform: scale(1.03); }
-    .yt__poster:hover .yt__play { transform: scale(1.06); background: var(--color-gold-light); }
+    .yt__poster:hover .yt__play { transform: scale(1.06); background: var(--color-khaki-light); }
   }
   .yt :global(iframe) {
     position: absolute;

@@ -59,11 +59,11 @@ const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
     gap: var(--space-xs);
     padding: var(--space-s) var(--space-m);
     border-radius: var(--radius-m);
-    background: rgb(176 141 82 / 0.1);
+    background: color-mix(in srgb, var(--color-khaki) 22%, transparent);
     color: var(--color-ink-soft);
     font-size: var(--text-sm);
   }
-  .sessions__note :global(svg) { flex: none; margin-top: 0.15rem; color: var(--color-gold-text); }
+  .sessions__note :global(svg) { flex: none; margin-top: 0.15rem; color: var(--color-accent-text); }
   .sessions__table-wrap {
     border-radius: var(--radius-l);
     border: 1px solid var(--color-line);
@@ -82,7 +82,7 @@ const cap = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
     color: var(--color-muted);
   }
   @media (hover: hover) and (pointer: fine) {
-    .sessions__table th[scope='row'] a:hover { text-decoration: underline; text-decoration-color: var(--color-gold); }
+    .sessions__table th[scope='row'] a:hover { text-decoration: underline; text-decoration-color: var(--color-khaki); }
     .sessions__table tbody tr { transition: background-color var(--dur) var(--ease-out); }
     .sessions__table tbody tr:hover { background: var(--color-cream); }
   }

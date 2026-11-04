@@ -110,7 +110,7 @@ a narzędzia agentów są wyłącznie do odczytu.
 
 ### Obrazy udostępniania (OG)
 
-`src/pages/og/[...slug].png.ts` generuje obraz 1200×630 dla każdej strony (kolory z `tokens.css`, tytuł krojem Hedvig Letters Serif,
+`src/pages/og/[...slug].png.ts` generuje obraz 1200×630 dla każdej strony (kolory z `tokens.css`, tytuł krojem Noto Serif Display z `src/assets/fonts`,
 zdjęcie strony po prawej). Nazewnictwo: `/` → `/og/index.png`, `/cennik/` → `/og/cennik.png`, `/blog/x/` → `/og/blog/x.png`,
 awaryjnie `/og/default.png`. Ścieżkę buduje funkcja `ogImagePath()` z `src/lib/schema.ts`.
 

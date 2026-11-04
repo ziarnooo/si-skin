@@ -15,7 +15,7 @@
     "@astrojs/markdown-satteri": "^0.4.6",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource/hedvig-letters-sans": "^5.3.1",
-    "@fontsource/hedvig-letters-serif": "^5.3.1",
+    "@fontsource/noto-serif-display": "^5.3.0",
     "astro": "^7.4.4",
     "fontkitten": "^1.0.3",
     "sharp": "^0.35.5"

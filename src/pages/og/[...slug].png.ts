@@ -14,7 +14,7 @@ export const prerender = true;
  *   /cennik/     → /og/cennik.png
  *   /blog/x/     → /og/blog/x.png
  *   (awaryjny)   → /og/default.png
- * Kolory czytamy z src/styles/tokens.css, tytuł rysujemy ścieżkami z fontu Hedvig Letters Serif
+ * Kolory czytamy z src/styles/tokens.css, tytuł rysujemy ścieżkami z fontu Noto Serif Display
  * (librsvg nie ładuje osadzonych fontów, ścieżki działają wszędzie tak samo).
  */
 
@@ -44,7 +44,7 @@ let cache: { font: Font; colors: Record<string, string>; logo: string } | undefi
 async function resources() {
   if (cache) return cache;
   const [fontFile, css, logo] = await Promise.all([
-    readFile(path.resolve(root, 'src/assets/fonts/HedvigLettersSerif.ttf')),
+    readFile(path.resolve(root, 'src/assets/fonts/NotoSerifDisplay-Regular.ttf')),
     readFile(path.resolve(root, 'src/styles/tokens.css'), 'utf8'),
     readFile(path.resolve(root, 'src/assets/brand/logo.svg'), 'utf8'),
   ]);
@@ -93,7 +93,7 @@ export const GET: APIRoute = async ({ props }) => {
   const { title, image } = props as OgProps;
   const settings = await getSettings();
   const { font, colors, logo } = await resources();
-  const gold = colors['gold']!;
+  const olive = colors['olive']!;
 
   // Zdjęcie po prawej: karta z zaokrąglonymi rogami.
   const card = { x: 650, y: 60, w: 490, h: 510, r: 44 };
@@ -102,15 +102,15 @@ export const GET: APIRoute = async ({ props }) => {
     if (!image) throw new Error('no image');
     photo = await sharp(image).resize(card.w, card.h, { fit: 'cover', position: 'attention' }).png().toBuffer();
   } catch {
-    photo = await sharp({ create: { width: card.w, height: card.h, channels: 4, background: colors['sage-light']! } }).png().toBuffer();
+    photo = await sharp({ create: { width: card.w, height: card.h, channels: 4, background: colors['khaki-pale']! } }).png().toBuffer();
   }
   const roundedPhoto = await sharp(photo)
     .composite([{ input: roundedMask(card.w, card.h, card.r), blend: 'dest-in' }])
     .png()
     .toBuffer();
 
-  // Logo w kolorze złota.
-  const logoPng = await sharp(Buffer.from(logo.replace(/currentColor/g, gold)))
+  // Logo w oliwce marki.
+  const logoPng = await sharp(Buffer.from(logo.replace(/currentColor/g, olive)))
     .resize({ height: 92 })
     .png()
     .toBuffer();
@@ -126,10 +126,10 @@ export const GET: APIRoute = async ({ props }) => {
   const lineHeight = size * 1.12;
   const startY = 270 + size;
   const titleSvg = lines.map((line, i) => textPaths(font, line, 70, Math.round(startY + i * lineHeight), size, colors['ink']!)).join('');
-  const eyebrow = textPaths(font, `${settings.name} · ${settings.address.city}`.toUpperCase(), 70, 560, 22, colors['gold-text']!);
+  const eyebrow = textPaths(font, `${settings.name} · ${settings.address.city}`.toUpperCase(), 70, 560, 22, colors['accent-text']!);
 
   const overlay = Buffer.from(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${titleSvg}${eyebrow}<rect x="70" y="236" width="64" height="2" fill="${gold}"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${titleSvg}${eyebrow}<rect x="70" y="236" width="64" height="2" fill="${colors['khaki']!}"/></svg>`,
   );
 
   const png = await sharp({ create: { width: W, height: H, channels: 4, background: colors['cream']! } })

@@ -55,7 +55,7 @@ const restCards = await Promise.all(
                       </a>
                     </h4>
                     <div class="tile__foot">
-                      {price && <span class="chip chip--gold">{price}</span>}
+                      {price && <span class="chip chip--accent">{price}</span>}
                       <span class="tile__arrow" aria-hidden="true">
                         <Icon name="arrow-up-right" size={18} />
                       </span>
@@ -119,7 +119,7 @@ const restCards = await Promise.all(
   }
   .featured__all { margin-top: var(--space-xl); text-align: center; }
   @media (hover: hover) and (pointer: fine) {
-    .tile__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-gold); }
+    .tile__card:hover { transform: translateY(-4px); box-shadow: var(--shadow-m); border-color: var(--color-khaki); }
     .tile__card:hover .tile__media :global(img) { transform: scale(1.05); }
     .tile__card:hover .tile__arrow { background: var(--color-ink); color: var(--color-ivory); transform: rotate(45deg); }
   }

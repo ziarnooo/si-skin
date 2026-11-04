@@ -76,7 +76,7 @@ const { steps = defaultSteps } = Astro.props;
   .steps::before { background: var(--color-line-strong); }
   .steps::after {
     width: 2px;
-    background: var(--gradient-gold);
+    background: var(--gradient-accent);
     transform: translateX(-50%);
     transform-origin: top;
   }
@@ -96,8 +96,8 @@ const { steps = defaultSteps } = Astro.props;
     height: 2.75rem;
     border-radius: 50%;
     background: var(--color-paper);
-    border: 1px solid var(--color-gold);
-    color: var(--color-gold-text);
+    border: 1px solid var(--color-khaki);
+    color: var(--color-accent-text);
   }
   .step__body {
     padding-bottom: var(--space-xs);
@@ -106,7 +106,7 @@ const { steps = defaultSteps } = Astro.props;
     font-family: var(--font-serif);
     font-size: var(--text-xs);
     letter-spacing: var(--tracking-wide);
-    color: var(--color-gold-text);
+    color: var(--color-accent-text);
   }
   .step__title {
     margin-top: 0.15rem;
@@ -153,7 +153,7 @@ const { steps = defaultSteps } = Astro.props;
     to { transform: translateX(-50%) scaleY(1); }
   }
   @keyframes step-dot {
-    from { background: var(--color-paper); color: var(--color-gold-text); }
-    to { background: var(--color-green); color: var(--color-gold-light); border-color: var(--color-green); }
+    from { background: var(--color-paper); color: var(--color-accent-text); }
+    to { background: var(--color-olive); color: var(--color-khaki-light); border-color: var(--color-olive); }
   }
 </style>

@@ -36,7 +36,7 @@ const price = priceLabel ?? (priceFrom !== undefined ? `od ${formatPrice(priceFr
       <h3>{navTitle}</h3>
       <p class="muted small">{excerpt}</p>
       <div class="svc-card__meta">
-        {price && <span class="chip chip--gold">{price}</span>}
+        {price && <span class="chip chip--accent">{price}</span>}
         {duration && (
           <span class="chip chip--paper">
             <Icon name="clock" />
@@ -118,7 +118,7 @@ const price = priceLabel ?? (priceFrom !== undefined ? `od ${formatPrice(priceFr
       transform: scale(1.05);
     }
     .svc-card__link:hover .svc-card__go {
-      background: var(--color-green);
+      background: var(--color-olive);
       color: var(--color-on-dark);
       transform: translate(2px, -2px);
     }
