@@ -94,4 +94,4 @@ Na rozjaśnianie przebarwień laserem SHR mogą zdecydować się osoby z przebar
 
 ## Laserowe rozjaśnianie przebarwień we Wrocławiu
 
-Jeśli szukasz profesjonalnego miejsca wyposażonego w sprawdzony sprzęt do rozjaśniania przebarwień lub wykonywania [epilacji SHR](/epilacja-shr/), zapraszamy do naszego gabinetu przy ul. Królewieckiej 121/3 we Wrocławiu. Wszystkie zabiegi wykonują wykwalifikowane kosmetolożki. Zadzwoń pod numer 694 642 573, napisz na siskin.contact@gmail.com lub umów wizytę online w Booksy – chętnie odpowiemy na wszystkie pytania dotyczące usługi.
+Jeśli szukasz profesjonalnego miejsca wyposażonego w sprawdzony sprzęt do rozjaśniania przebarwień lub wykonywania [epilacji SHR](/epilacja-shr/), zapraszamy do naszego gabinetu przy ul. Królewieckiej 121/3 we Wrocławiu. Wszystkie zabiegi wykonują wykwalifikowane kosmetolożki. Zadzwoń pod numer 516 070 508, napisz na siskin.contact@gmail.com lub umów wizytę online w Booksy – chętnie odpowiemy na wszystkie pytania dotyczące usługi.

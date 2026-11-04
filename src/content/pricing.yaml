@@ -1,6 +1,5 @@
 # Cennik – klucz = identyfikator kategorii (używany w usługach i promocjach).
-# Ceny w zł brutto, źródło: aktualna oferta w Booksy (ceny bazowe, przed rabatem Booksy).
-# Wyjątek: makijaż permanentny brwi – ceny z dotychczasowego cennika strony.
+# Ceny w zł brutto, źródło: aktualna oferta w Booksy.
 
 konsultacje:
   title: Konsultacje kosmetologiczne
@@ -21,12 +20,7 @@ epilacja-shr:
   title: Depilacja laserowa SHR EPIL MOTION
   order: 2
   service: epilacja-shr
-  intro: Pakiety na serię 7–9 zabiegów kupisz na miejscu w gabinecie – zapytaj podczas wizyty.
   note: W dniu zabiegu zostaw odrost włosków 2–3 mm (nie gładką skórę).
-  discount:
-    percent: 20
-    upTo: true
-    label: Promocja w Booksy
   groups:
     - items:
         - name: Baczki
@@ -100,10 +94,6 @@ zamykanie-naczynek:
   title: Laserowe zamykanie naczynek
   order: 3
   service: zamykanie-naczynek
-  discount:
-    percent: 20
-    upTo: true
-    label: Promocja w Booksy
   groups:
     - items:
         - name: Broda
@@ -147,10 +137,6 @@ rozjasnianie-przebarwien:
   title: Laserowe rozjaśnianie przebarwień
   order: 4
   service: rozjasnianie-przebarwien
-  discount:
-    percent: 20
-    upTo: true
-    label: Promocja w Booksy
   groups:
     - items:
         - name: Broda
@@ -199,10 +185,6 @@ fotoodmladzanie-ssr:
   order: 5
   service: fotoodmladzanie-ssr
   intro: Zalecamy serię 3–5 zabiegów w odstępach 4–6 tygodni.
-  discount:
-    percent: 20
-    upTo: true
-    label: Promocja w Booksy
   groups:
     - items:
         - name: Brzuch
@@ -288,7 +270,7 @@ mezoterapia-mikroiglowa:
         - name: Twarz (terapia proXN Retinol & Ksantohumol)
           price: 749
           duration: 1 h 20 min
-          note: Zabieg proXN III stopnia z mezoterapią mikroigłową.
+          note: Ten sam zabieg co proXN – zabieg III stopnia.
 
 stymulatory-tkankowe:
   title: Stymulatory tkankowe
@@ -347,24 +329,9 @@ mezoterapia-iglowa:
           duration: 50 min
           note: Cena zależy od liczby zużytych ampułek.
 
-korekcja-zmarszczek:
-  title: Korekcja zmarszczek mimicznych
-  order: 10
-  groups:
-    - items:
-        - name: 1 okolica
-          price: 500
-          duration: 30 min
-        - name: 2 okolice
-          price: 800
-          duration: 35 min
-        - name: 3 okolice
-          price: 1100
-          duration: 40 min
-
 modelowanie-ust:
   title: Modelowanie ust
-  order: 11
+  order: 10
   service: modelowanie-ust
   note: Cena stała, niezależna od ilości zużytego preparatu.
   groups:
@@ -376,23 +343,3 @@ modelowanie-ust:
         - name: Hialuronidaza
           price: 749
           duration: 40 min
-
-makijaz-permanentny-brwi:
-  title: Makijaż permanentny brwi
-  order: 12
-  service: makijaz-permanentny-brwi
-  note: Ceny z dotychczasowego cennika – potwierdź termin telefonicznie.
-  groups:
-    - items:
-        - name: Makijaż permanentny brwi – Soft Ombre
-          price: 950
-        - name: Dopigmentowanie (od 6 do 10 tygodni po zabiegu)
-          price: 200
-        - name: Odświeżenie (do 1 roku)
-          price: 500
-          note: Cena obowiązuje pod warunkiem zachowania kształtu i konturów makijażu.
-        - name: Odświeżenie (do 2 lat)
-          price: 700
-          note: Cena obowiązuje pod warunkiem zachowania kształtu i konturów makijażu.
-        - name: Korekta makijażu wykonanego w innym salonie
-          priceText: cena po konsultacji

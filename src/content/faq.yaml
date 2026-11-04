@@ -2,13 +2,13 @@ f01:
   category: pierwsza-wizyta
   order: 1
   q: Jak umówić wizytę?
-  a: Najwygodniej przez Booksy (rezerwacja online) lub telefonicznie pod numerem 694 642 573. Wizyty realizujemy wyłącznie po wcześniejszej rezerwacji.
+  a: Najwygodniej przez Booksy (rezerwacja online) lub telefonicznie pod numerem 516 070 508. Wizyty realizujemy wyłącznie po wcześniejszej rezerwacji.
 
 f02:
   category: pierwsza-wizyta
   order: 2
   q: Nie widzę wolnego terminu. Co zrobić?
-  a: Zadzwoń do nas pod numer 694 642 573 – czasami potrafimy zdziałać cuda, a część godzin nie jest widoczna online.
+  a: Zadzwoń do nas pod numer 516 070 508 – czasami potrafimy zdziałać cuda, a część godzin nie jest widoczna online.
 
 f03:
   category: pierwsza-wizyta
@@ -56,7 +56,7 @@ f10:
   category: depilacja
   order: 10
   q: Kiedy zobaczę efekty depilacji laserowej?
-  a: Pierwsze efekty są widoczne już po pierwszym zabiegu. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze.
+  a: Już po pierwszym zabiegu pozbywamy się na stałe 60–70% włosków (dane producenta lasera). Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze.
 
 f11:
   category: depilacja
@@ -88,12 +88,6 @@ f15:
   q: Czy depilację laserową mogą wykonać mężczyźni?
   a: Tak. Mężczyźni korzystają z technologii SHR najczęściej do usunięcia owłosienia z klatki piersiowej, pleców, pach oraz karku.
 
-f16:
-  category: depilacja
-  order: 16
-  q: Czy są pakiety na serię zabiegów?
-  a: Tak – pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie. Zapytaj o nie podczas wizyty lub bezpłatnej konsultacji.
-
 f17:
   category: promocje
   order: 17
@@ -104,7 +98,7 @@ f18:
   category: promocje
   order: 18
   q: Na jakie zabiegi obowiązują zniżki?
-  a: Zniżki Si-Selfie, Si-Opinia i Przyjaciółka-Polecajka możesz odebrać na dowolnie wybrany zabieg z oferty gabinetu. Karta stałego klienta daje zniżki na zabiegi depilacji laserowej.
+  a: Zniżki Si-Selfie, Si-Opinia i Si-Polecajka możesz odebrać na dowolnie wybrany zabieg z oferty gabinetu. Rabaty nie łączą się ze sobą.
 
 f19:
   category: promocje
@@ -116,19 +110,13 @@ f20:
   category: promocje
   order: 20
   q: Jak działa Si-Opinia (−10%)?
-  a: Wystaw nam 3 opinie – na Booksy, Google i Facebooku – a następnie zgłoś to przy wizycie, aby odebrać −10% na wybrany zabieg.
+  a: Wystaw nam łącznie 3 opinie – na Booksy, Google lub Facebooku – i pokaż je przy wizycie w gabinecie, aby odebrać −10% na wybrany zabieg.
 
 f21:
   category: promocje
   order: 21
-  q: Jak działa Przyjaciółka-Polecajka (−15%)?
-  a: Jeśli osoba z Twojego polecenia odbędzie u nas zabieg przed Twoją kolejną wizytą, otrzymasz −15% na dowolny zabieg. Przy wizycie podaj imię polecanej osoby; zniżkę z jednego polecenia można wykorzystać tylko raz.
-
-f22:
-  category: promocje
-  order: 22
-  q: Czym jest karta stałego klienta?
-  a: To oferta zniżek na zabiegi depilacji laserowej dla stałych klientów. Zapytaj o nią w gabinecie przy najbliższej wizycie.
+  q: Jak działa Si-Polecajka (−15%)?
+  a: Jeśli osoba z Twojego polecenia odbędzie u nas zabieg przed Twoją kolejną wizytą, otrzymasz −15% na dowolny zabieg. Przy wizycie podaj imię polecanej osoby. Zniżkę otrzymujesz jednorazowo – za kolejne polecenia nie przysługują następne zniżki.
 
 f23:
   category: karty
@@ -164,4 +152,4 @@ f28:
   category: ogolne
   order: 28
   q: Gdzie znajduje się gabinet?
-  a: Gabinet Si Skin mieści się przy ul. Królewieckiej 121/3 we Wrocławiu (54-117, dzielnica Fabryczna). Aktualne godziny otwarcia znajdziesz na stronie kontaktowej i w Booksy, a w razie pytań zadzwoń pod numer 694 642 573.
+  a: Gabinet Si Skin mieści się przy ul. Królewieckiej 121/3 we Wrocławiu (54-117, dzielnica Fabryczna). Aktualne godziny otwarcia znajdziesz na stronie kontaktowej i w Booksy, a w razie pytań zadzwoń pod numer 516 070 508.

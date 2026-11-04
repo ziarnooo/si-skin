@@ -1,7 +1,7 @@
 ---
 title: Regulamin
 description: Regulamin serwisu internetowego www.si-skin.pl – zasady korzystania z serwisu, prawa i obowiązki użytkowników oraz tryb postępowania reklamacyjnego.
-updatedDate: 2026-10-31
+updatedDate: 2026-11-04
 ---
 
 **Regulamin serwisu internetowego www.si-skin.pl**
@@ -10,10 +10,10 @@ updatedDate: 2026-10-31
 
 1. Niniejszy Regulamin określa ogólne warunki, zasady oraz sposób świadczenia Usług drogą elektroniczną za pośrednictwem serwisu internetowego www.si-skin.pl (zwanego dalej „Serwisem Internetowym” lub „Serwisem”) oraz tryb postępowania reklamacyjnego.
 2. Serwis Internetowy ma charakter informacyjny. Za jego pośrednictwem usługodawca informuje o usługach, które świadczy w gabinecie terapii i epilacji laserowej. Na stronach Serwisu Użytkownik może zapoznać się z charakterem zabiegów, wskazaniami do ich przeprowadzenia, spodziewanymi efektami oraz cennikiem. Rezerwacja terminów przeprowadzenia zabiegów odbywa się za pośrednictwem zewnętrznego serwisu internetowego umożliwiającego dokonywanie zapisów online. Serwis Internetowy Usługodawcy nie pośredniczy w dokonywaniu rezerwacji, a jedynie przekierowuje do zewnętrznego serwisu rezerwacji online.
-3. Serwis Internetowy prowadzony jest przez Weronikę Koper, prowadzącą działalność gospodarczą pod firmą Si Skin Weronika Koper.
+3. Serwis Internetowy prowadzony jest przez Kamila Grincewicza, prowadzącego działalność gospodarczą pod firmą SI SKIN Kamil Grincewicz.
 4. Kontakt z Usługodawcą może odbywać się:
    - poprzez wiadomość e-mail kierowaną na adres: siskin.contact@gmail.com;
-   - telefonicznie, pod numerem telefonu: +48 694 642 573.
+   - telefonicznie, pod numerem telefonu: +48 516 070 508.
 5. Niniejszy Regulamin jest nieprzerwanie i nieodpłatnie udostępniony przez Usługodawcę w witrynie internetowej www.si-skin.pl, w sposób umożliwiający Użytkownikom jego pozyskanie, odtwarzanie i utrwalanie jego treści poprzez wydrukowanie lub zapisanie na nośniku w każdej chwili za pomocą systemu informatycznego, którym posługuje się Użytkownik.
 6. Wszelkie prawa do Serwisu Internetowego, w tym majątkowe prawa autorskie, prawa własności intelektualnej do jego nazwy, domeny internetowej, strony internetowej Serwisu, a także do formularzy, logotypów należą do Usługodawcy, a korzystanie z nich może następować wyłącznie w sposób określony i zgodny z Regulaminem oraz przepisami prawa.
 7. Usługodawca zastrzega sobie prawo do zamieszczania na stronie internetowej Serwisu treści reklamowych dotyczących oferowanych usług, jak i towarów podmiotów trzecich, w formach stosowanych w sieci Internet. Korzystanie z takich ofert lub usług nie jest elementem Serwisu, a ich zasady określają odpowiednie podmioty trzecie.
@@ -25,7 +25,7 @@ updatedDate: 2026-10-31
 Pojęcia użyte w niniejszym dokumencie mają następujące znaczenie:
 
 1. **Serwis Internetowy/Serwis** – serwis internetowy dostępny w domenie www.si-skin.pl, którego właścicielem i administratorem jest Usługodawca, w ramach którego Użytkownicy mogą skontaktować się z Usługodawcą oraz przeglądać treści dotyczące zabiegów możliwych do przeprowadzenia przez Usługodawcę w gabinecie terapii i epilacji laserowej;
-2. **Usługodawca** – Weronika Koper, prowadząca działalność gospodarczą pod firmą Si Skin Weronika Koper, wpisana do Centralnej Ewidencji i Informacji o Działalności Gospodarczej prowadzonej przez ministra właściwego ds. gospodarki pod adresem ul. Królewiecka 163C, 54-117 Wrocław, NIP: 8943230657, REGON: 527933956;
+2. **Usługodawca** – Kamil Grincewicz, prowadzący działalność gospodarczą pod firmą SI SKIN Kamil Grincewicz, wpisany do Centralnej Ewidencji i Informacji o Działalności Gospodarczej prowadzonej przez ministra właściwego ds. gospodarki pod adresem ul. Królewiecka 121/3, 54-117 Wrocław, NIP: 8943230657;
 3. **Użytkownik** – osoba fizyczna posiadająca pełną zdolność do czynności prawnych oraz osoba fizyczna prowadząca działalność gospodarczą, osoba prawna lub jednostka organizacyjna nieposiadająca osobowości prawnej, która może korzystać z Usług dostępnych w Serwisie;
 4. **Konsument** – Użytkownik będący konsumentem w rozumieniu art. 22¹ Kodeksu cywilnego;
 5. **Przedsiębiorca** – Użytkownik będący przedsiębiorcą w rozumieniu art. 43¹ Kodeksu cywilnego;
@@ -75,7 +75,7 @@ Pojęcia użyte w niniejszym dokumencie mają następujące znaczenie:
 ## VI. Reklamacje w zakresie usług świadczonych drogą elektroniczną
 
 1. Użytkownik może zgłaszać reklamacje dotyczące Usług świadczonych w ramach Serwisu, a w szczególności ich niewykonania lub nienależytego wykonania.
-2. Reklamacje można zgłaszać pisemnie na adres Si Skin Weronika Koper, ul. Królewiecka 163C, 54-117 Wrocław, na adres poczty elektronicznej: siskin.contact@gmail.com bądź telefonicznie pod numerem: +48 694 642 573.
+2. Reklamacje można zgłaszać pisemnie na adres SI SKIN Kamil Grincewicz, ul. Królewiecka 121/3, 54-117 Wrocław, na adres poczty elektronicznej: siskin.contact@gmail.com bądź telefonicznie pod numerem: +48 516 070 508.
 3. W reklamacji Użytkownik powinien podać swoje imię i nazwisko, adres do korespondencji, rodzaj i opis zaistniałego problemu.
 4. Usługodawca zobowiązuje się do rozpatrzenia każdej reklamacji w terminie 14 dni od dnia jej otrzymania. W przypadku braków w reklamacji Usługodawca wezwie Użytkownika do jej uzupełnienia w niezbędnym zakresie w terminie 7 dni od daty otrzymania wezwania przez Użytkownika.
 

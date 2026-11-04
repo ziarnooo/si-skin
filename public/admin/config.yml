@@ -15,8 +15,10 @@ backend:
 locale: pl
 
 # Zdjęcia trafiają do src/assets/images (Astro optymalizuje je przy publikacji).
-media_folder: src/assets/images
-public_folder: ../../assets/images
+# Globalny public_folder musi być ścieżką absolutną; kolekcje ze zdjęciami (zabiegi,
+# zespół, blog) nadpisują go ścieżką względną, której wymaga image() w Astro.
+media_folder: /src/assets/images
+public_folder: /src/assets/images
 
 collections:
   # ═══════════════════════════ USTAWIENIA ═══════════════════════════
@@ -38,8 +40,8 @@ collections:
               - { name: legalName, label: Pełna nazwa firmy, widget: string, hint: 'Używana w danych dla Google i w stopce.' }
               - { name: tagline, label: Hasło przewodnie, widget: string }
               - { name: description, label: Krótki opis gabinetu, widget: text, hint: '1–3 zdania. Pojawia się w wynikach wyszukiwania Google.' }
-              - { name: phone, label: Telefon (do wyświetlania), widget: string, hint: 'Tak jak ma być widoczny, np. 694 642 573.' }
-              - { name: phoneHref, label: Telefon (do kliknięcia), widget: string, hint: 'Bez spacji, z kierunkowym, np. +48694642573.' }
+              - { name: phone, label: Telefon (do wyświetlania), widget: string, hint: 'Tak jak ma być widoczny, np. 516 070 508.' }
+              - { name: phoneHref, label: Telefon (do kliknięcia), widget: string, hint: 'Bez spacji, z kierunkowym, np. +48516070508.' }
               - { name: email, label: E-mail, widget: string }
               - name: address
                 label: Adres
@@ -181,9 +183,7 @@ collections:
           - { label: Mezoterapia mikroigłowa, value: mezoterapia-mikroiglowa }
           - { label: Stymulatory tkankowe, value: stymulatory-tkankowe }
           - { label: Mezoterapia igłowa, value: mezoterapia-iglowa }
-          - { label: Korekcja zmarszczek mimicznych, value: korekcja-zmarszczek }
           - { label: Modelowanie ust, value: modelowanie-ust }
-          - { label: Makijaż permanentny brwi, value: makijaz-permanentny-brwi }
       - name: highlights
         label: Najważniejsze zalety (punkty)
         label_singular: Zaleta
@@ -327,9 +327,7 @@ collections:
                       - { label: Mezoterapia mikroigłowa, value: mezoterapia-mikroiglowa }
                       - { label: Stymulatory tkankowe, value: stymulatory-tkankowe }
                       - { label: Mezoterapia igłowa, value: mezoterapia-iglowa }
-                      - { label: Korekcja zmarszczek mimicznych, value: korekcja-zmarszczek }
                       - { label: Modelowanie ust, value: modelowanie-ust }
-                      - { label: Makijaż permanentny brwi, value: makijaz-permanentny-brwi }
                   - { name: item, label: Dokładna nazwa pozycji w cenniku, widget: string, hint: 'Skopiuj nazwę dokładnie tak, jak jest w cenniku, np. „Twarz + Maska”.' }
               - { name: validFrom, label: Ważna od, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false }
               - { name: validUntil, label: Ważna do (włącznie), widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, format: 'YYYY-MM-DD', required: false, hint: 'Po tej dacie promocja zniknie ze strony po kolejnej publikacji. Puste = bezterminowo.' }

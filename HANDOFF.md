@@ -1,4 +1,4 @@
-# Si Skin – handoff (stan na 31.10.2026)
+# Si Skin – handoff (stan na 04.11.2026)
 
 Nowa strona gabinetu Si Skin (Wrocław) zamiast starego WordPressa na www.si-skin.pl.
 
@@ -36,25 +36,24 @@ Nowa strona gabinetu Si Skin (Wrocław) zamiast starego WordPressa na www.si-ski
 - DNS i hosting WordPressa: Zenbox (ns1/ns2.zenbox.pl, serwer s41.zenbox.pl, IP 2.57.138.201). Poczta: MX zenbox – NIE ruszać.
 - Przeniesienie na GitHub Pages: w panelu Zenbox rekord A `si-skin.pl` → 185.199.108.153 / 109.153 / 110.153 / 111.153, CNAME `www` → `ziarnooo.github.io`; w repo dodać domenę (Settings → Pages) + zmienne `SITE_URL`, `BASE_PATH=/`.
 
-## Otwarte pytania do klientki (blokują część treści)
-1. Czy Oliwia pracuje w gabinecie (nazwisko, zdjęcie)? Zdjęcie Jessiki Waszajło, pisownia nazwiska.
-2. Aktualny telefon (694 642 573 vs 516 070 508) i godziny (Booksy 9–20/8–15 vs stara strona 8–20/8–15:30).
-3. Instagram: @siskin.wroclaw / @siskin.wroc / @si.skin.vera? E-mail siskin.wroc@gmail.com aktualny?
-4. Ceny pakietów depilacji 7–9 wizyt.
-5. Rabat „do −20%” w Booksy – stały czy z datą końca?
-6. Czy „60–70% włosków po 1. zabiegu” potwierdzone (obecnie usunięte ze strony)?
-7. Makijaż permanentny brwi – nadal w ofercie? Ceny 950/200/500/700 zł? Konto na zadatki aktualne?
-8. Dawne usługi (Karisma, TwAc Eyes, stylizacja brwi i rzęs, pakiet 5× naczynka) – wracają?
-9. proXN III vs „Retinol & Ksantohumol” – ten sam zabieg? Pakiet 5× przebarwienia nadal? Stała cena ust 999 zł?
-10. SSR – przeciwwskazania jak SHR? Brakujący obszar w cenniku?
-11. Promocje: łączenie rabatów, wiele poleceń, Si-Opinia (3 łącznie czy po 1 na platformę), zasady karty stałego klienta, promocja listopadowa.
-12. Dane firmy w dokumentach prawnych (Koper / Grincewicz, adres 163C) + przegląd prawnika.
-13. Zgoda na cytowanie opinii z Booksy.
-14. Hosting docelowy (GitHub Pages vs Cloudflare), dostęp do panelu Zenbox, czy poczta @si-skin.pl jest używana.
-15. Dostęp do GA4 G-ELD8QLFE5T i Meta Pixel 1107742104573331.
+## Odpowiedzi klientki (wprowadzone 04.11.2026)
+- Telefon 516 070 508, godziny pn–pt 9–20, sob. 8–15, Instagram @siskin.wroclaw, e-mail siskin.contact@gmail.com.
+- Oliwia już nie pracuje. Jessica Waszajło – pisownia potwierdzona, zdjęcie klientka dośle (dodać `photo`/`photoAlt` w `team.yaml`).
+- Brak pakietów depilacji, rabat „do −20%” w Booksy nieaktualny (usunięty `discount` z cennika), „60–70% włosków po 1. zabiegu” potwierdzone przez producenta (wróciło na stronę).
+- Makijaż permanentny brwi wycofany (usunięte: podstrona, cennik, 3 wpisy blogowe, zdjęcia). Korekcja zmarszczek mimicznych tylko w Booksy (usunięta z cennika strony). Pozostały cennik = Booksy.
+- proXN III = „Retinol & Ksantohumol”, pakiet 5× przebarwienia jak w Booksy, usta 999 zł stała cena, SSR – przeciwwskazania jak SHR.
+- Promocje: Si-Polecajka (dawniej Przyjaciółka-Polecajka, −15% jednorazowo), Si-Opinia (3 opinie łącznie, okazane w gabinecie), Si-Selfie; rabaty nie łączą się. Karta stałego klienta i promocja miesięczna – brak.
+- Dane firmy: SI SKIN Kamil Grincewicz, ul. Królewiecka 121/3, 54-117 Wrocław, NIP 8943230657 (REGON nie podany – usunięty z dokumentów). Zadatków nie przyjmujemy.
+
+## Otwarte pytania do klientki
+1. Zdjęcie Jessiki Waszajło (w drodze).
+2. REGON firmy Kamila Grincewicza (jeśli ma być w dokumentach) + przegląd prawnika.
+3. Zgoda na cytowanie opinii z Booksy.
+4. Hosting docelowy (GitHub Pages vs Cloudflare), dostęp do panelu Zenbox, czy poczta @si-skin.pl jest używana.
+5. Dostęp do GA4 G-ELD8QLFE5T i Meta Pixel 1107742104573331.
 
 ## Następne kroki
-- Wprowadzić odpowiedzi na pytania (głównie YAML w `src/content/`).
+- Dodać zdjęcie Jessiki po otrzymaniu; podmienić zdjęcia, które prześle klientka.
 - Przenieść domenę (sekcja DNS), potem sprawdzić isitagentready + Lighthouse na si-skin.pl.
 - Po przeniesieniu: Google Search Console (sitemap `sitemap-index.xml`), sprawdzić zdarzenie `booking_click` w GA4.
 - Opcjonalnie: zdjęcia zespołu, więcej artykułów na blogu, `/.well-known/ai-catalog.json` (ARD).

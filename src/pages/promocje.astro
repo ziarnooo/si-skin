@@ -20,14 +20,14 @@ const crumbs = [{ name: 'Promocje', path: '/promocje/' }];
 
 <Base
   title="Promocje i zniżki na zabiegi | Si Skin Wrocław"
-  description="Promocje w gabinecie Si Skin we Wrocławiu: Si-Selfie −5%, Si-Opinia −10%, Przyjaciółka-Polecajka −15% i karta stałego klienta. Sprawdź zasady i umów wizytę."
+  description="Promocje w gabinecie Si Skin we Wrocławiu: Si-Selfie −5%, Si-Opinia −10% i Si-Polecajka −15%. Sprawdź zasady i umów wizytę."
   path="/promocje/"
   jsonLd={[breadcrumbSchema([{ name: 'Strona główna', path: '/' }, ...crumbs], Astro.site), faqSchema(faq)]}
 >
   <PageHero
     eyebrow="Zniżki i promocje"
     title="Promocje"
-    lead="Doceniamy opinie, polecenia i stałe wizyty. Wybierz promocję, sprawdź zasady i zgłoś nam chęć skorzystania ze zniżki przy wizycie."
+    lead="Doceniamy opinie i polecenia. Wybierz promocję, sprawdź zasady i zgłoś nam chęć skorzystania ze zniżki przy wizycie. Rabaty nie łączą się ze sobą."
     breadcrumbs={crumbs}
     booking="promocje-top"
   />

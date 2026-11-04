@@ -41,7 +41,7 @@ Zaraz po zabiegu może pojawić się zaczerwienienie i delikatne pieczenie. W ko
 
 ## Kiedy zobaczysz efekty i ile będzie wizyt?
 
-Pierwsze efekty są widoczne już po pierwszym zabiegu – część włosków wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze. Pełna seria to zwykle 7–9 wizyt w odstępach co 4–12 tygodni, dopasowanych do cyklu wzrostu włosa w danej okolicy. Pakiety na serię zabiegów kupisz na miejscu w gabinecie.
+Już po pierwszym zabiegu pozbywamy się na stałe 60–70% włosków (dane producenta lasera) – część z nich wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze. Pełna seria to zwykle 7–9 wizyt w odstępach co 4–12 tygodni, dopasowanych do cyklu wzrostu włosa w danej okolicy.
 
 ## Kiedy zabieg nie jest możliwy?
 
@@ -49,4 +49,4 @@ Podstawowe przeciwwskazania to ciąża i karmienie piersią, antybiotyki, chorob
 
 ## Gotowa na pierwszą wizytę?
 
-Wszystkie szczegóły znajdziesz na stronie [depilacji laserowej SHR](/epilacja-shr/), a aktualne ceny w [cenniku](/cennik/). Termin zarezerwujesz online na Booksy lub telefonicznie pod numerem 694 642 573.
+Wszystkie szczegóły znajdziesz na stronie [depilacji laserowej SHR](/epilacja-shr/), a aktualne ceny w [cenniku](/cennik/). Termin zarezerwujesz online na Booksy lub telefonicznie pod numerem 516 070 508.

@@ -103,4 +103,4 @@ Odstępy między zabiegami wynoszą 4–6 tygodni. Zalecamy wykonanie serii 3–
 
 ## Umów fotoodmładzanie SSR we Wrocławiu
 
-Zapraszamy do naszego gabinetu przy ul. Królewieckiej 121/3 we Wrocławiu. Umów wizytę online w Booksy lub zadzwoń pod numer 694 642 573 – doradzimy, jaki zakres zabiegu będzie dla Ciebie odpowiedni. Jeśli interesuje Cię osobne zamykanie naczynek lub rozjaśnianie przebarwień, zobacz też [zamykanie naczynek](/zamykanie-naczynek/) i [rozjaśnianie przebarwień](/rozjasnianie-przebarwien/).
+Zapraszamy do naszego gabinetu przy ul. Królewieckiej 121/3 we Wrocławiu. Umów wizytę online w Booksy lub zadzwoń pod numer 516 070 508 – doradzimy, jaki zakres zabiegu będzie dla Ciebie odpowiedni. Jeśli interesuje Cię osobne zamykanie naczynek lub rozjaśnianie przebarwień, zobacz też [zamykanie naczynek](/zamykanie-naczynek/) i [rozjaśnianie przebarwień](/rozjasnianie-przebarwien/).

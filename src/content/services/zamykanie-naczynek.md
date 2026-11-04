@@ -108,4 +108,4 @@ Przed wykonaniem zabiegu zamykania naczynek na twarzy przeprowadzamy szczegóło
 
 ## Zamykanie naczynek we Wrocławiu – umów wizytę
 
-Marzysz o szybkim i bezbolesnym zniwelowaniu zmian naczyniowych? Skorzystaj z zabiegu laserowego zamykania naczynek w naszym gabinecie przy ul. Królewieckiej 121/3 we Wrocławiu. Umów się na wizytę online w Booksy i ciesz się naturalnymi efektami – Twoja twarz odzyska jednolity koloryt i gładką powierzchnię. Jeśli masz pytania, zadzwoń do nas pod numer 694 642 573 lub napisz na siskin.contact@gmail.com – chętnie doradzimy i przedstawimy szczegóły oferty.
+Marzysz o szybkim i bezbolesnym zniwelowaniu zmian naczyniowych? Skorzystaj z zabiegu laserowego zamykania naczynek w naszym gabinecie przy ul. Królewieckiej 121/3 we Wrocławiu. Umów się na wizytę online w Booksy i ciesz się naturalnymi efektami – Twoja twarz odzyska jednolity koloryt i gładką powierzchnię. Jeśli masz pytania, zadzwoń do nas pod numer 516 070 508 lub napisz na siskin.contact@gmail.com – chętnie doradzimy i przedstawimy szczegóły oferty.

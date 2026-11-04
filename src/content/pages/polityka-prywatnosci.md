@@ -1,10 +1,10 @@
 ---
 title: Polityka prywatności
 description: Polityka prywatności i polityka cookies serwisu si-skin.pl – zasady przetwarzania danych osobowych, prawa użytkownika oraz zarządzanie zgodą na pliki cookies.
-updatedDate: 2026-10-31
+updatedDate: 2026-11-04
 ---
 
-Wersja obowiązująca od dnia 11.03.2021. Ostatnia aktualizacja: 31.10.2026 (zmiany dotyczą polityki cookies i narzędzi analitycznych w nowej wersji serwisu).
+Wersja obowiązująca od dnia 11.03.2021. Ostatnia aktualizacja: 04.11.2026 (aktualizacja danych administratora oraz zmiany dotyczące polityki cookies i narzędzi analitycznych w nowej wersji serwisu).
 
 ## Czym jest Polityka prywatności?
 
@@ -20,7 +20,7 @@ Prosimy Cię o jej przeczytanie i obiecujemy, że nie zajmie Ci to więcej niż 
 
 ## Kto jest administratorem strony internetowej www.si-skin.pl?
 
-Administratorem strony internetowej www.si-skin.pl jest Weronika Koper, prowadząca działalność gospodarczą pod firmą Si Skin Weronika Koper, wpisana do Centralnej Ewidencji i Informacji o Działalności Gospodarczej prowadzonej przez ministra właściwego ds. gospodarki pod adresem ul. Królewiecka 163C, 54-117 Wrocław, NIP: 8943230657, REGON: 527933956 (czyli: my).
+Administratorem strony internetowej www.si-skin.pl jest Kamil Grincewicz, prowadzący działalność gospodarczą pod firmą SI SKIN Kamil Grincewicz, wpisany do Centralnej Ewidencji i Informacji o Działalności Gospodarczej prowadzonej przez ministra właściwego ds. gospodarki pod adresem ul. Królewiecka 121/3, 54-117 Wrocław, NIP: 8943230657 (czyli: my).
 
 ## Dane osobowe
 
@@ -32,17 +32,17 @@ Twoje dane osobowe są przez nas zbierane i przetwarzane zgodnie z przepisami Ro
 
 Administratorem Twoich danych osobowych jest:
 
-Weronika Koper, prowadząca działalność gospodarczą pod firmą Si Skin Weronika Koper
+Kamil Grincewicz, prowadzący działalność gospodarczą pod firmą SI SKIN Kamil Grincewicz
 
-- Królewiecka 163C, 54-117 Wrocław
+- ul. Królewiecka 121/3, 54-117 Wrocław
 - e-mail: siskin.contact@gmail.com
-- nr telefonu: +48 694 642 573
+- nr telefonu: +48 516 070 508
 
 W sprawie swoich danych osobowych możesz skontaktować się z nami za pomocą:
 
 - poczty elektronicznej: siskin.contact@gmail.com,
-- poczty tradycyjnej: ul. Królewiecka 163C, 54-117 Wrocław,
-- telefonu: +48 694 642 573.
+- poczty tradycyjnej: ul. Królewiecka 121/3, 54-117 Wrocław,
+- telefonu: +48 516 070 508.
 
 ### Jak przetwarzamy Twoje dane osobowe, które nam podajesz
 
@@ -168,7 +168,7 @@ Więcej informacji znajdziesz [tutaj](https://www.uodo.gov.pl/pl/134/233).
 
 Korzystamy z plików cookies w celu poprawienia efektywności i zaproponowania Użytkownikowi coraz doskonalszych funkcjonalności serwisu internetowego www.si-skin.pl (dalej jako Serwis) oraz bardziej dopasowanych do Użytkownika treści. W celu zapewnienia przejrzystości działań zostaje przyjęta niniejsza Polityka Cookies, która określa szczegółowe zasady korzystania przez Serwis internetowy z plików cookies.
 
-Dane za pomocą plików cookies gromadzone są przez SI SKIN WERONIKA GRINCEWICZ, adres Królewiecka 163c, 54-117 Wrocław, numer NIP: 8943230657, numer REGON: 527933956. W przypadku stwierdzenia, że dane zawarte w plikach cookies są danymi osobowymi, SI SKIN WERONIKA GRINCEWICZ uznawany jest za Administratora danych, zaś Użytkownikowi przysługują wszystkie uprawnienia zawarte w Polityce Prywatności.
+Dane za pomocą plików cookies gromadzone są przez SI SKIN Kamil Grincewicz, adres ul. Królewiecka 121/3, 54-117 Wrocław, numer NIP: 8943230657. W przypadku stwierdzenia, że dane zawarte w plikach cookies są danymi osobowymi, SI SKIN Kamil Grincewicz uznawany jest za Administratora danych, zaś Użytkownikowi przysługują wszystkie uprawnienia zawarte w Polityce Prywatności.
 
 Użytkownikiem jest każda osoba, której dane dotyczą, korzystająca z naszego Serwisu internetowego oraz innych powiązanych z nim witryn, komunikacji oraz usług (dalej jako Użytkownik).
 

@@ -23,7 +23,7 @@ duration: 5–20 min
 pricing: [epilacja-shr]
 highlights:
   - Komfortowo i praktycznie bezboleśnie – metoda In Motion i schłodzona głowica
-  - Pierwsze efekty widoczne już po pierwszym zabiegu
+  - Już po pierwszym zabiegu pozbywamy się na stałe 60–70% włosków (dane producenta lasera)
   - Skuteczna przy jasnych, rudych i ciemnych włosach oraz każdej karnacji
   - Rozwiązuje problem wrastających włosków i podrażnień po goleniu
   - Parametry dobierane do karnacji, koloru włosa i Twoich odczuć
@@ -76,15 +76,13 @@ faq:
   - q: Ile zabiegów depilacji laserowej potrzebuję?
     a: Zwykle 7–9 wizyt w odstępach 4–12 tygodni. Liczba zależy od okolicy ciała, koloru i grubości włosa, fototypu skóry oraz gospodarki hormonalnej – dokładny plan ustalamy na pierwszej wizycie.
   - q: Kiedy zobaczę efekty?
-    a: Pierwsze efekty są widoczne już po pierwszym zabiegu – część włosków wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze.
+    a: Już po pierwszym zabiegu pozbywamy się na stałe 60–70% włosków (dane producenta lasera) – część z nich wypada w ciągu kilkunastu dni. Z każdą kolejną wizytą owłosienie jest wyraźnie rzadsze i cieńsze.
   - q: Czy mogę opalać się w trakcie serii zabiegów?
     a: Tak, ale z przerwą – nie opalaj skóry ok. 2–5 dni przed i bezpośrednio po zabiegu. Po intensywnym opalaniu odczekaj 1–2 tygodnie. Samoopalacz również jest przeciwwskazaniem na kilka dni przed wizytą.
   - q: Jak długi powinien być odrost w dniu zabiegu?
     a: Zostaw odrost 2–3 mm – skóra nie powinna być gładko ogolona. Na 2–3 tygodnie przed zabiegiem nie używaj wosku ani pęsety.
   - q: Czy laser działa na jasne i rude włosy?
     a: Tak. Technologia SHR usuwa włosy w różnych kolorach – od jasnego blondu, przez rude, po czarne – i jest dostosowana do wszystkich typów karnacji.
-  - q: Czy są pakiety na serię zabiegów?
-    a: Tak – pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie. Zapytaj o nie podczas pierwszej wizyty lub bezpłatnej konsultacji.
 notice: Gwarancją najwyższej jakości i skuteczności terapii jest regularna wymiana lampy w głowicy zabiegowej. Laser objęty jest stałą opieką techniczną serwisu GANC-SERVICE.
 video:
   id: OLwLnMb74AY

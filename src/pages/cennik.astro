@@ -77,14 +77,6 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
           ))
         }
       </div>
-
-      <aside class="packages card" data-reveal>
-        <Icon name="gift" size={26} />
-        <p>
-          <strong class="serif">Pakiety zabiegów.</strong>
-          Pakiety na serię zabiegów depilacji laserowej kupisz na miejscu w gabinecie – zapytaj o nie podczas wizyty lub bezpłatnej konsultacji.
-        </p>
-      </aside>
     </div>
   </section>
 
@@ -95,7 +87,7 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
           <div class="section-head section-head--split" data-reveal>
             <h2 id="promocje-h">Promocje</h2>
             <p class="muted">
-              Zniżki za polecenie, opinię, selfie i karta stałego klienta. <a href={url('/promocje/')}>Wszystkie promocje i zasady</a>
+              Zniżki za polecenie, opinię i selfie. <a href={url('/promocje/')}>Wszystkie promocje i zasady</a>
             </p>
           </div>
           <Promotions limit={2} />
@@ -220,22 +212,6 @@ const crumbs = [{ name: 'Cennik', path: '/cennik/' }];
     align-items: center;
     gap: var(--space-m);
     padding: var(--space-s) var(--space-xs) 0;
-  }
-  .packages {
-    display: flex;
-    gap: var(--space-s);
-    align-items: flex-start;
-    margin-top: var(--space-xl);
-    background: var(--color-sage-light);
-    border-color: transparent;
-  }
-  .packages :global(svg) {
-    flex: none;
-    color: var(--color-green);
-  }
-  .packages strong {
-    font-weight: 400;
-    margin-right: 0.35em;
   }
 </style>
 

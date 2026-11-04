@@ -2,14 +2,14 @@
 # kontakt, dane strukturalne dla Google i wszystkie przyciski rezerwacji.
 site:
   name: Si Skin
-  legalName: SI SKIN Kosmetologia Estetyczna & Laseroterapia
+  legalName: SI SKIN Kamil Grincewicz
   tagline: Powiedz TAK swojej skórze
   description: >-
     Gabinet kosmetologii estetycznej i laseroterapii we Wrocławiu. Bezbolesna depilacja
     laserowa SHR, zamykanie naczynek, rozjaśnianie przebarwień, oczyszczanie wodorowe,
     stymulatory tkankowe i modelowanie ust.
-  phone: 694 642 573
-  phoneHref: '+48694642573'
+  phone: 516 070 508
+  phoneHref: '+48516070508'
   email: siskin.contact@gmail.com
   address:
     street: ul. Królewiecka 121/3
