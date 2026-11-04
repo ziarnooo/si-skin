@@ -67,7 +67,7 @@ faq:
 
 ## Zabiegi pielęgnacyjne dopasowane do Twojej skóry
 
-Dostosujemy zabieg do potrzeb Twojej skóry, zdiagnozujemy problem, dobierzemy najbardziej efektywną terapię i pielęgnację, tak aby sprostać Twoim wymaganiom i osiągnąć wymarzone efekty. Powiedz TAK swojej skórze i zadbaj o siebie!
+Dostosujemy zabieg do potrzeb Twojej skóry, zdiagnozujemy problem, dobierzemy najbardziej efektywną terapię i pielęgnację, tak aby sprostać Twoim wymaganiom i osiągnąć wymarzone efekty. Powiedz TAK swojej skórze i zadbaj o siebie.
 
 ## Konsultacja kosmetologiczna
 
@@ -83,7 +83,7 @@ Autorska konsultacja kosmetologiczna, na której dobierzemy Twoją indywidualną
 
 ### „Nie wiem co wybrać” (od 399 zł)
 
-Nie wiesz, czego potrzebuje Twoja skóra? Nie martw się – my wiemy! Dostosujemy zabieg do potrzeb Twojej skóry, zdiagnozujemy problem, dobierzemy najbardziej efektywną terapię i pielęgnację, tak aby sprostać Twoim wymaganiom i osiągnąć Twoje wymarzone efekty.
+Nie wiesz, czego potrzebuje Twoja skóra? Od tego jesteśmy. Dostosujemy zabieg do potrzeb Twojej skóry, zdiagnozujemy problem, dobierzemy najbardziej efektywną terapię i pielęgnację, tak aby sprostać Twoim wymaganiom i osiągnąć Twoje wymarzone efekty.
 
 ## Terapie proXN
 
