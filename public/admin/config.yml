@@ -11,8 +11,15 @@ backend:
   name: github
   repo: ziarnooo/si-skin
   branch: main
+  # „Sign In with GitHub” wymaga serwera OAuth (np. Sveltia CMS Authenticator na Cloudflare);
+  # na GitHub Pages go nie ma, więc zostawiamy tylko logowanie tokenem.
+  auth_methods: [token]
 
 locale: pl
+
+# Puste pola opcjonalne nie trafiają do plików – schematy Astro (Zod) odrzuciłyby `null`/"".
+output:
+  omit_empty_optional_fields: true
 
 # Zdjęcia trafiają do src/assets/images (Astro optymalizuje je przy publikacji).
 # Globalny public_folder musi być ścieżką absolutną; kolekcje ze zdjęciami (zabiegi,

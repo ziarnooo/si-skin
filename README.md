@@ -28,7 +28,7 @@ a GitHub Actions publikuje stronę po ok. 1–3 minutach.
 2. *Resource owner*: konto `ziarnooo`; *Repository access*: **Only select repositories → `si-skin`**.
 3. *Permissions → Repository permissions*: **Contents: Read and write** (reszta bez zmian).
 4. Ustaw wygaśnięcie (np. 1 rok), wygeneruj token i skopiuj go (pokazywany jest raz).
-5. Otwórz `/admin/`, wybierz **Sign in with GitHub using a token** (logowanie tokenem) i wklej token.
+5. Otwórz `/admin/`, wybierz **Sign In Using Access Token** (logowanie tokenem) i wklej token. Logowanie przyciskiem „Sign In with GitHub” jest wyłączone – na GitHub Pages wymagałoby osobnego serwera OAuth.
    Token zostaje tylko w przeglądarce – nie wysyłaj go nikomu i nie wpisuj do plików.
 
 ### Co gdzie jest w panelu
